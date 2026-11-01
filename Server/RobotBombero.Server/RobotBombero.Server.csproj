@@ -7,12 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- La misma biblioteca que compila Unity. -->
-    <Compile Include="..\..\Assets\Simulation\**\*.cs" LinkBase="Simulation" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.0" />
+    <ProjectReference Include="..\RobotBombero.Simulation\RobotBombero.Simulation.csproj" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.14" />
   </ItemGroup>
 
 </Project>
