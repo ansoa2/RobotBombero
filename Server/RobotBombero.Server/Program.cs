@@ -16,6 +16,8 @@ builder.Services.AddSingleton(database);
 var app = builder.Build();
 PlayersApi.Map(app);
 PacksApi.Map(app);
+GamesApi.Map(app);
+LeaderboardApi.Map(app);
 app.Run();
 
 public partial class Program { }
