@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using RobotBombero.Simulation;
+using UnityEngine;
 
 namespace RobotBombero.Game
 {
@@ -183,13 +184,12 @@ namespace RobotBombero.Game
         }
 
         /// <summary>
-        /// Cierra la partida terminada: pide el resultado al servidor si estaba clasificada y, con el resultado
-        /// mostrado, actualiza una sola vez las estadísticas del pack. Llamarla otra vez no hace nada.
+        /// Cierra la partida terminada: pide el resultado al servidor si estaba clasificada; puntos y posición
+        /// mostrados son los del servidor. No toca las estadísticas (ya se anotaron al terminar). Tras completarse no repite nada.
         /// </summary>
         public IEnumerator Finish()
         {
             if (_finished || !IsEnded) yield break;
-            _finished = true;
 
             var result = new SessionResult
             {
@@ -201,6 +201,7 @@ namespace RobotBombero.Game
 
             if (_manual)
             {
+                _finished = true;
                 Result = result;
                 if (OnResult != null) OnResult(result);
                 yield break;
@@ -213,6 +214,8 @@ namespace RobotBombero.Game
                 if (finished != null && finished.IsOk && finished.Value != null)
                 {
                     GameResult server = finished.Value;
+                    if (server.Steps != result.Steps || server.Fires != result.Fires)
+                        Debug.LogWarning("RobotBombero: el resultado del servidor difiere del local (servidor " + server.Steps + " pasos, " + server.Fires + " fuegos; local " + result.Steps + ", " + result.Fires + ").");
                     result = new SessionResult
                     {
                         Steps = server.Steps,
@@ -226,10 +229,8 @@ namespace RobotBombero.Game
                 }
             }
 
+            _finished = true;
             Result = result;
-            if (_pack.stats == null) _pack.stats = new PackStats();
-            _pack.stats.Add(result.Steps, result.Fires);
-            Persist();
             if (OnResult != null) OnResult(result);
         }
 
@@ -240,6 +241,14 @@ namespace RobotBombero.Game
             _pending = 0;
             if (_endedRaised) return;
             _endedRaised = true;
+            // Las estadísticas se anotan ya, con el resultado local y antes de cualquier llamada de red: si la
+            // interfaz se destruye esperando al servidor, la partida ya cuenta. Las manuales no cuentan.
+            if (!_manual)
+            {
+                if (_pack.stats == null) _pack.stats = new PackStats();
+                _pack.stats.Add(Simulation.Steps, Simulation.Fires);
+                Persist();
+            }
             if (OnEnded != null) OnEnded();
         }
 

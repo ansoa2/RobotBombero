@@ -113,6 +113,13 @@ namespace RobotBombero.Game
             return dto == null || dto.rows == null ? new LeaderboardRow[0] : dto.rows;
         }
 
+        public static StartedGame ParseStarted(string json)
+        {
+            var dto = JsonUtility.FromJson<StartedGame>(json);
+            if (dto == null || dto.gameId <= 0) throw new ArgumentException("Respuesta de partida no válida.");
+            return dto;
+        }
+
         public static long ParsePackId(string json)
         {
             var dto = JsonUtility.FromJson<PackIdDto>(json);
@@ -178,7 +185,7 @@ namespace RobotBombero.Game
         public IEnumerator StartGame(string playerKey, long serverPackId, Rule[] rules, Action<ApiResult<StartedGame>> done)
         {
             return Send("POST", "/api/games", playerKey, ApiParsing.StartBodyJson(serverPackId, rules), done,
-                json => JsonUtility.FromJson<StartedGame>(json));
+                ApiParsing.ParseStarted);
         }
 
         public IEnumerator FinishGame(string playerKey, long gameId, Action<ApiResult<GameResult>> done)

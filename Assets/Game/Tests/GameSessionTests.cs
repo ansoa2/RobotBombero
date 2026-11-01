@@ -12,6 +12,7 @@ namespace RobotBombero.Game.Tests
         public ApiResult<StartedGame> StartResult = ApiResult<StartedGame>.Ok(new StartedGame { gameId = 9, seed = 42 });
         public ApiResult<GameResult> FinishResult = ApiResult<GameResult>.ConnectionFailed("sin red");
 
+        public bool FinishNeverCompletes;
         public int SavePackCalls, StartCalls, FinishCalls;
         public string LastKey;
 
@@ -38,6 +39,7 @@ namespace RobotBombero.Game.Tests
         public IEnumerator FinishGame(string playerKey, long gameId, Action<ApiResult<GameResult>> done)
         {
             FinishCalls++;
+            while (FinishNeverCompletes) yield return null;
             done(FinishResult);
             yield break;
         }
@@ -264,8 +266,51 @@ namespace RobotBombero.Game.Tests
             Assert.AreEqual(3, s.Result.Rank);
             Assert.AreSame(s.Result, received);
             Assert.AreEqual(1, s.Pack.stats.games);
-            Assert.AreEqual(11, s.Pack.stats.totalSteps);
-            Assert.AreEqual(4, s.Pack.stats.totalFires);
+            // Las estadísticas usan el resultado local, anotado al terminar; la respuesta del servidor no las cambia ni las duplica.
+            Assert.AreEqual(s.Simulation.Steps, s.Pack.stats.totalSteps);
+            Assert.AreEqual(s.Simulation.Fires, s.Pack.stats.totalFires);
+            Assert.AreEqual(1, _store.LoadPacks()[0].stats.games);
+        }
+
+        [Test]
+        public void Finish_HostDiesDuringServerCall_StatsAlreadySaved()
+        {
+            _api.FinishNeverCompletes = true;
+            GameSession s = Started(SyncedPack());
+            StepToEnd(s);
+
+            var stack = new System.Collections.Generic.Stack<IEnumerator>();
+            stack.Push(s.Finish());
+            for (int i = 0; i < 20 && stack.Count > 0; i++)
+            {
+                IEnumerator top = stack.Peek();
+                if (!top.MoveNext()) { stack.Pop(); continue; }
+                if (top.Current is IEnumerator nested) stack.Push(nested);
+            }
+            Assert.AreEqual(2, stack.Count); // sigue esperando al servidor
+            // El anfitrión muere aquí: la corrutina se abandona sin terminar.
+
+            Assert.AreEqual(1, _api.FinishCalls);
+            Assert.IsNull(s.Result);
+            Assert.AreEqual(1, s.Pack.stats.games);
+            Assert.AreEqual(s.Simulation.Steps, s.Pack.stats.totalSteps);
+            LocalPack saved = _store.LoadPacks()[0];
+            Assert.AreEqual(1, saved.stats.games);
+            Assert.AreEqual(s.Simulation.Fires, saved.stats.totalFires);
+        }
+
+        [Test]
+        public void Parse_StartGame_SeedAtUintMax()
+        {
+            StartedGame g = ApiParsing.ParseStarted("{\"gameId\":3,\"seed\":4294967295}");
+            Assert.AreEqual(3, g.gameId);
+            Assert.AreEqual(4294967295u, g.seed);
+        }
+
+        [Test]
+        public void Parse_StartGame_SeedAboveIntMax()
+        {
+            Assert.AreEqual(2147483648u, ApiParsing.ParseStarted("{\"gameId\":3,\"seed\":2147483648}").seed);
         }
 
         [Test]
