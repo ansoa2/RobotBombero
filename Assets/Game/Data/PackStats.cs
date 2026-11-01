@@ -44,6 +44,9 @@ namespace RobotBombero.Game
     {
         public string localId;
         public long serverPackId;
+        /// <summary>Huella y nombre con los que el pack se subió por última vez; si cambian, hay que volver a subirlo.</summary>
+        public string serverRulesHash;
+        public string serverName;
         public RulePackFile content;
         public PackStats stats;
     }
