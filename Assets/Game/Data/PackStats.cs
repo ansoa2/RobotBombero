@@ -9,9 +9,9 @@ namespace RobotBombero.Game
     {
         public int games;
         public long bestPoints;
-        /// <summary>Menor número de pasos de una partida (0 si aún no hay partidas).</summary>
+        /// <summary>Pasos de la mejor partida (la de más puntos; 0 si ninguna sumó puntos).</summary>
         public int bestSteps;
-        /// <summary>Mayor número de fuegos apagados en una partida.</summary>
+        /// <summary>Fuegos apagados en la mejor partida.</summary>
         public int bestFires;
         public long totalSteps;
         public long totalFires;
@@ -20,8 +20,15 @@ namespace RobotBombero.Game
         {
             if (steps < 0) steps = 0;
             if (fires < 0) fires = 0;
-            if (games == 0 || steps < bestSteps) bestSteps = steps;
-            if (fires > bestFires) bestFires = fires;
+            // La mejor partida es la de más puntos; pasos y fuegos salen de esa misma partida.
+            // Con puntos iguales se conserva la anterior; una partida de 0 puntos nunca es la mejor.
+            long points = Score.Points(fires, steps);
+            if (points > bestPoints)
+            {
+                bestPoints = points;
+                bestSteps = steps;
+                bestFires = fires;
+            }
             games++;
             totalSteps += steps;
             totalFires += fires;

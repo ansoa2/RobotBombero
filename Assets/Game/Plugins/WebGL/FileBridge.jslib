@@ -18,9 +18,20 @@ var RobotBomberoFileBridge = {
     setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
   },
 
-  // Debe llamarse desde un gesto del usuario (clic) para que el navegador permita abrir el selector.
+  // "Arma" el selector: NO lo abre. Unity procesa los eventos de puntero en un frame posterior, fuera del
+  // gesto del usuario, y navegadores como Safari bloquearían input.click() desde aquí. Se registra un
+  // listener de un solo uso (pointerup, con touchend de respaldo) en document que llama a input.click()
+  // dentro del evento real del navegador. C# debe llamar a PickJson en el pointer-down del botón, para
+  // que el pointer-up del mismo toque abra el selector.
   RB_PickJson: function (maxBytes, receiverNamePtr) {
     var receiver = UTF8ToString(receiverNamePtr);
+
+    // Iniciar una selección nueva sustituye a la pendiente: se quitan sus listeners y su input.
+    if (window.__rbPendingPick) {
+      window.__rbPendingPick.dispose();
+      window.__rbPendingPick = null;
+    }
+
     var input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json,application/json';
@@ -29,13 +40,23 @@ var RobotBomberoFileBridge = {
     function fail(message) {
       SendMessage(receiver, 'OnFileError', message);
     }
-    function cleanup() {
+    function removeInput() {
       if (input.parentNode) input.parentNode.removeChild(input);
+    }
+    function removeListeners() {
+      document.removeEventListener('pointerup', onRelease, true);
+      document.removeEventListener('touchend', onRelease, true);
+    }
+    function onRelease() {
+      removeListeners();           // un solo uso: el primero de pointerup / touchend gana
+      document.body.appendChild(input);
+      input.click();               // dentro del evento real del usuario
     }
 
     input.addEventListener('change', function () {
       var file = input.files && input.files[0];
-      cleanup();
+      removeInput();
+      window.__rbPendingPick = null;
       if (!file) { fail('cancelled'); return; }
       // Se comprueba el tamaño ANTES de leer el archivo a memoria.
       if (file.size > maxBytes) { fail('too_large'); return; }
@@ -45,10 +66,13 @@ var RobotBomberoFileBridge = {
       reader.readAsText(file, 'utf-8');
     });
     // Si el usuario cierra el diálogo sin elegir (navegadores recientes lo avisan con 'cancel').
-    input.addEventListener('cancel', function () { cleanup(); fail('cancelled'); });
+    input.addEventListener('cancel', function () { removeInput(); window.__rbPendingPick = null; fail('cancelled'); });
 
-    document.body.appendChild(input);
-    input.click();
+    window.__rbPendingPick = {
+      dispose: function () { removeListeners(); removeInput(); }
+    };
+    document.addEventListener('pointerup', onRelease, true);
+    document.addEventListener('touchend', onRelease, true);
   }
 };
 

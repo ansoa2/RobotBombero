@@ -26,7 +26,6 @@ namespace RobotBombero.Game.Tests
             var pack = TestData.Local("a1", "Alpha", 7);
             pack.stats.Add(100, 3);
             pack.stats.Add(50, 5);
-            pack.stats.bestPoints = 1234;
             store.SavePack(pack);
             store.SaveProfile(new Profile { playerName = "Ana", playerKey = "k-secret", playerId = 42 });
 
@@ -41,9 +40,9 @@ namespace RobotBombero.Game.Tests
             Assert.AreEqual(2, packs[0].stats.games);
             Assert.AreEqual(150, packs[0].stats.totalSteps);
             Assert.AreEqual(8, packs[0].stats.totalFires);
-            Assert.AreEqual(50, packs[0].stats.bestSteps);
-            Assert.AreEqual(5, packs[0].stats.bestFires);
-            Assert.AreEqual(1234, packs[0].stats.bestPoints);
+            Assert.AreEqual(100, packs[0].stats.bestSteps);
+            Assert.AreEqual(3, packs[0].stats.bestFires);
+            Assert.AreEqual(300, packs[0].stats.bestPoints);
             Assert.AreEqual(75f, packs[0].stats.AverageSteps, 0.001f);
             Assert.AreEqual(4f, packs[0].stats.AverageFires, 0.001f);
 

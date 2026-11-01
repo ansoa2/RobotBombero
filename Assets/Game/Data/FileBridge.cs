@@ -49,7 +49,11 @@ namespace RobotBombero.Game
         /// <summary>
         /// Abre el selector de archivos. onContent recibe el texto; onError (opcional) recibe un código
         /// (cancelled, too_large, read_error, unavailable). Nunca se lee un archivo mayor que PackLimits.MaxFileBytes.
-        /// En WebGL debe llamarse desde un clic del usuario.
+        /// REQUISITO WebGL: en WebGL este método solo "arma" el selector; el navegador lo abre en el siguiente
+        /// pointerup/touchend. Por tanto la UI debe llamarlo desde el callback de pointer-down del botón, para
+        /// que la liberación del mismo toque abra el selector dentro de un gesto real del usuario. Llamarlo
+        /// desde un click de Unity (frame posterior) o sin un toque en curso lo dejaría esperando al siguiente toque.
+        /// Iniciar una selección nueva sustituye a la pendiente. En el editor abre el diálogo directamente.
         /// </summary>
         public static void PickJson(Action<string> onContent, Action<string> onError = null)
         {
