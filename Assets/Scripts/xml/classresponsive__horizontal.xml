@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="classresponsive__horizontal" kind="class" language="C#" prot="public">
+    <compoundname>responsive_horizontal</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classresponsive__horizontal_1a7a1c3313796b278ef346e92944bb0424" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float responsive_horizontal.widthDesign</definition>
+        <argsstring></argsstring>
+        <name>widthDesign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="7" column="18" bodyfile="Controller/responsive_horizontal.cs" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1ac521117c212fa8ade54aa7e13ac03cbf" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float responsive_horizontal.heightDesign</definition>
+        <argsstring></argsstring>
+        <name>heightDesign</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="8" column="18" bodyfile="Controller/responsive_horizontal.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1ac3d68263252734aa7b3856d064119225" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject responsive_horizontal.generalCanvas</definition>
+        <argsstring></argsstring>
+        <name>generalCanvas</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="9" column="23" bodyfile="Controller/responsive_horizontal.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1a729d9aaec1262418423db9d21d0df74f" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject responsive_horizontal.containerCanvas</definition>
+        <argsstring></argsstring>
+        <name>containerCanvas</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="10" column="23" bodyfile="Controller/responsive_horizontal.cs" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1a551b8f1bc9026e1d719600d098816ec3" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject responsive_horizontal.header</definition>
+        <argsstring></argsstring>
+        <name>header</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="11" column="23" bodyfile="Controller/responsive_horizontal.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1a1c7e66e620539ad90d2f31243864af36" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool responsive_horizontal.hasMiddle</definition>
+        <argsstring></argsstring>
+        <name>hasMiddle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="12" column="17" bodyfile="Controller/responsive_horizontal.cs" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1a6f83309906838bc149c20b6195694092" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject responsive_horizontal.middle</definition>
+        <argsstring></argsstring>
+        <name>middle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="13" column="23" bodyfile="Controller/responsive_horizontal.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1abfd1d9b359d4e9d696ebf8f375830718" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject responsive_horizontal.scrolled</definition>
+        <argsstring></argsstring>
+        <name>scrolled</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="14" column="23" bodyfile="Controller/responsive_horizontal.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1af488d1dd7da5a648fcc01538910958ff" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool responsive_horizontal.hasFooter</definition>
+        <argsstring></argsstring>
+        <name>hasFooter</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="15" column="17" bodyfile="Controller/responsive_horizontal.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classresponsive__horizontal_1a76e219e5aafc07d8d508c726e0b54e11" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject responsive_horizontal.footer</definition>
+        <argsstring></argsstring>
+        <name>footer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="16" column="23" bodyfile="Controller/responsive_horizontal.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="classresponsive__horizontal_1aab432a349a2e9d98fdccd2e052f969e5" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void responsive_horizontal.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="19" column="10" bodyfile="Controller/responsive_horizontal.cs" bodystart="19" bodyend="22"/>
+      </memberdef>
+      <memberdef kind="function" id="classresponsive__horizontal_1a4d80f40fbf7062982c329f9c9e517679" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void responsive_horizontal.Recise</definition>
+        <argsstring>()</argsstring>
+        <name>Recise</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/responsive_horizontal.cs" line="24" column="18" bodyfile="Controller/responsive_horizontal.cs" bodystart="24" bodyend="83"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>responsive_horizontal</label>
+        <link refid="classresponsive__horizontal"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>responsive_horizontal</label>
+        <link refid="classresponsive__horizontal"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="Controller/responsive_horizontal.cs" line="5" column="7" bodyfile="Controller/responsive_horizontal.cs" bodystart="6" bodyend="84"/>
+    <listofallmembers>
+      <member refid="classresponsive__horizontal_1a729d9aaec1262418423db9d21d0df74f" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>containerCanvas</name></member>
+      <member refid="classresponsive__horizontal_1a76e219e5aafc07d8d508c726e0b54e11" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>footer</name></member>
+      <member refid="classresponsive__horizontal_1ac3d68263252734aa7b3856d064119225" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>generalCanvas</name></member>
+      <member refid="classresponsive__horizontal_1af488d1dd7da5a648fcc01538910958ff" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>hasFooter</name></member>
+      <member refid="classresponsive__horizontal_1a1c7e66e620539ad90d2f31243864af36" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>hasMiddle</name></member>
+      <member refid="classresponsive__horizontal_1a551b8f1bc9026e1d719600d098816ec3" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>header</name></member>
+      <member refid="classresponsive__horizontal_1ac521117c212fa8ade54aa7e13ac03cbf" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>heightDesign</name></member>
+      <member refid="classresponsive__horizontal_1a6f83309906838bc149c20b6195694092" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>middle</name></member>
+      <member refid="classresponsive__horizontal_1a4d80f40fbf7062982c329f9c9e517679" prot="private" virt="non-virtual"><scope>responsive_horizontal</scope><name>Recise</name></member>
+      <member refid="classresponsive__horizontal_1abfd1d9b359d4e9d696ebf8f375830718" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>scrolled</name></member>
+      <member refid="classresponsive__horizontal_1aab432a349a2e9d98fdccd2e052f969e5" prot="private" virt="non-virtual"><scope>responsive_horizontal</scope><name>Start</name></member>
+      <member refid="classresponsive__horizontal_1a7a1c3313796b278ef346e92944bb0424" prot="public" virt="non-virtual"><scope>responsive_horizontal</scope><name>widthDesign</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

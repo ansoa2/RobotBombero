@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="class_stats_controller" kind="class" language="C#" prot="public">
+    <compoundname>StatsController</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_stats_controller_1aa89fb74954a268b4011942c4ae78dcf7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StatsController.fuegos_apagados</definition>
+        <argsstring></argsstring>
+        <name>fuegos_apagados</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/StatsController.cs" line="7" column="16" bodyfile="Controller/StatsController.cs" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_stats_controller_1afee0259b201ecc60aaf15b575f82685e" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int StatsController.ciclos_vivo</definition>
+        <argsstring></argsstring>
+        <name>ciclos_vivo</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/StatsController.cs" line="8" column="16" bodyfile="Controller/StatsController.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_stats_controller_1ab1ea930b8311e3b6346c0b578b771f76" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StatsController.ReiniciarContadores</definition>
+        <argsstring>()</argsstring>
+        <name>ReiniciarContadores</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/StatsController.cs" line="10" column="17" bodyfile="Controller/StatsController.cs" bodystart="10" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_stats_controller_1a4b1a11268d24dfa218b549ba90b5036c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StatsController.ReiniciarContadorFuegos</definition>
+        <argsstring>()</argsstring>
+        <name>ReiniciarContadorFuegos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/StatsController.cs" line="15" column="17" bodyfile="Controller/StatsController.cs" bodystart="15" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="function" id="class_stats_controller_1a19b7c3568d772d5349936121f19f9116" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StatsController.ReiniciarContadorCiclos</definition>
+        <argsstring>()</argsstring>
+        <name>ReiniciarContadorCiclos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/StatsController.cs" line="20" column="17" bodyfile="Controller/StatsController.cs" bodystart="20" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_stats_controller_1af6861edb3e4404f705ffde93f13393ed" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StatsController.IncrementarContadorFuegos</definition>
+        <argsstring>()</argsstring>
+        <name>IncrementarContadorFuegos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/StatsController.cs" line="25" column="17" bodyfile="Controller/StatsController.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      <memberdef kind="function" id="class_stats_controller_1ad5f0cd711444629c7890efdac04c0a0f" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void StatsController.IncrementarContadorCiclos</definition>
+        <argsstring>()</argsstring>
+        <name>IncrementarContadorCiclos</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/StatsController.cs" line="30" column="17" bodyfile="Controller/StatsController.cs" bodystart="30" bodyend="33"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>StatsController</label>
+        <link refid="class_stats_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>StatsController</label>
+        <link refid="class_stats_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Controller/StatsController.cs" line="5" column="7" bodyfile="Controller/StatsController.cs" bodystart="6" bodyend="34"/>
+    <listofallmembers>
+      <member refid="class_stats_controller_1afee0259b201ecc60aaf15b575f82685e" prot="public" virt="non-virtual"><scope>StatsController</scope><name>ciclos_vivo</name></member>
+      <member refid="class_stats_controller_1aa89fb74954a268b4011942c4ae78dcf7" prot="public" virt="non-virtual"><scope>StatsController</scope><name>fuegos_apagados</name></member>
+      <member refid="class_stats_controller_1ad5f0cd711444629c7890efdac04c0a0f" prot="public" virt="non-virtual"><scope>StatsController</scope><name>IncrementarContadorCiclos</name></member>
+      <member refid="class_stats_controller_1af6861edb3e4404f705ffde93f13393ed" prot="public" virt="non-virtual"><scope>StatsController</scope><name>IncrementarContadorFuegos</name></member>
+      <member refid="class_stats_controller_1a19b7c3568d772d5349936121f19f9116" prot="public" virt="non-virtual"><scope>StatsController</scope><name>ReiniciarContadorCiclos</name></member>
+      <member refid="class_stats_controller_1ab1ea930b8311e3b6346c0b578b771f76" prot="public" virt="non-virtual"><scope>StatsController</scope><name>ReiniciarContadores</name></member>
+      <member refid="class_stats_controller_1a4b1a11268d24dfa218b549ba90b5036c" prot="public" virt="non-virtual"><scope>StatsController</scope><name>ReiniciarContadorFuegos</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

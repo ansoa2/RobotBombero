@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="class_fire_model" kind="class" language="C#" prot="public">
+    <compoundname>FireModel</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_fire_model_1a3e847fe3f8ebde1a38056e699af2a06d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FireModel.pos_x</definition>
+        <argsstring></argsstring>
+        <name>pos_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/FireModel.cs" line="7" column="16" bodyfile="Model/FireModel.cs" bodystart="7" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_fire_model_1aad9c655542bf6b40eb79cd61aaa91456" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int FireModel.pos_y</definition>
+        <argsstring></argsstring>
+        <name>pos_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/FireModel.cs" line="8" column="16" bodyfile="Model/FireModel.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>FireModel</label>
+        <link refid="class_fire_model"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>FireModel</label>
+        <link refid="class_fire_model"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="Model/FireModel.cs" line="5" column="7" bodyfile="Model/FireModel.cs" bodystart="6" bodyend="9"/>
+    <listofallmembers>
+      <member refid="class_fire_model_1a3e847fe3f8ebde1a38056e699af2a06d" prot="public" virt="non-virtual"><scope>FireModel</scope><name>pos_x</name></member>
+      <member refid="class_fire_model_1aad9c655542bf6b40eb79cd61aaa91456" prot="public" virt="non-virtual"><scope>FireModel</scope><name>pos_y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

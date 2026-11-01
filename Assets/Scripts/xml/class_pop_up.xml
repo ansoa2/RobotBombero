@@ -1,0 +1,304 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="class_pop_up" kind="class" language="C#" prot="public">
+    <compoundname>PopUp</compoundname>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_pop_up_1a6b756837669d0545e8c9d80eb2da7096" prot="protected" static="no" mutable="no">
+        <type>Sprite</type>
+        <definition>Sprite PopUp.image</definition>
+        <argsstring></argsstring>
+        <name>image</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="30" column="22" bodyfile="PopUp/PopUp.cs" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_1ade2e8fd9c4c163eedd9359ff6eb6b5e1" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string PopUp.title</definition>
+        <argsstring></argsstring>
+        <name>title</name>
+        <initializer>= string.Empty</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="31" column="22" bodyfile="PopUp/PopUp.cs" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_1ae232e989d430edcfad217eab644babd4" prot="protected" static="no" mutable="no">
+        <type>string</type>
+        <definition>string PopUp.message</definition>
+        <argsstring></argsstring>
+        <name>message</name>
+        <initializer>= string.Empty</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="32" column="22" bodyfile="PopUp/PopUp.cs" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_1acefa056c67d674bf8c03652b00221e27" prot="protected" static="no" mutable="no">
+        <type>Dictionary&lt; string, <ref refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kindref="member">PopUpAction</ref> &gt;</type>
+        <definition>Dictionary&lt;string, PopUpAction&gt; PopUp.actions</definition>
+        <argsstring></argsstring>
+        <name>actions</name>
+        <initializer>= new Dictionary&lt;string, <ref refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kindref="member">PopUpAction</ref>&gt;()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="34" column="26" bodyfile="PopUp/PopUp.cs" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_1a12afee55ae45ff2333ffbee364cc22fb" prot="protected" static="no" mutable="no">
+        <type><ref refid="class_pop_up_view" kindref="compound">PopUpView</ref></type>
+        <definition>PopUpView PopUp.objectPopUp</definition>
+        <argsstring></argsstring>
+        <name>objectPopUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="38" column="25" bodyfile="PopUp/PopUp.cs" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>delegate void</type>
+        <definition>delegate void PopUp.PopUpAction</definition>
+        <argsstring>()</argsstring>
+        <name>PopUpAction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="33" column="26"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_1a6923ed612589f22b27f77640e8b87499" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PopUp.PopUp</definition>
+        <argsstring>(Sprite image, string title, string message)</argsstring>
+        <name>PopUp</name>
+        <param>
+          <type>Sprite</type>
+          <declname>image</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Constructor con imagen </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>image</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Imagen que se muestra en el panel </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>title</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Título del panel </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mensaje del panel </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="46" column="12" bodyfile="PopUp/PopUp.cs" bodystart="46" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_1a5bc93c9424295e66d5ff220c3c312bdd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>PopUp.PopUp</definition>
+        <argsstring>(string title, string message)</argsstring>
+        <name>PopUp</name>
+        <param>
+          <type>string</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Constructor con imagen por defecto (logo) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>title</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Título del panel </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Mensaje del panel </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="63" column="12" bodyfile="PopUp/PopUp.cs" bodystart="63" bodyend="71"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_1afd190f44ec758855ea81b289b3bf47ab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUp.AddAction</definition>
+        <argsstring>(string titleAction, PopUpAction callback)</argsstring>
+        <name>AddAction</name>
+        <param>
+          <type>string</type>
+          <declname>titleAction</declname>
+        </param>
+        <param>
+          <type><ref refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kindref="member">PopUpAction</ref></type>
+          <declname>callback</declname>
+        </param>
+        <briefdescription>
+<para>Añade un botón con una acción asociada a la ventana </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>titleAction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Título del botón </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>callback</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Acción al pulsar botón </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="80" column="17" bodyfile="PopUp/PopUp.cs" bodystart="80" bodyend="86"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_1aa20a580764cc99f8186e3b01ee0dfc71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUp.Show</definition>
+        <argsstring>()</argsstring>
+        <name>Show</name>
+        <briefdescription>
+<para>Funcion que crea y visualiza el objeto del <ref refid="class_pop_up" kindref="compound">PopUp</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="92" column="17" bodyfile="PopUp/PopUp.cs" bodystart="92" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_1a7ebaa384b2c1f0e6452355ae1b0a1e7d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUp.Close</definition>
+        <argsstring>()</argsstring>
+        <name>Close</name>
+        <briefdescription>
+<para>Destruye el objeto en la escena </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="103" column="17" bodyfile="PopUp/PopUp.cs" bodystart="103" bodyend="109"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_1a9e6d74a2386ff4aa405b4e815c2ea78e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUp.NotShowIcon</definition>
+        <argsstring>()</argsstring>
+        <name>NotShowIcon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUp.cs" line="112" column="17" bodyfile="PopUp/PopUp.cs" bodystart="112" bodyend="115"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Clase a la que se accede desde otros Scripts </para>
+    </briefdescription>
+    <detaileddescription>
+<para><ref refid="class_pop_up" kindref="compound">PopUp</ref> popup = new <ref refid="class_pop_up" kindref="compound">PopUp</ref>(&quot;Ejemplo del PopUp&quot;, &quot;Esto es unicamente una prueba&quot;); popup.AddAction(&quot;OK&quot;, () =&gt; { popup.Close(); }); popup.AddAction(&quot;OK 1&quot;, () =&gt; { popup.Close(); }); popup.AddAction(&quot;OK 2&quot;, () =&gt; { popup.Close(); }); popup.Show(); NO OLVIDAR!!!</para>
+<para><ref refid="class_pop_up" kindref="compound">PopUp</ref> popup = new <ref refid="class_pop_up" kindref="compound">PopUp</ref>(&quot;Titulo&quot;, &quot;Contenido&quot;); popup.AddAction(&quot;OK&quot;, () =&gt; { popup.Close(); }); popup.Show();</para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>PopUpView</label>
+        <link refid="class_pop_up_view"/>
+        <childnode refid="3" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>PopUp</label>
+        <link refid="class_pop_up"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>objectPopUp</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="PopUp/PopUp.cs" line="19" column="7" bodyfile="PopUp/PopUp.cs" bodystart="20" bodyend="117"/>
+    <listofallmembers>
+      <member refid="class_pop_up_1acefa056c67d674bf8c03652b00221e27" prot="protected" virt="non-virtual"><scope>PopUp</scope><name>actions</name></member>
+      <member refid="class_pop_up_1afd190f44ec758855ea81b289b3bf47ab" prot="public" virt="non-virtual"><scope>PopUp</scope><name>AddAction</name></member>
+      <member refid="class_pop_up_1a7ebaa384b2c1f0e6452355ae1b0a1e7d" prot="public" virt="non-virtual"><scope>PopUp</scope><name>Close</name></member>
+      <member refid="class_pop_up_1a6b756837669d0545e8c9d80eb2da7096" prot="protected" virt="non-virtual"><scope>PopUp</scope><name>image</name></member>
+      <member refid="class_pop_up_1ae232e989d430edcfad217eab644babd4" prot="protected" virt="non-virtual"><scope>PopUp</scope><name>message</name></member>
+      <member refid="class_pop_up_1a9e6d74a2386ff4aa405b4e815c2ea78e" prot="public" virt="non-virtual"><scope>PopUp</scope><name>NotShowIcon</name></member>
+      <member refid="class_pop_up_1a12afee55ae45ff2333ffbee364cc22fb" prot="protected" virt="non-virtual"><scope>PopUp</scope><name>objectPopUp</name></member>
+      <member refid="class_pop_up_1a6923ed612589f22b27f77640e8b87499" prot="public" virt="non-virtual"><scope>PopUp</scope><name>PopUp</name></member>
+      <member refid="class_pop_up_1a5bc93c9424295e66d5ff220c3c312bdd" prot="public" virt="non-virtual"><scope>PopUp</scope><name>PopUp</name></member>
+      <member refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" prot="public" virt="non-virtual"><scope>PopUp</scope><name>PopUpAction</name></member>
+      <member refid="class_pop_up_1aa20a580764cc99f8186e3b01ee0dfc71" prot="public" virt="non-virtual"><scope>PopUp</scope><name>Show</name></member>
+      <member refid="class_pop_up_1ade2e8fd9c4c163eedd9359ff6eb6b5e1" prot="protected" virt="non-virtual"><scope>PopUp</scope><name>title</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

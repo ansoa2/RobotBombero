@@ -1,0 +1,418 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="class_robot" kind="class" language="C#" prot="public">
+    <compoundname>Robot</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_robot_1a7896933bf4b40e952400dc2db85d96b0" prot="public" static="no" mutable="no">
+        <type><ref refid="class_main_view" kindref="compound">MainView</ref></type>
+        <definition>MainView Robot.main</definition>
+        <argsstring></argsstring>
+        <name>main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="42" column="21" bodyfile="Model/Robot.cs" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a241e021f425635568e350b2f8ddb3b6d" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Robot.battery</definition>
+        <argsstring></argsstring>
+        <name>battery</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="43" column="16" bodyfile="Model/Robot.cs" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a5a5ec50071e3316d0237b2efef499317" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Robot.muerto</definition>
+        <argsstring></argsstring>
+        <name>muerto</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="44" column="17" bodyfile="Model/Robot.cs" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a5aeef93100c428798f354611a8e4c43c" prot="public" static="no" mutable="no">
+        <type><ref refid="_robot_8cs_1a9f5ff099696e2dd4e98b4ed925d27f0a" kindref="member">BatteryState</ref></type>
+        <definition>BatteryState Robot.batteryState</definition>
+        <argsstring></argsstring>
+        <name>batteryState</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="45" column="25" bodyfile="Model/Robot.cs" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a80c330a2de0d9e920eda38d4a3f8c121" prot="public" static="no" mutable="no">
+        <type><ref refid="_robot_8cs_1a43cbcdc31bb609d69b1e59c34a19817c" kindref="member">SensorTemp</ref></type>
+        <definition>SensorTemp Robot.sensorTemp</definition>
+        <argsstring></argsstring>
+        <name>sensorTemp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="46" column="23" bodyfile="Model/Robot.cs" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a1771625a7fd0b585088c4c5f2f4008f6" prot="public" static="no" mutable="no">
+        <type><ref refid="_robot_8cs_1a0d2eee1105f0ceb923e8d28f69cc33bf" kindref="member">SensorLight</ref></type>
+        <definition>SensorLight Robot.sensorLight</definition>
+        <argsstring></argsstring>
+        <name>sensorLight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="47" column="24" bodyfile="Model/Robot.cs" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1ab52c4ccf16a21daf0cb5b27761e6400f" prot="public" static="no" mutable="no">
+        <type><ref refid="_robot_8cs_1ad2490224ca9f9e13cc624ee6f1ae3acf" kindref="member">SensorProx</ref></type>
+        <definition>SensorProx Robot.sensorProx</definition>
+        <argsstring></argsstring>
+        <name>sensorProx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="48" column="23" bodyfile="Model/Robot.cs" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a23205fd4665af501f7e02068f79d5bd7" prot="public" static="no" mutable="no">
+        <type><ref refid="_robot_8cs_1a2c905b8bf7e5d17c61aa6c4d9ffde153" kindref="member">SensorCelda</ref></type>
+        <definition>SensorCelda Robot.sensorCelda</definition>
+        <argsstring></argsstring>
+        <name>sensorCelda</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="49" column="24" bodyfile="Model/Robot.cs" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a7c84d8e3f93e9e21c277f682ff7b63c5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Robot.pos_x</definition>
+        <argsstring></argsstring>
+        <name>pos_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="51" column="16" bodyfile="Model/Robot.cs" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a98544fd8e855cc906c6e77f9e9b15758" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Robot.pos_y</definition>
+        <argsstring></argsstring>
+        <name>pos_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="52" column="16" bodyfile="Model/Robot.cs" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a5f4b5edf72714411bed9a33464067655" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Robot.dir_x</definition>
+        <argsstring></argsstring>
+        <name>dir_x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="53" column="16" bodyfile="Model/Robot.cs" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a4c96d9cfb1c9ef1abed3bb2c4040d8f1" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int Robot.dir_y</definition>
+        <argsstring></argsstring>
+        <name>dir_y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="54" column="16" bodyfile="Model/Robot.cs" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_robot_1a4eafbd7af655b7d1f282f17d2b727023" prot="public" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Robot.cerca</definition>
+        <argsstring></argsstring>
+        <name>cerca</name>
+        <initializer>= false</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="58" column="17" bodyfile="Model/Robot.cs" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_robot_1a451fbc47b5480da948dc8c2f8cdc0268" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="60" column="18" bodyfile="Model/Robot.cs" bodystart="60" bodyend="73"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_robot_1a8e22fd759f94b73252dd0ae252ead615" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.ReiniciarValores</definition>
+        <argsstring>()</argsstring>
+        <name>ReiniciarValores</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="75" column="17" bodyfile="Model/Robot.cs" bodystart="75" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1a99de58652ba0aadb02389973636379b5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.turnR</definition>
+        <argsstring>()</argsstring>
+        <name>turnR</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="91" column="17" bodyfile="Model/Robot.cs" bodystart="91" bodyend="126"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1aaf7143c802a043c4d340242f9c4bcdcd" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.turnL</definition>
+        <argsstring>()</argsstring>
+        <name>turnL</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="128" column="17" bodyfile="Model/Robot.cs" bodystart="128" bodyend="160"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1ab7b4b069275fff9dc7a4abeb813fcf8d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.fwd</definition>
+        <argsstring>()</argsstring>
+        <name>fwd</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="162" column="17" bodyfile="Model/Robot.cs" bodystart="162" bodyend="201"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1afabd3ef3c3129412cee220f53ab588cf" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.comprobarBateria</definition>
+        <argsstring>()</argsstring>
+        <name>comprobarBateria</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="203" column="17" bodyfile="Model/Robot.cs" bodystart="203" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1a68c02d913b10a48d3b5fc83a493eacb7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.Put_Out</definition>
+        <argsstring>()</argsstring>
+        <name>Put_Out</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="226" column="17" bodyfile="Model/Robot.cs" bodystart="226" bodyend="252"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1abebda95c0f919bf0b8acbd7c970cbdb9" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.ControlSensores</definition>
+        <argsstring>()</argsstring>
+        <name>ControlSensores</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="254" column="17" bodyfile="Model/Robot.cs" bodystart="254" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1a9ff431c868a8e67c3f49af1942281ef1" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.ControlSensorTemp</definition>
+        <argsstring>()</argsstring>
+        <name>ControlSensorTemp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="263" column="17" bodyfile="Model/Robot.cs" bodystart="263" bodyend="295"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1ad6a0b4f2e8f64ee91d4710027512f584" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.ControlSensorLight</definition>
+        <argsstring>()</argsstring>
+        <name>ControlSensorLight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="297" column="17" bodyfile="Model/Robot.cs" bodystart="297" bodyend="319"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1a592f941e2b7871fe23b59c44497270e2" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.ControlSensorProx</definition>
+        <argsstring>()</argsstring>
+        <name>ControlSensorProx</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="321" column="17" bodyfile="Model/Robot.cs" bodystart="321" bodyend="338"/>
+      </memberdef>
+      <memberdef kind="function" id="class_robot_1aead9044496b6febabb16493ac11cfb46" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void Robot.ControlSensorCelda</definition>
+        <argsstring>()</argsstring>
+        <name>ControlSensorCelda</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/Robot.cs" line="340" column="17" bodyfile="Model/Robot.cs" bodystart="340" bodyend="355"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>Robot</label>
+        <link refid="class_robot"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="4">
+        <label>RuleModelList</label>
+        <link refid="class_rule_model_list"/>
+      </node>
+      <node id="1">
+        <label>Robot</label>
+        <link refid="class_robot"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>main</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="5">
+        <label>StatsController</label>
+        <link refid="class_stats_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>MainView</label>
+        <link refid="class_main_view"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>rules_list</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>stats</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Model/Robot.cs" line="40" column="7" bodyfile="Model/Robot.cs" bodystart="41" bodyend="359"/>
+    <listofallmembers>
+      <member refid="class_robot_1a241e021f425635568e350b2f8ddb3b6d" prot="public" virt="non-virtual"><scope>Robot</scope><name>battery</name></member>
+      <member refid="class_robot_1a5aeef93100c428798f354611a8e4c43c" prot="public" virt="non-virtual"><scope>Robot</scope><name>batteryState</name></member>
+      <member refid="class_robot_1a4eafbd7af655b7d1f282f17d2b727023" prot="public" virt="non-virtual"><scope>Robot</scope><name>cerca</name></member>
+      <member refid="class_robot_1afabd3ef3c3129412cee220f53ab588cf" prot="public" virt="non-virtual"><scope>Robot</scope><name>comprobarBateria</name></member>
+      <member refid="class_robot_1aead9044496b6febabb16493ac11cfb46" prot="public" virt="non-virtual"><scope>Robot</scope><name>ControlSensorCelda</name></member>
+      <member refid="class_robot_1abebda95c0f919bf0b8acbd7c970cbdb9" prot="public" virt="non-virtual"><scope>Robot</scope><name>ControlSensores</name></member>
+      <member refid="class_robot_1ad6a0b4f2e8f64ee91d4710027512f584" prot="public" virt="non-virtual"><scope>Robot</scope><name>ControlSensorLight</name></member>
+      <member refid="class_robot_1a592f941e2b7871fe23b59c44497270e2" prot="public" virt="non-virtual"><scope>Robot</scope><name>ControlSensorProx</name></member>
+      <member refid="class_robot_1a9ff431c868a8e67c3f49af1942281ef1" prot="public" virt="non-virtual"><scope>Robot</scope><name>ControlSensorTemp</name></member>
+      <member refid="class_robot_1a5f4b5edf72714411bed9a33464067655" prot="public" virt="non-virtual"><scope>Robot</scope><name>dir_x</name></member>
+      <member refid="class_robot_1a4c96d9cfb1c9ef1abed3bb2c4040d8f1" prot="public" virt="non-virtual"><scope>Robot</scope><name>dir_y</name></member>
+      <member refid="class_robot_1ab7b4b069275fff9dc7a4abeb813fcf8d" prot="public" virt="non-virtual"><scope>Robot</scope><name>fwd</name></member>
+      <member refid="class_robot_1a7896933bf4b40e952400dc2db85d96b0" prot="public" virt="non-virtual"><scope>Robot</scope><name>main</name></member>
+      <member refid="class_robot_1a5a5ec50071e3316d0237b2efef499317" prot="public" virt="non-virtual"><scope>Robot</scope><name>muerto</name></member>
+      <member refid="class_robot_1a7c84d8e3f93e9e21c277f682ff7b63c5" prot="public" virt="non-virtual"><scope>Robot</scope><name>pos_x</name></member>
+      <member refid="class_robot_1a98544fd8e855cc906c6e77f9e9b15758" prot="public" virt="non-virtual"><scope>Robot</scope><name>pos_y</name></member>
+      <member refid="class_robot_1a68c02d913b10a48d3b5fc83a493eacb7" prot="public" virt="non-virtual"><scope>Robot</scope><name>Put_Out</name></member>
+      <member refid="class_robot_1a8e22fd759f94b73252dd0ae252ead615" prot="public" virt="non-virtual"><scope>Robot</scope><name>ReiniciarValores</name></member>
+      <member refid="class_robot_1a23205fd4665af501f7e02068f79d5bd7" prot="public" virt="non-virtual"><scope>Robot</scope><name>sensorCelda</name></member>
+      <member refid="class_robot_1a1771625a7fd0b585088c4c5f2f4008f6" prot="public" virt="non-virtual"><scope>Robot</scope><name>sensorLight</name></member>
+      <member refid="class_robot_1ab52c4ccf16a21daf0cb5b27761e6400f" prot="public" virt="non-virtual"><scope>Robot</scope><name>sensorProx</name></member>
+      <member refid="class_robot_1a80c330a2de0d9e920eda38d4a3f8c121" prot="public" virt="non-virtual"><scope>Robot</scope><name>sensorTemp</name></member>
+      <member refid="class_robot_1a451fbc47b5480da948dc8c2f8cdc0268" prot="private" virt="non-virtual"><scope>Robot</scope><name>Start</name></member>
+      <member refid="class_robot_1aaf7143c802a043c4d340242f9c4bcdcd" prot="public" virt="non-virtual"><scope>Robot</scope><name>turnL</name></member>
+      <member refid="class_robot_1a99de58652ba0aadb02389973636379b5" prot="public" virt="non-virtual"><scope>Robot</scope><name>turnR</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

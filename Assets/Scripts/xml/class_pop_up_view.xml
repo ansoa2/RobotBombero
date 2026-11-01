@@ -1,0 +1,415 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="class_pop_up_view" kind="class" language="C#" prot="public">
+    <compoundname>PopUpView</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_pop_up_view_1a7cd35943200ef199876656b9569bc9ee" prot="public" static="no" mutable="no">
+        <type>Text</type>
+        <definition>Text PopUpView.Title</definition>
+        <argsstring></argsstring>
+        <name>Title</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="19" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1a05993b13d13a2fc40a28e7054a2efe75" prot="public" static="no" mutable="no">
+        <type>Text</type>
+        <definition>Text PopUpView.Message</definition>
+        <argsstring></argsstring>
+        <name>Message</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="20" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1a465f8c5f8802a8c6d2253d3e7bf4afc5" prot="public" static="no" mutable="no">
+        <type>Image</type>
+        <definition>Image PopUpView.Image</definition>
+        <argsstring></argsstring>
+        <name>Image</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="21" column="18" bodyfile="PopUp/PopUpView.cs" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1abf79d51531573093dc1a8626717b4fe0" prot="public" static="no" mutable="no">
+        <type>RectTransform</type>
+        <definition>RectTransform PopUpView.WindowPopUp</definition>
+        <argsstring></argsstring>
+        <name>WindowPopUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="25" column="26" bodyfile="PopUp/PopUpView.cs" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1a636b50c4dacacc18d4eb10f797763c58" prot="public" static="no" mutable="no">
+        <type>RectTransform</type>
+        <definition>RectTransform PopUpView.CanvasInfo</definition>
+        <argsstring></argsstring>
+        <name>CanvasInfo</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="26" column="26" bodyfile="PopUp/PopUpView.cs" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1ac83ab1f69815f2e013bacdf41957b150" prot="public" static="no" mutable="no">
+        <type>RectTransform</type>
+        <definition>RectTransform PopUpView.canvasButton</definition>
+        <argsstring></argsstring>
+        <name>canvasButton</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="34" column="26" bodyfile="PopUp/PopUpView.cs" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1a38f9031e5478895879e353abc8b2fb9e" prot="public" static="no" mutable="no">
+        <type>RectTransform</type>
+        <definition>RectTransform PopUpView.canvasImage</definition>
+        <argsstring></argsstring>
+        <name>canvasImage</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="37" column="26" bodyfile="PopUp/PopUpView.cs" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1a021914b84aaeaa1c45017714157a418e" prot="public" static="no" mutable="no">
+        <type>Animator</type>
+        <definition>Animator PopUpView.animator</definition>
+        <argsstring></argsstring>
+        <name>animator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="39" column="21" bodyfile="PopUp/PopUpView.cs" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="protected-attrib">
+      <memberdef kind="variable" id="class_pop_up_view_1a6ebb8c47da17ce0e618500be6dd92f1f" prot="protected" static="no" mutable="no">
+        <type>Dictionary&lt; string, <ref refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kindref="member">PopUp.PopUpAction</ref> &gt;</type>
+        <definition>Dictionary&lt;string, PopUp.PopUpAction&gt; PopUpView.Actions</definition>
+        <argsstring></argsstring>
+        <name>Actions</name>
+        <initializer>= new Dictionary&lt;string, <ref refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kindref="member">PopUp.PopUpAction</ref>&gt;()</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="22" column="26" bodyfile="PopUp/PopUpView.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_pop_up_view_1ab1b654e192deb03b0f0909c18f0efe74" prot="private" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject PopUpView.objectPopUp</definition>
+        <argsstring></argsstring>
+        <name>objectPopUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="28" column="24" bodyfile="PopUp/PopUpView.cs" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_pop_up_view_1a644fbed7006e5574fab2fa9fb2f56319" prot="private" static="no" mutable="no">
+        <type><ref refid="class_pop_up_view" kindref="compound">PopUpView</ref></type>
+        <definition>PopUpView PopUpView.pop</definition>
+        <argsstring></argsstring>
+        <name>pop</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="29" column="23" bodyfile="PopUp/PopUpView.cs" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_pop_up_view_1aa344c504ae30106d1702c7f3735bf0cc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.CreatePopUp</definition>
+        <argsstring>(string title, string message, Sprite image, Dictionary&lt; string, PopUp.PopUpAction &gt; actions)</argsstring>
+        <name>CreatePopUp</name>
+        <param>
+          <type>string</type>
+          <declname>title</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>message</declname>
+        </param>
+        <param>
+          <type>Sprite</type>
+          <declname>image</declname>
+        </param>
+        <param>
+          <type>Dictionary&lt; string, <ref refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kindref="member">PopUp.PopUpAction</ref> &gt;</type>
+          <declname>actions</declname>
+        </param>
+        <briefdescription>
+<para>Inicializacion </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>title</parametername>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>message</parametername>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>image</parametername>
+</parameternamelist>
+<parameterdescription>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="48" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="48" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1aac2caaaa74d841baacd5ea55cae50ac7" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.SetTitle</definition>
+        <argsstring>(string title)</argsstring>
+        <name>SetTitle</name>
+        <param>
+          <type>string</type>
+          <declname>title</declname>
+        </param>
+        <briefdescription>
+<para>Crea el titulo del <ref refid="class_pop_up" kindref="compound">PopUp</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="72" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="72" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1a17610dd6cc08bf59c3362540290df4dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.SetMessage</definition>
+        <argsstring>(string message)</argsstring>
+        <name>SetMessage</name>
+        <param>
+          <type>string</type>
+          <declname>message</declname>
+        </param>
+        <briefdescription>
+<para>Crea el mensaje del <ref refid="class_pop_up" kindref="compound">PopUp</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="88" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="88" bodyend="98"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1a6c85faa9d05d62872d4ad66c40ed9847" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.SetIcon</definition>
+        <argsstring>(Sprite image)</argsstring>
+        <name>SetIcon</name>
+        <param>
+          <type>Sprite</type>
+          <declname>image</declname>
+        </param>
+        <briefdescription>
+<para>Crea la imagen del <ref refid="class_pop_up" kindref="compound">PopUp</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="104" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="104" bodyend="115"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1a6a079b5c437076a131f9d026be1768c0" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.SetButton</definition>
+        <argsstring>(Dictionary&lt; string, PopUp.PopUpAction &gt; actions)</argsstring>
+        <name>SetButton</name>
+        <param>
+          <type>Dictionary&lt; string, <ref refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kindref="member">PopUp.PopUpAction</ref> &gt;</type>
+          <declname>actions</declname>
+        </param>
+        <briefdescription>
+<para>Crea los botones del <ref refid="class_pop_up" kindref="compound">PopUp</ref> </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="120" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="120" bodyend="125"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1a12041d5a37a7f295985e79eabd70911d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.CreateButtons</definition>
+        <argsstring>()</argsstring>
+        <name>CreateButtons</name>
+        <briefdescription>
+<para>Crea tantos botones como acciones existan. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="133" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="133" bodyend="167"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1a882b2c9f0c1d00b3ed6a3e0a5a9886a6" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.CreateButtonsPanel</definition>
+        <argsstring>()</argsstring>
+        <name>CreateButtonsPanel</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="173" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="173" bodyend="206"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1a9ad966dc3ecc00c699633c847b530562" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.AnimationShow</definition>
+        <argsstring>()</argsstring>
+        <name>AnimationShow</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="209" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="209" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1ad4c192e05d1990e563a19fc90e6c7432" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.AnimationClose</definition>
+        <argsstring>()</argsstring>
+        <name>AnimationClose</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="214" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="214" bodyend="217"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1adfa3c86255fa6956582c5c3829814226" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.DestroyPopUp</definition>
+        <argsstring>()</argsstring>
+        <name>DestroyPopUp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="220" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="220" bodyend="223"/>
+      </memberdef>
+      <memberdef kind="function" id="class_pop_up_view_1a70f5df2294f3d5206d189d7f603c2875" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void PopUpView.NotShowIcon</definition>
+        <argsstring>()</argsstring>
+        <name>NotShowIcon</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="PopUp/PopUpView.cs" line="225" column="17" bodyfile="PopUp/PopUpView.cs" bodystart="225" bodyend="228"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Vista del <ref refid="class_pop_up" kindref="compound">PopUp</ref> Este script se encuentra enlazado directamente al objeto del <ref refid="class_pop_up" kindref="compound">PopUp</ref>. Cada variable hace referencia a cada componente. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>PopUpView</label>
+        <link refid="class_pop_up_view"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>PopUpView</label>
+        <link refid="class_pop_up_view"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+    </collaborationgraph>
+    <location file="PopUp/PopUpView.cs" line="13" column="7" bodyfile="PopUp/PopUpView.cs" bodystart="14" bodyend="230"/>
+    <listofallmembers>
+      <member refid="class_pop_up_view_1a6ebb8c47da17ce0e618500be6dd92f1f" prot="protected" virt="non-virtual"><scope>PopUpView</scope><name>Actions</name></member>
+      <member refid="class_pop_up_view_1ad4c192e05d1990e563a19fc90e6c7432" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>AnimationClose</name></member>
+      <member refid="class_pop_up_view_1a9ad966dc3ecc00c699633c847b530562" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>AnimationShow</name></member>
+      <member refid="class_pop_up_view_1a021914b84aaeaa1c45017714157a418e" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>animator</name></member>
+      <member refid="class_pop_up_view_1ac83ab1f69815f2e013bacdf41957b150" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>canvasButton</name></member>
+      <member refid="class_pop_up_view_1a38f9031e5478895879e353abc8b2fb9e" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>canvasImage</name></member>
+      <member refid="class_pop_up_view_1a636b50c4dacacc18d4eb10f797763c58" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>CanvasInfo</name></member>
+      <member refid="class_pop_up_view_1a12041d5a37a7f295985e79eabd70911d" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>CreateButtons</name></member>
+      <member refid="class_pop_up_view_1a882b2c9f0c1d00b3ed6a3e0a5a9886a6" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>CreateButtonsPanel</name></member>
+      <member refid="class_pop_up_view_1aa344c504ae30106d1702c7f3735bf0cc" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>CreatePopUp</name></member>
+      <member refid="class_pop_up_view_1adfa3c86255fa6956582c5c3829814226" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>DestroyPopUp</name></member>
+      <member refid="class_pop_up_view_1a465f8c5f8802a8c6d2253d3e7bf4afc5" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>Image</name></member>
+      <member refid="class_pop_up_view_1a05993b13d13a2fc40a28e7054a2efe75" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>Message</name></member>
+      <member refid="class_pop_up_view_1a70f5df2294f3d5206d189d7f603c2875" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>NotShowIcon</name></member>
+      <member refid="class_pop_up_view_1ab1b654e192deb03b0f0909c18f0efe74" prot="private" virt="non-virtual"><scope>PopUpView</scope><name>objectPopUp</name></member>
+      <member refid="class_pop_up_view_1a644fbed7006e5574fab2fa9fb2f56319" prot="private" virt="non-virtual"><scope>PopUpView</scope><name>pop</name></member>
+      <member refid="class_pop_up_view_1a6a079b5c437076a131f9d026be1768c0" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>SetButton</name></member>
+      <member refid="class_pop_up_view_1a6c85faa9d05d62872d4ad66c40ed9847" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>SetIcon</name></member>
+      <member refid="class_pop_up_view_1a17610dd6cc08bf59c3362540290df4dc" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>SetMessage</name></member>
+      <member refid="class_pop_up_view_1aac2caaaa74d841baacd5ea55cae50ac7" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>SetTitle</name></member>
+      <member refid="class_pop_up_view_1a7cd35943200ef199876656b9569bc9ee" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>Title</name></member>
+      <member refid="class_pop_up_view_1abf79d51531573093dc1a8626717b4fe0" prot="public" virt="non-virtual"><scope>PopUpView</scope><name>WindowPopUp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

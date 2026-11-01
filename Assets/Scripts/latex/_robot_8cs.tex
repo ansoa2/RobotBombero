@@ -1,0 +1,133 @@
+\hypertarget{_robot_8cs}{}\doxysection{Referencia del Archivo Model/\+Robot.cs}
+\label{_robot_8cs}\index{Model/Robot.cs@{Model/Robot.cs}}
+\doxysubsection*{Clases}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_robot}{Robot}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Enumeraciones}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0a}{Battery\+State}} \{ \mbox{\hyperlink{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa8d966b2253a917086c8604959e152243}{Battery\+State.\+high}}, 
+\mbox{\hyperlink{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa075a3e36a0a52dcbc568c05788e8a713}{Battery\+State.\+medium}}, 
+\mbox{\hyperlink{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa53cced8d281a1a0ace3cb6594daaa4f7}{Battery\+State.\+low}}
+ \}
+\item 
+enum \mbox{\hyperlink{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817c}{Sensor\+Temp}} \{ \mbox{\hyperlink{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca46c48bec0d282018b9d167eef7711b2c}{Sensor\+Temp.\+up}}, 
+\mbox{\hyperlink{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca74e8333ad11685ff3bdae589c8f6e34d}{Sensor\+Temp.\+down}}, 
+\mbox{\hyperlink{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca465289687a70db7aa7217cc240c29f0f}{Sensor\+Temp.\+equal}}
+ \}
+\item 
+enum \mbox{\hyperlink{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bf}{Sensor\+Light}} \{ \mbox{\hyperlink{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfafea087517c26fadd409bd4b9dc642555}{Sensor\+Light.\+normal}}, 
+\mbox{\hyperlink{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfa173309254d744ee11186193a1b1b0394}{Sensor\+Light.\+bright}}, 
+\mbox{\hyperlink{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfaa82fd95db10ff25dfad39f07372ebe37}{Sensor\+Light.\+dark}}
+ \}
+\item 
+enum \mbox{\hyperlink{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acf}{Sensor\+Prox}} \{ \mbox{\hyperlink{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acfac432cbe954b1c0608fc9e85ac1eefb65}{Sensor\+Prox.\+obstacle\+\_\+true}}, 
+\mbox{\hyperlink{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acfaae4645ee486c894c221ebc57ed7fa9e9}{Sensor\+Prox.\+obstacle\+\_\+false}}
+ \}
+\item 
+enum \mbox{\hyperlink{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153}{Sensor\+Celda}} \{ \mbox{\hyperlink{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153a20c1d18791a246001f5df7867d4e6bf5}{Sensor\+Celda.\+battery}}, 
+\mbox{\hyperlink{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153afea087517c26fadd409bd4b9dc642555}{Sensor\+Celda.\+normal}}, 
+\mbox{\hyperlink{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153a1ffd9e753c8054cc61456ac7fac1ac89}{Sensor\+Celda.\+black}}
+ \}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Documentación de las enumeraciones}
+\mbox{\Hypertarget{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0a}\label{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0a}} 
+\index{Robot.cs@{Robot.cs}!BatteryState@{BatteryState}}
+\index{BatteryState@{BatteryState}!Robot.cs@{Robot.cs}}
+\doxysubsubsection{\texorpdfstring{BatteryState}{BatteryState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0a}{Battery\+State}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{high@{high}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!high@{high}}}\mbox{\Hypertarget{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa8d966b2253a917086c8604959e152243}\label{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa8d966b2253a917086c8604959e152243}} 
+high&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{medium@{medium}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!medium@{medium}}}\mbox{\Hypertarget{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa075a3e36a0a52dcbc568c05788e8a713}\label{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa075a3e36a0a52dcbc568c05788e8a713}} 
+medium&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{low@{low}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!low@{low}}}\mbox{\Hypertarget{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa53cced8d281a1a0ace3cb6594daaa4f7}\label{_robot_8cs_a9f5ff099696e2dd4e98b4ed925d27f0aa53cced8d281a1a0ace3cb6594daaa4f7}} 
+low&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153}\label{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153}} 
+\index{Robot.cs@{Robot.cs}!SensorCelda@{SensorCelda}}
+\index{SensorCelda@{SensorCelda}!Robot.cs@{Robot.cs}}
+\doxysubsubsection{\texorpdfstring{SensorCelda}{SensorCelda}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153}{Sensor\+Celda}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{battery@{battery}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!battery@{battery}}}\mbox{\Hypertarget{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153a20c1d18791a246001f5df7867d4e6bf5}\label{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153a20c1d18791a246001f5df7867d4e6bf5}} 
+battery&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{normal@{normal}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!normal@{normal}}}\mbox{\Hypertarget{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153afea087517c26fadd409bd4b9dc642555}\label{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153afea087517c26fadd409bd4b9dc642555}} 
+normal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{black@{black}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!black@{black}}}\mbox{\Hypertarget{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153a1ffd9e753c8054cc61456ac7fac1ac89}\label{_robot_8cs_a2c905b8bf7e5d17c61aa6c4d9ffde153a1ffd9e753c8054cc61456ac7fac1ac89}} 
+black&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bf}\label{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bf}} 
+\index{Robot.cs@{Robot.cs}!SensorLight@{SensorLight}}
+\index{SensorLight@{SensorLight}!Robot.cs@{Robot.cs}}
+\doxysubsubsection{\texorpdfstring{SensorLight}{SensorLight}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bf}{Sensor\+Light}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{normal@{normal}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!normal@{normal}}}\mbox{\Hypertarget{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfafea087517c26fadd409bd4b9dc642555}\label{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfafea087517c26fadd409bd4b9dc642555}} 
+normal&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{bright@{bright}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!bright@{bright}}}\mbox{\Hypertarget{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfa173309254d744ee11186193a1b1b0394}\label{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfa173309254d744ee11186193a1b1b0394}} 
+bright&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{dark@{dark}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!dark@{dark}}}\mbox{\Hypertarget{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfaa82fd95db10ff25dfad39f07372ebe37}\label{_robot_8cs_a0d2eee1105f0ceb923e8d28f69cc33bfaa82fd95db10ff25dfad39f07372ebe37}} 
+dark&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acf}\label{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acf}} 
+\index{Robot.cs@{Robot.cs}!SensorProx@{SensorProx}}
+\index{SensorProx@{SensorProx}!Robot.cs@{Robot.cs}}
+\doxysubsubsection{\texorpdfstring{SensorProx}{SensorProx}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acf}{Sensor\+Prox}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{obstacle\_true@{obstacle\_true}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!obstacle\_true@{obstacle\_true}}}\mbox{\Hypertarget{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acfac432cbe954b1c0608fc9e85ac1eefb65}\label{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acfac432cbe954b1c0608fc9e85ac1eefb65}} 
+obstacle\+\_\+true&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{obstacle\_false@{obstacle\_false}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!obstacle\_false@{obstacle\_false}}}\mbox{\Hypertarget{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acfaae4645ee486c894c221ebc57ed7fa9e9}\label{_robot_8cs_ad2490224ca9f9e13cc624ee6f1ae3acfaae4645ee486c894c221ebc57ed7fa9e9}} 
+obstacle\+\_\+false&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817c}\label{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817c}} 
+\index{Robot.cs@{Robot.cs}!SensorTemp@{SensorTemp}}
+\index{SensorTemp@{SensorTemp}!Robot.cs@{Robot.cs}}
+\doxysubsubsection{\texorpdfstring{SensorTemp}{SensorTemp}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817c}{Sensor\+Temp}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+\begin{DoxyEnumFields}{Valores de enumeraciones}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{up@{up}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!up@{up}}}\mbox{\Hypertarget{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca46c48bec0d282018b9d167eef7711b2c}\label{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca46c48bec0d282018b9d167eef7711b2c}} 
+up&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{down@{down}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!down@{down}}}\mbox{\Hypertarget{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca74e8333ad11685ff3bdae589c8f6e34d}\label{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca74e8333ad11685ff3bdae589c8f6e34d}} 
+down&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{equal@{equal}!Robot.cs@{Robot.cs}}\index{Robot.cs@{Robot.cs}!equal@{equal}}}\mbox{\Hypertarget{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca465289687a70db7aa7217cc240c29f0f}\label{_robot_8cs_a43cbcdc31bb609d69b1e59c34a19817ca465289687a70db7aa7217cc240c29f0f}} 
+equal&\\
+\hline
+
+\end{DoxyEnumFields}

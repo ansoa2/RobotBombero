@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="class_rule_model_list" kind="class" language="C#" prot="public">
+    <compoundname>RuleModelList</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_rule_model_list_1a623b4ef755768d78549e47df87ba9770" prot="public" static="no" mutable="no">
+        <type>List&lt; <ref refid="class_rule_model" kindref="compound">RuleModel</ref> &gt;</type>
+        <definition>List&lt;RuleModel&gt; RuleModelList.rulemodel_list</definition>
+        <argsstring></argsstring>
+        <name>rulemodel_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Model/RuleModelList.cs" line="8" column="17" bodyfile="Model/RuleModelList.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="Model/RuleModelList.cs" line="6" column="7" bodyfile="Model/RuleModelList.cs" bodystart="7" bodyend="9"/>
+    <listofallmembers>
+      <member refid="class_rule_model_list_1a623b4ef755768d78549e47df87ba9770" prot="public" virt="non-virtual"><scope>RuleModelList</scope><name>rulemodel_list</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

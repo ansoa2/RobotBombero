@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.20" xml:lang="es">
+  <compounddef id="class_add_rule_controller" kind="class" language="C#" prot="public">
+    <compoundname>AddRuleController</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">MonoBehaviour</basecompoundref>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_add_rule_controller_1a62a09c745de12050072fe559276eefe9" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject AddRuleController.main_View</definition>
+        <argsstring></argsstring>
+        <name>main_View</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="8" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1ae98dfead1a564dccde13e667f523c248" prot="public" static="no" mutable="no">
+        <type>InputField</type>
+        <definition>InputField AddRuleController.ruleName</definition>
+        <argsstring></argsstring>
+        <name>ruleName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="10" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1a043f798c91903d8697df89881236e524" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject AddRuleController.battery</definition>
+        <argsstring></argsstring>
+        <name>battery</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="11" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1aa37c5c7f381f1c76ae2995cbd56bfb24" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject AddRuleController.temp</definition>
+        <argsstring></argsstring>
+        <name>temp</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="12" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1a08fa9fad14295bb889f4b803fc4440db" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject AddRuleController.light</definition>
+        <argsstring></argsstring>
+        <name>light</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="13" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1a8599d23a571f8fe7942f4a01b9ca7f29" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject AddRuleController.prox</definition>
+        <argsstring></argsstring>
+        <name>prox</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="14" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1a6970692cdb98c2e5dc50711bee31ed51" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject AddRuleController.cell</definition>
+        <argsstring></argsstring>
+        <name>cell</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="15" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1a365c312a679c605feba1411d29e03d75" prot="public" static="no" mutable="no">
+        <type>GameObject</type>
+        <definition>GameObject AddRuleController.action</definition>
+        <argsstring></argsstring>
+        <name>action</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="16" column="23" bodyfile="Controller/AddRuleController.cs" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1a48bdf4ffcbca4ba94b1d2ff45ad08e7c" prot="public" static="no" mutable="no">
+        <type>List&lt; string &gt;</type>
+        <definition>List&lt;string&gt; AddRuleController.action_list</definition>
+        <argsstring></argsstring>
+        <name>action_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="18" column="17" bodyfile="Controller/AddRuleController.cs" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_add_rule_controller_1a0bb21b8f45074e47c841fdcfe7f8a24c" prot="public" static="no" mutable="no">
+        <type><ref refid="class_rules_administrator_controller" kindref="compound">RulesAdministratorController</ref></type>
+        <definition>RulesAdministratorController AddRuleController.administrator_controller</definition>
+        <argsstring></argsstring>
+        <name>administrator_controller</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="19" column="41" bodyfile="Controller/AddRuleController.cs" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_add_rule_controller_1aa0376f653d66842b99e47faba65fbad5" prot="private" static="no" mutable="no">
+        <type><ref refid="class_rule_model" kindref="compound">RuleModel</ref></type>
+        <definition>RuleModel AddRuleController.rule</definition>
+        <argsstring></argsstring>
+        <name>rule</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="9" column="15" bodyfile="Controller/AddRuleController.cs" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_add_rule_controller_1abf66cdfdbbe19b3a340e49fc9f153da6" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AddRuleController.Start</definition>
+        <argsstring>()</argsstring>
+        <name>Start</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="20" column="18" bodyfile="Controller/AddRuleController.cs" bodystart="20" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="function" id="class_add_rule_controller_1a92d18b27661c098f334fc47df811f0f2" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AddRuleController.OnEnable</definition>
+        <argsstring>()</argsstring>
+        <name>OnEnable</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="25" column="18" bodyfile="Controller/AddRuleController.cs" bodystart="25" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_add_rule_controller_1aa83e69f3e6d58da3734a29cff4cb6932" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AddRuleController.AddRule</definition>
+        <argsstring>()</argsstring>
+        <name>AddRule</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="30" column="17" bodyfile="Controller/AddRuleController.cs" bodystart="30" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_add_rule_controller_1a8f4c0b390521f39c829cf3750b25b6ab" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void AddRuleController.AddAction</definition>
+        <argsstring>(Dropdown action)</argsstring>
+        <name>AddAction</name>
+        <param>
+          <type>Dropdown</type>
+          <declname>action</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Controller/AddRuleController.cs" line="48" column="17" bodyfile="Controller/AddRuleController.cs" bodystart="48" bodyend="51"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="1">
+        <label>AddRuleController</label>
+        <link refid="class_add_rule_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="3">
+        <label>RulesAdministratorController</label>
+        <link refid="class_rules_administrator_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>main</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>RuleModelList</label>
+        <link refid="class_rule_model_list"/>
+      </node>
+      <node id="2">
+        <label>MonoBehaviour</label>
+      </node>
+      <node id="6">
+        <label>StatsController</label>
+        <link refid="class_stats_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>MainView</label>
+        <link refid="class_main_view"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>rules_list</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>stats</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>AddRuleController</label>
+        <link refid="class_add_rule_controller"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>administrator_controller</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Controller/AddRuleController.cs" line="6" column="7" bodyfile="Controller/AddRuleController.cs" bodystart="7" bodyend="52"/>
+    <listofallmembers>
+      <member refid="class_add_rule_controller_1a365c312a679c605feba1411d29e03d75" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>action</name></member>
+      <member refid="class_add_rule_controller_1a48bdf4ffcbca4ba94b1d2ff45ad08e7c" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>action_list</name></member>
+      <member refid="class_add_rule_controller_1a8f4c0b390521f39c829cf3750b25b6ab" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>AddAction</name></member>
+      <member refid="class_add_rule_controller_1aa83e69f3e6d58da3734a29cff4cb6932" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>AddRule</name></member>
+      <member refid="class_add_rule_controller_1a0bb21b8f45074e47c841fdcfe7f8a24c" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>administrator_controller</name></member>
+      <member refid="class_add_rule_controller_1a043f798c91903d8697df89881236e524" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>battery</name></member>
+      <member refid="class_add_rule_controller_1a6970692cdb98c2e5dc50711bee31ed51" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>cell</name></member>
+      <member refid="class_add_rule_controller_1a08fa9fad14295bb889f4b803fc4440db" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>light</name></member>
+      <member refid="class_add_rule_controller_1a62a09c745de12050072fe559276eefe9" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>main_View</name></member>
+      <member refid="class_add_rule_controller_1a92d18b27661c098f334fc47df811f0f2" prot="private" virt="non-virtual"><scope>AddRuleController</scope><name>OnEnable</name></member>
+      <member refid="class_add_rule_controller_1a8599d23a571f8fe7942f4a01b9ca7f29" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>prox</name></member>
+      <member refid="class_add_rule_controller_1aa0376f653d66842b99e47faba65fbad5" prot="private" virt="non-virtual"><scope>AddRuleController</scope><name>rule</name></member>
+      <member refid="class_add_rule_controller_1ae98dfead1a564dccde13e667f523c248" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>ruleName</name></member>
+      <member refid="class_add_rule_controller_1abf66cdfdbbe19b3a340e49fc9f153da6" prot="private" virt="non-virtual"><scope>AddRuleController</scope><name>Start</name></member>
+      <member refid="class_add_rule_controller_1aa37c5c7f381f1c76ae2995cbd56bfb24" prot="public" virt="non-virtual"><scope>AddRuleController</scope><name>temp</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

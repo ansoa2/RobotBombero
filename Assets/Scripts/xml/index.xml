@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.20" xml:lang="es">
+  <compound refid="class_add_rule_controller" kind="class"><name>AddRuleController</name>
+    <member refid="class_add_rule_controller_1a62a09c745de12050072fe559276eefe9" kind="variable"><name>main_View</name></member>
+    <member refid="class_add_rule_controller_1ae98dfead1a564dccde13e667f523c248" kind="variable"><name>ruleName</name></member>
+    <member refid="class_add_rule_controller_1a043f798c91903d8697df89881236e524" kind="variable"><name>battery</name></member>
+    <member refid="class_add_rule_controller_1aa37c5c7f381f1c76ae2995cbd56bfb24" kind="variable"><name>temp</name></member>
+    <member refid="class_add_rule_controller_1a08fa9fad14295bb889f4b803fc4440db" kind="variable"><name>light</name></member>
+    <member refid="class_add_rule_controller_1a8599d23a571f8fe7942f4a01b9ca7f29" kind="variable"><name>prox</name></member>
+    <member refid="class_add_rule_controller_1a6970692cdb98c2e5dc50711bee31ed51" kind="variable"><name>cell</name></member>
+    <member refid="class_add_rule_controller_1a365c312a679c605feba1411d29e03d75" kind="variable"><name>action</name></member>
+    <member refid="class_add_rule_controller_1a48bdf4ffcbca4ba94b1d2ff45ad08e7c" kind="variable"><name>action_list</name></member>
+    <member refid="class_add_rule_controller_1a0bb21b8f45074e47c841fdcfe7f8a24c" kind="variable"><name>administrator_controller</name></member>
+    <member refid="class_add_rule_controller_1aa0376f653d66842b99e47faba65fbad5" kind="variable"><name>rule</name></member>
+    <member refid="class_add_rule_controller_1abf66cdfdbbe19b3a340e49fc9f153da6" kind="function"><name>Start</name></member>
+    <member refid="class_add_rule_controller_1a92d18b27661c098f334fc47df811f0f2" kind="function"><name>OnEnable</name></member>
+    <member refid="class_add_rule_controller_1aa83e69f3e6d58da3734a29cff4cb6932" kind="function"><name>AddRule</name></member>
+    <member refid="class_add_rule_controller_1a8f4c0b390521f39c829cf3750b25b6ab" kind="function"><name>AddAction</name></member>
+  </compound>
+  <compound refid="class_celda_model" kind="class"><name>CeldaModel</name>
+    <member refid="class_celda_model_1aedf6a49426f1003f91fb6cf8fadcb5c9" kind="variable"><name>pos_x</name></member>
+    <member refid="class_celda_model_1addd0d61540579fba380334f7b219df48" kind="variable"><name>pos_y</name></member>
+    <member refid="class_celda_model_1af7f45900c40fc099ee1cdb3892fb6d2e" kind="variable"><name>estado</name></member>
+    <member refid="class_celda_model_1acaf8227f30e2f4453b92a0c035f52025" kind="variable"><name>fire</name></member>
+  </compound>
+  <compound refid="class_edit_rule_controller" kind="class"><name>EditRuleController</name>
+    <member refid="class_edit_rule_controller_1a9f5dcff05aa259000d1d32880c950458" kind="variable"><name>id</name></member>
+    <member refid="class_edit_rule_controller_1a0ef4be5b02513181d4764bdf20d86508" kind="variable"><name>rule_name</name></member>
+    <member refid="class_edit_rule_controller_1affdb7c3e6dcc9cf53709efff0dbabd9f" kind="variable"><name>battery</name></member>
+    <member refid="class_edit_rule_controller_1aaed17368057157e4f055d5c44efa8ddd" kind="variable"><name>sensor_temp</name></member>
+    <member refid="class_edit_rule_controller_1a0ac999e0b78817cb55bf1b2bc85bc8a0" kind="variable"><name>sensor_light</name></member>
+    <member refid="class_edit_rule_controller_1a99a9be02ee1b5a71f9b99422eb23f6ff" kind="variable"><name>sensor_prox</name></member>
+    <member refid="class_edit_rule_controller_1ac5276f38fa32fd3577dd956ffb11b377" kind="variable"><name>sensor_cell</name></member>
+    <member refid="class_edit_rule_controller_1a9dc5645c0e9b847cfd88685e79329a48" kind="variable"><name>action</name></member>
+    <member refid="class_edit_rule_controller_1a06703a85c19a7fca55919b9ab099e9b8" kind="variable"><name>action_list</name></member>
+    <member refid="class_edit_rule_controller_1aa76794588d5ff166870d4db454521eab" kind="function"><name>Awake</name></member>
+    <member refid="class_edit_rule_controller_1a16870b9a1d33e05ae41ce48380cdf843" kind="function"><name>DeleteRule</name></member>
+    <member refid="class_edit_rule_controller_1aa011ac98a964fb9d35c17035f92957fb" kind="function"><name>Eliminar</name></member>
+    <member refid="class_edit_rule_controller_1a504e405f6b4ed4a6c3a80c01484a98cf" kind="function"><name>AddAction</name></member>
+  </compound>
+  <compound refid="class_fire_model" kind="class"><name>FireModel</name>
+    <member refid="class_fire_model_1a3e847fe3f8ebde1a38056e699af2a06d" kind="variable"><name>pos_x</name></member>
+    <member refid="class_fire_model_1aad9c655542bf6b40eb79cd61aaa91456" kind="variable"><name>pos_y</name></member>
+  </compound>
+  <compound refid="class_main_view" kind="class"><name>MainView</name>
+    <member refid="class_main_view_1a3438355b1e490d4491bc10855460c5dd" kind="variable"><name>refresh</name></member>
+    <member refid="class_main_view_1adaea6fd2a0832716fa39075f96516b67" kind="variable"><name>auto</name></member>
+    <member refid="class_main_view_1a03f3de087c7d343cf63875670045ae19" kind="variable"><name>fuego_encendido</name></member>
+    <member refid="class_main_view_1abca20d2daa76ffea57902d8cb380fc3e" kind="variable"><name>contador_fuego_encendido</name></member>
+    <member refid="class_main_view_1ad58dcfd6324c0dcadb6950e5d63da05a" kind="variable"><name>steps</name></member>
+    <member refid="class_main_view_1a79b4dfbabd757b6797a74abaa2ffc694" kind="variable"><name>fuegos</name></member>
+    <member refid="class_main_view_1aeedd38d0369600340c074d4473fddb9a" kind="variable"><name>bateria_restante</name></member>
+    <member refid="class_main_view_1a49c779ccf4325bb907db8b0dbe74c758" kind="variable"><name>stats</name></member>
+    <member refid="class_main_view_1a852f158b62188082e462dc76619b9dd1" kind="variable"><name>content</name></member>
+    <member refid="class_main_view_1a0c8fe8a7192208608e76fd36eb4c9a78" kind="variable"><name>filaPrefab</name></member>
+    <member refid="class_main_view_1ad4c1eedd376dfbeea0c56db830f95ae3" kind="variable"><name>celdaPrefab</name></member>
+    <member refid="class_main_view_1a3bbc30a45bed51334b5a4cab0ba511cc" kind="variable"><name>bombero</name></member>
+    <member refid="class_main_view_1adf4822d18f95b735ae69245485b634f6" kind="variable"><name>obstaculo1</name></member>
+    <member refid="class_main_view_1aa7843828a5a0ca1bcc74380353edc7dd" kind="variable"><name>obstaculo2</name></member>
+    <member refid="class_main_view_1a7c2069c436eadd5a39441c8dcefb93b1" kind="variable"><name>obstaculo3</name></member>
+    <member refid="class_main_view_1a07d926226d7635763f0661cdb0b33365" kind="variable"><name>fire_prefab</name></member>
+    <member refid="class_main_view_1ac436cc7daeb3ce34f19372d6cca63ea1" kind="variable"><name>celdas_matriz</name></member>
+    <member refid="class_main_view_1aab61a7adbd1c6ee3ddaf21c5ccb3b671" kind="variable"><name>celdas_list</name></member>
+    <member refid="class_main_view_1aff20e03a12afa6a6c29ba6c4fc993f0b" kind="variable"><name>fire_list</name></member>
+    <member refid="class_main_view_1a5c61e053ea1d34be987591fdda1e9472" kind="variable"><name>rules_list</name></member>
+    <member refid="class_main_view_1a4e6fc3d534ae2b8d8eb8cb74fe30d700" kind="function"><name>Start</name></member>
+    <member refid="class_main_view_1a797192c5b9d602eb214dd9adaf2896b2" kind="function"><name>Update</name></member>
+    <member refid="class_main_view_1a3c4860092ad72e44100dcd1a9742d675" kind="function"><name>AutoStepsCorrutine</name></member>
+    <member refid="class_main_view_1ad55e1d685adf4e9b4580ba0213d71588" kind="function"><name>Empezar</name></member>
+    <member refid="class_main_view_1ab257573cb679f0fefc6cf2fbf6757b74" kind="function"><name>NextStep</name></member>
+    <member refid="class_main_view_1a025132859e9d2cb378d355d97a8e0d5f" kind="function"><name>InsertarFuego</name></member>
+    <member refid="class_main_view_1aaaa8e065c2a91fba2efd88da5324407b" kind="function"><name>AddRule</name></member>
+    <member refid="class_main_view_1a857b63a8b214dbcaba0453ca87e96acb" kind="function"><name>RefreshScreen</name></member>
+    <member refid="class_main_view_1ab06764438f21911e8d9865d6c8c1b8b5" kind="function"><name>ConfirmarGuardadoReglas</name></member>
+    <member refid="class_main_view_1a5c3e585d5776154b0118b65949179df8" kind="function"><name>CreateJsonRules</name></member>
+    <member refid="class_main_view_1a0a02f170662865566b19664a35457228" kind="function"><name>ReiniciarContadorFuego</name></member>
+    <member refid="class_main_view_1ac8f2e9a61e06f8593d90e2ff6d5fe26c" kind="function"><name>MostrarContadores</name></member>
+    <member refid="class_main_view_1ab38febf8552836c198c4788fc6f8f469" kind="function"><name>LoadRules</name></member>
+    <member refid="class_main_view_1af7a5c0e544e8a871f1d68a70566c0795" kind="function"><name>AutoSteps</name></member>
+    <member refid="class_main_view_1aef5fdeaad6038a630a041b339f9e9476" kind="function"><name>ActivarAuto</name></member>
+  </compound>
+  <compound refid="class_pop_up" kind="class"><name>PopUp</name>
+    <member refid="class_pop_up_1a6b756837669d0545e8c9d80eb2da7096" kind="variable"><name>image</name></member>
+    <member refid="class_pop_up_1ade2e8fd9c4c163eedd9359ff6eb6b5e1" kind="variable"><name>title</name></member>
+    <member refid="class_pop_up_1ae232e989d430edcfad217eab644babd4" kind="variable"><name>message</name></member>
+    <member refid="class_pop_up_1acefa056c67d674bf8c03652b00221e27" kind="variable"><name>actions</name></member>
+    <member refid="class_pop_up_1a12afee55ae45ff2333ffbee364cc22fb" kind="variable"><name>objectPopUp</name></member>
+    <member refid="class_pop_up_1a41e2411fd0b293254567ca6cd5070bbd" kind="function"><name>PopUpAction</name></member>
+    <member refid="class_pop_up_1a6923ed612589f22b27f77640e8b87499" kind="function"><name>PopUp</name></member>
+    <member refid="class_pop_up_1a5bc93c9424295e66d5ff220c3c312bdd" kind="function"><name>PopUp</name></member>
+    <member refid="class_pop_up_1afd190f44ec758855ea81b289b3bf47ab" kind="function"><name>AddAction</name></member>
+    <member refid="class_pop_up_1aa20a580764cc99f8186e3b01ee0dfc71" kind="function"><name>Show</name></member>
+    <member refid="class_pop_up_1a7ebaa384b2c1f0e6452355ae1b0a1e7d" kind="function"><name>Close</name></member>
+    <member refid="class_pop_up_1a9e6d74a2386ff4aa405b4e815c2ea78e" kind="function"><name>NotShowIcon</name></member>
+  </compound>
+  <compound refid="class_pop_up_view" kind="class"><name>PopUpView</name>
+    <member refid="class_pop_up_view_1a7cd35943200ef199876656b9569bc9ee" kind="variable"><name>Title</name></member>
+    <member refid="class_pop_up_view_1a05993b13d13a2fc40a28e7054a2efe75" kind="variable"><name>Message</name></member>
+    <member refid="class_pop_up_view_1a465f8c5f8802a8c6d2253d3e7bf4afc5" kind="variable"><name>Image</name></member>
+    <member refid="class_pop_up_view_1abf79d51531573093dc1a8626717b4fe0" kind="variable"><name>WindowPopUp</name></member>
+    <member refid="class_pop_up_view_1a636b50c4dacacc18d4eb10f797763c58" kind="variable"><name>CanvasInfo</name></member>
+    <member refid="class_pop_up_view_1ac83ab1f69815f2e013bacdf41957b150" kind="variable"><name>canvasButton</name></member>
+    <member refid="class_pop_up_view_1a38f9031e5478895879e353abc8b2fb9e" kind="variable"><name>canvasImage</name></member>
+    <member refid="class_pop_up_view_1a021914b84aaeaa1c45017714157a418e" kind="variable"><name>animator</name></member>
+    <member refid="class_pop_up_view_1a6ebb8c47da17ce0e618500be6dd92f1f" kind="variable"><name>Actions</name></member>
+    <member refid="class_pop_up_view_1ab1b654e192deb03b0f0909c18f0efe74" kind="variable"><name>objectPopUp</name></member>
+    <member refid="class_pop_up_view_1a644fbed7006e5574fab2fa9fb2f56319" kind="variable"><name>pop</name></member>
+    <member refid="class_pop_up_view_1aa344c504ae30106d1702c7f3735bf0cc" kind="function"><name>CreatePopUp</name></member>
+    <member refid="class_pop_up_view_1aac2caaaa74d841baacd5ea55cae50ac7" kind="function"><name>SetTitle</name></member>
+    <member refid="class_pop_up_view_1a17610dd6cc08bf59c3362540290df4dc" kind="function"><name>SetMessage</name></member>
+    <member refid="class_pop_up_view_1a6c85faa9d05d62872d4ad66c40ed9847" kind="function"><name>SetIcon</name></member>
+    <member refid="class_pop_up_view_1a6a079b5c437076a131f9d026be1768c0" kind="function"><name>SetButton</name></member>
+    <member refid="class_pop_up_view_1a12041d5a37a7f295985e79eabd70911d" kind="function"><name>CreateButtons</name></member>
+    <member refid="class_pop_up_view_1a882b2c9f0c1d00b3ed6a3e0a5a9886a6" kind="function"><name>CreateButtonsPanel</name></member>
+    <member refid="class_pop_up_view_1a9ad966dc3ecc00c699633c847b530562" kind="function"><name>AnimationShow</name></member>
+    <member refid="class_pop_up_view_1ad4c192e05d1990e563a19fc90e6c7432" kind="function"><name>AnimationClose</name></member>
+    <member refid="class_pop_up_view_1adfa3c86255fa6956582c5c3829814226" kind="function"><name>DestroyPopUp</name></member>
+    <member refid="class_pop_up_view_1a70f5df2294f3d5206d189d7f603c2875" kind="function"><name>NotShowIcon</name></member>
+  </compound>
+  <compound refid="classresponsive__horizontal" kind="class"><name>responsive_horizontal</name>
+    <member refid="classresponsive__horizontal_1a7a1c3313796b278ef346e92944bb0424" kind="variable"><name>widthDesign</name></member>
+    <member refid="classresponsive__horizontal_1ac521117c212fa8ade54aa7e13ac03cbf" kind="variable"><name>heightDesign</name></member>
+    <member refid="classresponsive__horizontal_1ac3d68263252734aa7b3856d064119225" kind="variable"><name>generalCanvas</name></member>
+    <member refid="classresponsive__horizontal_1a729d9aaec1262418423db9d21d0df74f" kind="variable"><name>containerCanvas</name></member>
+    <member refid="classresponsive__horizontal_1a551b8f1bc9026e1d719600d098816ec3" kind="variable"><name>header</name></member>
+    <member refid="classresponsive__horizontal_1a1c7e66e620539ad90d2f31243864af36" kind="variable"><name>hasMiddle</name></member>
+    <member refid="classresponsive__horizontal_1a6f83309906838bc149c20b6195694092" kind="variable"><name>middle</name></member>
+    <member refid="classresponsive__horizontal_1abfd1d9b359d4e9d696ebf8f375830718" kind="variable"><name>scrolled</name></member>
+    <member refid="classresponsive__horizontal_1af488d1dd7da5a648fcc01538910958ff" kind="variable"><name>hasFooter</name></member>
+    <member refid="classresponsive__horizontal_1a76e219e5aafc07d8d508c726e0b54e11" kind="variable"><name>footer</name></member>
+    <member refid="classresponsive__horizontal_1aab432a349a2e9d98fdccd2e052f969e5" kind="function"><name>Start</name></member>
+    <member refid="classresponsive__horizontal_1a4d80f40fbf7062982c329f9c9e517679" kind="function"><name>Recise</name></member>
+  </compound>
+  <compound refid="class_robot" kind="class"><name>Robot</name>
+    <member refid="class_robot_1a7896933bf4b40e952400dc2db85d96b0" kind="variable"><name>main</name></member>
+    <member refid="class_robot_1a241e021f425635568e350b2f8ddb3b6d" kind="variable"><name>battery</name></member>
+    <member refid="class_robot_1a5a5ec50071e3316d0237b2efef499317" kind="variable"><name>muerto</name></member>
+    <member refid="class_robot_1a5aeef93100c428798f354611a8e4c43c" kind="variable"><name>batteryState</name></member>
+    <member refid="class_robot_1a80c330a2de0d9e920eda38d4a3f8c121" kind="variable"><name>sensorTemp</name></member>
+    <member refid="class_robot_1a1771625a7fd0b585088c4c5f2f4008f6" kind="variable"><name>sensorLight</name></member>
+    <member refid="class_robot_1ab52c4ccf16a21daf0cb5b27761e6400f" kind="variable"><name>sensorProx</name></member>
+    <member refid="class_robot_1a23205fd4665af501f7e02068f79d5bd7" kind="variable"><name>sensorCelda</name></member>
+    <member refid="class_robot_1a7c84d8e3f93e9e21c277f682ff7b63c5" kind="variable"><name>pos_x</name></member>
+    <member refid="class_robot_1a98544fd8e855cc906c6e77f9e9b15758" kind="variable"><name>pos_y</name></member>
+    <member refid="class_robot_1a5f4b5edf72714411bed9a33464067655" kind="variable"><name>dir_x</name></member>
+    <member refid="class_robot_1a4c96d9cfb1c9ef1abed3bb2c4040d8f1" kind="variable"><name>dir_y</name></member>
+    <member refid="class_robot_1a4eafbd7af655b7d1f282f17d2b727023" kind="variable"><name>cerca</name></member>
+    <member refid="class_robot_1a451fbc47b5480da948dc8c2f8cdc0268" kind="function"><name>Start</name></member>
+    <member refid="class_robot_1a8e22fd759f94b73252dd0ae252ead615" kind="function"><name>ReiniciarValores</name></member>
+    <member refid="class_robot_1a99de58652ba0aadb02389973636379b5" kind="function"><name>turnR</name></member>
+    <member refid="class_robot_1aaf7143c802a043c4d340242f9c4bcdcd" kind="function"><name>turnL</name></member>
+    <member refid="class_robot_1ab7b4b069275fff9dc7a4abeb813fcf8d" kind="function"><name>fwd</name></member>
+    <member refid="class_robot_1afabd3ef3c3129412cee220f53ab588cf" kind="function"><name>comprobarBateria</name></member>
+    <member refid="class_robot_1a68c02d913b10a48d3b5fc83a493eacb7" kind="function"><name>Put_Out</name></member>
+    <member refid="class_robot_1abebda95c0f919bf0b8acbd7c970cbdb9" kind="function"><name>ControlSensores</name></member>
+    <member refid="class_robot_1a9ff431c868a8e67c3f49af1942281ef1" kind="function"><name>ControlSensorTemp</name></member>
+    <member refid="class_robot_1ad6a0b4f2e8f64ee91d4710027512f584" kind="function"><name>ControlSensorLight</name></member>
+    <member refid="class_robot_1a592f941e2b7871fe23b59c44497270e2" kind="function"><name>ControlSensorProx</name></member>
+    <member refid="class_robot_1aead9044496b6febabb16493ac11cfb46" kind="function"><name>ControlSensorCelda</name></member>
+  </compound>
+  <compound refid="class_rule_model" kind="class"><name>RuleModel</name>
+    <member refid="class_rule_model_1a0785bbfe0f039364868aadd516283f3f" kind="variable"><name>id_rule</name></member>
+    <member refid="class_rule_model_1a3e0e4fc0ebecb06f17656c8ee9a52b6e" kind="variable"><name>name</name></member>
+    <member refid="class_rule_model_1aa5e11c56bb921723cea5e4ed993ad1aa" kind="variable"><name>battery_state</name></member>
+    <member refid="class_rule_model_1a5041f89aae7cf577f5e023f2722b52aa" kind="variable"><name>sensor_temp</name></member>
+    <member refid="class_rule_model_1a5e436625a9b1383690d9ca9261443284" kind="variable"><name>sensor_light</name></member>
+    <member refid="class_rule_model_1a3c4b969c91fe22208d8920693ad088bc" kind="variable"><name>sensor_prox</name></member>
+    <member refid="class_rule_model_1a4a1e3d620a128f2609d23139572667b8" kind="variable"><name>sensor_cell</name></member>
+    <member refid="class_rule_model_1acc8208b374dc3e5a14c9595b1b78f9d4" kind="variable"><name>action</name></member>
+  </compound>
+  <compound refid="class_rule_model_list" kind="class"><name>RuleModelList</name>
+    <member refid="class_rule_model_list_1a623b4ef755768d78549e47df87ba9770" kind="variable"><name>rulemodel_list</name></member>
+  </compound>
+  <compound refid="class_rules_administrator_controller" kind="class"><name>RulesAdministratorController</name>
+    <member refid="class_rules_administrator_controller_1ab9cac801db289d1989aa491dacd25a44" kind="variable"><name>prefab_itemRule</name></member>
+    <member refid="class_rules_administrator_controller_1a5c0ab0b684294bce12a73e3172eed93b" kind="variable"><name>content</name></member>
+    <member refid="class_rules_administrator_controller_1aebbd37304dde9748ff21bfa0bccac39a" kind="variable"><name>main</name></member>
+    <member refid="class_rules_administrator_controller_1a17da1a91272b6bb4f20183d29388156e" kind="variable"><name>main_View</name></member>
+    <member refid="class_rules_administrator_controller_1a0acb212f52334339ff668e351e2e499c" kind="variable"><name>next_id</name></member>
+    <member refid="class_rules_administrator_controller_1a44821a05b622e5cf9304d8e2f6d38a69" kind="variable"><name>initialSizeDelta</name></member>
+    <member refid="class_rules_administrator_controller_1a0028e43a544bf59a38769a8fe75df064" kind="variable"><name>rule</name></member>
+    <member refid="class_rules_administrator_controller_1aa20bf7808d9886e4406ba48150a47f40" kind="function"><name>Awake</name></member>
+    <member refid="class_rules_administrator_controller_1a1cec83d5d077475edc35539d5e3ceaa5" kind="function"><name>OnEnable</name></member>
+    <member refid="class_rules_administrator_controller_1a79bac067cdf89f5d325374bfc4cc43f5" kind="function"><name>LoadRules</name></member>
+    <member refid="class_rules_administrator_controller_1a57449fb916f7cdea2aa470c7a96cd96e" kind="function"><name>SaveEditRules</name></member>
+  </compound>
+  <compound refid="class_stats_controller" kind="class"><name>StatsController</name>
+    <member refid="class_stats_controller_1aa89fb74954a268b4011942c4ae78dcf7" kind="variable"><name>fuegos_apagados</name></member>
+    <member refid="class_stats_controller_1afee0259b201ecc60aaf15b575f82685e" kind="variable"><name>ciclos_vivo</name></member>
+    <member refid="class_stats_controller_1ab1ea930b8311e3b6346c0b578b771f76" kind="function"><name>ReiniciarContadores</name></member>
+    <member refid="class_stats_controller_1a4b1a11268d24dfa218b549ba90b5036c" kind="function"><name>ReiniciarContadorFuegos</name></member>
+    <member refid="class_stats_controller_1a19b7c3568d772d5349936121f19f9116" kind="function"><name>ReiniciarContadorCiclos</name></member>
+    <member refid="class_stats_controller_1af6861edb3e4404f705ffde93f13393ed" kind="function"><name>IncrementarContadorFuegos</name></member>
+    <member refid="class_stats_controller_1ad5f0cd711444629c7890efdac04c0a0f" kind="function"><name>IncrementarContadorCiclos</name></member>
+  </compound>
+  <compound refid="namespace_system_1_1_collections" kind="namespace"><name>System::Collections</name>
+  </compound>
+  <compound refid="namespace_system_1_1_collections_1_1_generic" kind="namespace"><name>System::Collections::Generic</name>
+  </compound>
+  <compound refid="namespace_system_1_1_i_o" kind="namespace"><name>System::IO</name>
+  </compound>
+  <compound refid="namespace_unity_engine" kind="namespace"><name>UnityEngine</name>
+  </compound>
+  <compound refid="namespace_unity_engine_1_1_u_i" kind="namespace"><name>UnityEngine::UI</name>
+  </compound>
+  <compound refid="_add_rule_controller_8cs" kind="file"><name>AddRuleController.cs</name>
+  </compound>
+  <compound refid="_edit_rule_controller_8cs" kind="file"><name>EditRuleController.cs</name>
+  </compound>
+  <compound refid="responsive__horizontal_8cs" kind="file"><name>responsive_horizontal.cs</name>
+  </compound>
+  <compound refid="_rules_administrator_controller_8cs" kind="file"><name>RulesAdministratorController.cs</name>
+  </compound>
+  <compound refid="_stats_controller_8cs" kind="file"><name>StatsController.cs</name>
+  </compound>
+  <compound refid="_celda_model_8cs" kind="file"><name>CeldaModel.cs</name>
+    <member refid="_celda_model_8cs_1a5d74787dedbc4e11c1ab15bf487e61f8" kind="enum"><name>State</name></member>
+    <member refid="_celda_model_8cs_1a5d74787dedbc4e11c1ab15bf487e61f8aaa2d6e4f578eb0cfaba23beef76c2194" kind="enumvalue"><name>free</name></member>
+    <member refid="_celda_model_8cs_1a5d74787dedbc4e11c1ab15bf487e61f8a015f28b9df1bdd36427dd976fb73b29d" kind="enumvalue"><name>fire</name></member>
+    <member refid="_celda_model_8cs_1a5d74787dedbc4e11c1ab15bf487e61f8aa82fd95db10ff25dfad39f07372ebe37" kind="enumvalue"><name>dark</name></member>
+    <member refid="_celda_model_8cs_1a5d74787dedbc4e11c1ab15bf487e61f8a95ffb2fe603fe47bf26481ae310a71cb" kind="enumvalue"><name>obstacle</name></member>
+    <member refid="_celda_model_8cs_1a5d74787dedbc4e11c1ab15bf487e61f8a20c1d18791a246001f5df7867d4e6bf5" kind="enumvalue"><name>battery</name></member>
+  </compound>
+  <compound refid="_fire_model_8cs" kind="file"><name>FireModel.cs</name>
+  </compound>
+  <compound refid="_robot_8cs" kind="file"><name>Robot.cs</name>
+    <member refid="_robot_8cs_1a9f5ff099696e2dd4e98b4ed925d27f0a" kind="enum"><name>BatteryState</name></member>
+    <member refid="_robot_8cs_1a9f5ff099696e2dd4e98b4ed925d27f0aa8d966b2253a917086c8604959e152243" kind="enumvalue"><name>high</name></member>
+    <member refid="_robot_8cs_1a9f5ff099696e2dd4e98b4ed925d27f0aa075a3e36a0a52dcbc568c05788e8a713" kind="enumvalue"><name>medium</name></member>
+    <member refid="_robot_8cs_1a9f5ff099696e2dd4e98b4ed925d27f0aa53cced8d281a1a0ace3cb6594daaa4f7" kind="enumvalue"><name>low</name></member>
+    <member refid="_robot_8cs_1a43cbcdc31bb609d69b1e59c34a19817c" kind="enum"><name>SensorTemp</name></member>
+    <member refid="_robot_8cs_1a43cbcdc31bb609d69b1e59c34a19817ca46c48bec0d282018b9d167eef7711b2c" kind="enumvalue"><name>up</name></member>
+    <member refid="_robot_8cs_1a43cbcdc31bb609d69b1e59c34a19817ca74e8333ad11685ff3bdae589c8f6e34d" kind="enumvalue"><name>down</name></member>
+    <member refid="_robot_8cs_1a43cbcdc31bb609d69b1e59c34a19817ca465289687a70db7aa7217cc240c29f0f" kind="enumvalue"><name>equal</name></member>
+    <member refid="_robot_8cs_1a0d2eee1105f0ceb923e8d28f69cc33bf" kind="enum"><name>SensorLight</name></member>
+    <member refid="_robot_8cs_1a0d2eee1105f0ceb923e8d28f69cc33bfafea087517c26fadd409bd4b9dc642555" kind="enumvalue"><name>normal</name></member>
+    <member refid="_robot_8cs_1a0d2eee1105f0ceb923e8d28f69cc33bfa173309254d744ee11186193a1b1b0394" kind="enumvalue"><name>bright</name></member>
+    <member refid="_robot_8cs_1a0d2eee1105f0ceb923e8d28f69cc33bfaa82fd95db10ff25dfad39f07372ebe37" kind="enumvalue"><name>dark</name></member>
+    <member refid="_robot_8cs_1ad2490224ca9f9e13cc624ee6f1ae3acf" kind="enum"><name>SensorProx</name></member>
+    <member refid="_robot_8cs_1ad2490224ca9f9e13cc624ee6f1ae3acfac432cbe954b1c0608fc9e85ac1eefb65" kind="enumvalue"><name>obstacle_true</name></member>
+    <member refid="_robot_8cs_1ad2490224ca9f9e13cc624ee6f1ae3acfaae4645ee486c894c221ebc57ed7fa9e9" kind="enumvalue"><name>obstacle_false</name></member>
+    <member refid="_robot_8cs_1a2c905b8bf7e5d17c61aa6c4d9ffde153" kind="enum"><name>SensorCelda</name></member>
+    <member refid="_robot_8cs_1a2c905b8bf7e5d17c61aa6c4d9ffde153a20c1d18791a246001f5df7867d4e6bf5" kind="enumvalue"><name>battery</name></member>
+    <member refid="_robot_8cs_1a2c905b8bf7e5d17c61aa6c4d9ffde153afea087517c26fadd409bd4b9dc642555" kind="enumvalue"><name>normal</name></member>
+    <member refid="_robot_8cs_1a2c905b8bf7e5d17c61aa6c4d9ffde153a1ffd9e753c8054cc61456ac7fac1ac89" kind="enumvalue"><name>black</name></member>
+  </compound>
+  <compound refid="_rule_model_8cs" kind="file"><name>RuleModel.cs</name>
+  </compound>
+  <compound refid="_rule_model_list_8cs" kind="file"><name>RuleModelList.cs</name>
+  </compound>
+  <compound refid="_pop_up_8cs" kind="file"><name>PopUp.cs</name>
+  </compound>
+  <compound refid="_pop_up_view_8cs" kind="file"><name>PopUpView.cs</name>
+  </compound>
+  <compound refid="_main_view_8cs" kind="file"><name>MainView.cs</name>
+  </compound>
+  <compound refid="dir_b500f500d6f9b315c95ab1cd4a3b5c0d" kind="dir"><name>Controller</name>
+  </compound>
+  <compound refid="dir_312950da3f243a51cc00f4a947545131" kind="dir"><name>Model</name>
+  </compound>
+  <compound refid="dir_bf34d99d7dcc585e5ddbcc2113d76a68" kind="dir"><name>PopUp</name>
+  </compound>
+  <compound refid="dir_f2ee84e8e3a17eaa7015d788fa443c27" kind="dir"><name>View</name>
+  </compound>
+</doxygenindex>
