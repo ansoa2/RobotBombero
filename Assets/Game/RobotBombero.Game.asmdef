@@ -1,0 +1,16 @@
+{
+    "name": "RobotBombero.Game",
+    "rootNamespace": "RobotBombero.Game",
+    "references": [
+        "RobotBombero.Simulation"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

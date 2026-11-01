@@ -47,3 +47,6 @@ Server/**/wwwroot/
 
 # Flujo de trabajo local
 .superpowers/
+
+# Datos locales del servidor
+Server/data/
