@@ -98,28 +98,40 @@ namespace RobotBombero.Server.Api
                     DateTime now = DateTime.UtcNow;
                     using (var cmd = connection.CreateCommand())
                     {
+                        // INICIO_PARTIDA, no PARTIDA: borrar un pack no debe devolver partidas al límite.
                         // Las fechas son UTC en formato "o": de ancho fijo, comparables como texto.
                         cmd.Transaction = tx;
-                        cmd.CommandText = "SELECT COUNT(*) FROM PARTIDA p JOIN PACK k ON k.ID_PACK = p.ID_PACK WHERE k.ID_JUGADOR = $j AND p.FECHA > $since";
+                        cmd.CommandText = "DELETE FROM INICIO_PARTIDA WHERE FECHA <= $since; SELECT COUNT(*) FROM INICIO_PARTIDA WHERE ID_JUGADOR = $j";
                         cmd.Parameters.AddWithValue("$j", player.Value);
                         cmd.Parameters.AddWithValue("$since", now.AddHours(-1).ToString("o"));
                         if ((long)cmd.ExecuteScalar() >= MaxGamesPerHour)
                             return Results.Json(new { error = "Demasiadas partidas en la última hora." }, statusCode: StatusCodes.Status429TooManyRequests);
                     }
+                    using (var cmd = connection.CreateCommand())
+                    {
+                        cmd.Transaction = tx;
+                        cmd.CommandText = "INSERT INTO INICIO_PARTIDA (ID_JUGADOR, FECHA) VALUES ($j, $f)";
+                        cmd.Parameters.AddWithValue("$j", player.Value);
+                        cmd.Parameters.AddWithValue("$f", now.ToString("o"));
+                        cmd.ExecuteNonQuery();
+                    }
 
                     string hash = RulesHash.Compute(body.Rules);
                     if (hash != packHash)
                     {
-                        // Otras reglas: la marca anterior ya no es comparable y sale de la clasificación.
                         using (var cmd = connection.CreateCommand())
                         {
                             cmd.Transaction = tx;
-                            cmd.CommandText = "UPDATE PACK SET REGLAS_HASH = $h WHERE ID_PACK = $id; DELETE FROM CLASIFICACION WHERE ID_PACK = $id";
+                            cmd.CommandText = "UPDATE PACK SET REGLAS_HASH = $h WHERE ID_PACK = $id";
                             cmd.Parameters.AddWithValue("$h", hash);
                             cmd.Parameters.AddWithValue("$id", packId);
                             cmd.ExecuteNonQuery();
                         }
+                        LeaderboardUpdater.OnPackInvalidated(connection, tx, packId, packBeingDeleted: false);
                     }
+
+                    // Texto libre sin validar que la repetición no necesita: no se guarda.
+                    foreach (Rule rule in body.Rules) rule.name = null;
 
                     uint seed = BitConverter.ToUInt32(RandomNumberGenerator.GetBytes(sizeof(uint)));
                     long gameId;
@@ -155,7 +167,6 @@ namespace RobotBombero.Server.Api
                 // Inmediata: dos finish a la vez se esperan, y el segundo ve la partida ya terminada.
                 using (var tx = connection.BeginTransaction(deferred: false))
                 {
-                    long packId;
                     uint seed;
                     string rulesJson, expires;
                     GameOutcome stored = null;
@@ -164,27 +175,26 @@ namespace RobotBombero.Server.Api
                     {
                         cmd.Transaction = tx;
                         cmd.CommandText =
-                            "SELECT p.ID_PACK, k.ID_JUGADOR, p.SEMILLA, p.REGLAS_JSON, p.ESTADO, p.CADUCA, p.PASOS, p.FUEGOS, p.PUNTOS, p.CAUSA_MUERTE " +
+                            "SELECT k.ID_JUGADOR, p.SEMILLA, p.REGLAS_JSON, p.ESTADO, p.CADUCA, p.PASOS, p.FUEGOS, p.PUNTOS, p.CAUSA_MUERTE " +
                             "FROM PARTIDA p JOIN PACK k ON k.ID_PACK = p.ID_PACK WHERE p.ID_PARTIDA = $id";
                         cmd.Parameters.AddWithValue("$id", id);
                         using (var reader = cmd.ExecuteReader())
                         {
                             if (!reader.Read()) return Results.NotFound();
-                            if (reader.GetInt64(1) != player.Value) return Results.StatusCode(StatusCodes.Status403Forbidden);
+                            if (reader.GetInt64(0) != player.Value) return Results.StatusCode(StatusCodes.Status403Forbidden);
 
-                            packId = reader.GetInt64(0);
-                            seed = (uint)reader.GetInt64(2);
-                            rulesJson = reader.GetString(3);
-                            expires = reader.GetString(5);
-                            if (reader.GetString(4) == Finished)
+                            seed = (uint)reader.GetInt64(1);
+                            rulesJson = reader.GetString(2);
+                            expires = reader.GetString(4);
+                            if (reader.GetString(3) == Finished)
                             {
-                                stored = new GameOutcome(reader.GetInt32(6), reader.GetInt32(7), reader.GetInt64(8), reader.GetString(9));
+                                stored = new GameOutcome(reader.GetInt32(5), reader.GetInt32(6), reader.GetInt64(7), reader.GetString(8));
                             }
                         }
                     }
 
                     // Una partida terminada conserva su resultado aunque ya haya pasado su caducidad.
-                    if (stored != null) return Response(stored, LeaderboardUpdater.RankOfPack(connection, tx, packId));
+                    if (stored != null) return Response(stored, LeaderboardUpdater.RankOfGame(connection, tx, id));
 
                     if (string.CompareOrdinal(expires, DateTime.UtcNow.ToString("o")) <= 0)
                         return Results.Json(new { error = "La partida ha caducado." }, statusCode: StatusCodes.Status410Gone);
@@ -213,7 +223,7 @@ namespace RobotBombero.Server.Api
                     }
 
                     LeaderboardUpdater.Update(connection, tx, id);
-                    long? rank = LeaderboardUpdater.RankOfPack(connection, tx, packId);
+                    long? rank = LeaderboardUpdater.RankOfGame(connection, tx, id);
                     tx.Commit();
                     return Response(outcome, rank);
                 }

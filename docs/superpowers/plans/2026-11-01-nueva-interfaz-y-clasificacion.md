@@ -16,8 +16,8 @@
 - La partida termina por batería ≤ 0, por avanzar hacia fuego, por 100 ciclos sin apagar un fuego o a los 5.000 pasos ("misión superada"). El máximo de pasos es un valor configurable.
 - Puntos = (fuegos / pasos) x pasos², equivalente a fuegos x pasos. Con 0 fuegos o 0 pasos valen 0.
 - Máximo de 5 acciones por regla. La regla se detiene en cuanto el robot muere.
-- Clasificación: tabla independiente, top 100, una fila por pack con su mejor partida; se actualiza al terminar cada partida.
-- Solo cuenta el mejor entre packs de un jugador con reglas idénticas. Editar las reglas o borrar un pack saca su fila; renombrarlo no.
+- Clasificación: tabla independiente, top 100, una fila por jugador con su mejor partida entre todos sus packs; se actualiza al terminar cada partida.
+- Editar las reglas o borrar el pack que da su puesto al jugador invalida esa partida, y la fila pasa a su mejor partida vigente de otros packs, si entra en el top; renombrar un pack no le afecta.
 - El servidor no guarda correo, nombre real, ubicación ni dirección IP.
 - La simulación es determinista y no depende de Unity, de la interfaz ni de la velocidad elegida.
 - La interfaz funciona en móvil vertical y horizontal, tableta y escritorio, con pantalla táctil y ratón.

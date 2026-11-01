@@ -186,6 +186,12 @@ namespace RobotBombero.Tests
             return await FinishOk(key, gameId);
         }
 
+        protected long InsertPlayer(string name)
+        {
+            Exec("INSERT INTO JUGADOR (NOMBRE,HUELLA_CLAVE,FECHA_CREACION) VALUES ('" + name + "','" + name + "','2026-01-01T00:00:00.0000000Z')");
+            return Scalar("SELECT MAX(ID_JUGADOR) FROM JUGADOR");
+        }
+
         protected long InsertPack(long playerId, string name, string hash)
         {
             Exec("INSERT INTO PACK (ID_JUGADOR,NOMBRE,REGLAS_HASH,FECHA_CREACION) VALUES (" +

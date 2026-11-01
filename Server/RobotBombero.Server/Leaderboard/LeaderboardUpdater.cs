@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 namespace RobotBombero.Server.Leaderboard
 {
     /// <summary>
-    /// Mantiene CLASIFICACION: una fila por pack, una sola por reglas idénticas de un jugador y 100 como máximo.
+    /// Mantiene CLASIFICACION: una fila por jugador, con su mejor partida vigente, y 100 como máximo.
     /// "Superar" significa quedar por encima en el orden de la clasificación: más puntos o, con los mismos, una
     /// fecha anterior. Así el resultado no depende del orden en que se terminen las partidas.
     /// </summary>
@@ -14,11 +14,6 @@ namespace RobotBombero.Server.Leaderboard
 
         /// <summary>El orden público de la clasificación; lo comparten la API y este actualizador.</summary>
         public const string Ordering = "PUNTOS DESC, FECHA ASC, ID_CLASIFICACION ASC";
-
-        private const string OtherPacksSameRules =
-            "SELECT c.ID_CLASIFICACION, c.PUNTOS, c.FECHA FROM CLASIFICACION c " +
-            "JOIN PARTIDA p ON p.ID_PARTIDA = c.ID_PARTIDA " +
-            "WHERE c.ID_JUGADOR = $j AND c.ID_PACK <> $k AND p.REGLAS_HASH = $h";
 
         private readonly struct Mark
         {
@@ -40,9 +35,66 @@ namespace RobotBombero.Server.Leaderboard
 
         public static void Update(SqliteConnection connection, SqliteTransaction transaction, long partidaId)
         {
+            Place(connection, transaction, partidaId, boardWasFull: false);
+        }
+
+        /// <summary>
+        /// Llamar en la misma transacción cuando cambian las reglas de un pack (ya con su nueva huella guardada)
+        /// o antes de borrarlo. Si el pack da su puesto al jugador, retira la fila y la pasa a su mejor partida
+        /// vigente, si entra en el top. Si no, no cambia nada.
+        /// </summary>
+        public static void OnPackInvalidated(SqliteConnection connection, SqliteTransaction transaction, long packId, bool packBeingDeleted)
+        {
+            long playerId;
+            using (var cmd = Command(connection, transaction, "SELECT ID_JUGADOR FROM CLASIFICACION WHERE ID_PACK = $k"))
+            {
+                cmd.Parameters.AddWithValue("$k", packId);
+                object holder = cmd.ExecuteScalar();
+                if (holder == null) return;
+                playerId = Convert.ToInt64(holder);
+            }
+
+            // Con el top lleno, retirar la fila no abre un hueco para cualquiera: partidas que quedaron
+            // fuera pueden valer más que esta, así que debe superar a la última igual que siempre.
+            bool boardWasFull = CountRows(connection, transaction) >= MaxRows;
+
+            using (var cmd = Command(connection, transaction, "DELETE FROM CLASIFICACION WHERE ID_JUGADOR = $j"))
+            {
+                cmd.Parameters.AddWithValue("$j", playerId);
+                cmd.ExecuteNonQuery();
+            }
+
+            object best;
+            using (var cmd = Command(connection, transaction,
+                "SELECT p.ID_PARTIDA FROM PARTIDA p JOIN PACK k ON k.ID_PACK = p.ID_PACK " +
+                "WHERE k.ID_JUGADOR = $j AND p.ESTADO = 'TERMINADA' AND p.REGLAS_HASH = k.REGLAS_HASH " +
+                "AND (p.ID_PACK <> $k OR $deleted = 0) " +
+                "ORDER BY p.PUNTOS DESC, p.FECHA ASC, p.ID_PARTIDA ASC LIMIT 1"))
+            {
+                cmd.Parameters.AddWithValue("$j", playerId);
+                cmd.Parameters.AddWithValue("$k", packId);
+                cmd.Parameters.AddWithValue("$deleted", packBeingDeleted ? 1 : 0);
+                best = cmd.ExecuteScalar();
+            }
+            if (best != null) Place(connection, transaction, Convert.ToInt64(best), boardWasFull);
+        }
+
+        /// <summary>Posición (desde 1) de la partida, o null si no es la que tiene la fila de su jugador.</summary>
+        public static long? RankOfGame(SqliteConnection connection, SqliteTransaction transaction, long partidaId)
+        {
+            using (var cmd = Command(connection, transaction,
+                "SELECT POSICION FROM (SELECT ID_PARTIDA, ROW_NUMBER() OVER (ORDER BY " + Ordering + ") AS POSICION FROM CLASIFICACION) WHERE ID_PARTIDA = $id"))
+            {
+                cmd.Parameters.AddWithValue("$id", partidaId);
+                object rank = cmd.ExecuteScalar();
+                return rank == null ? (long?)null : Convert.ToInt64(rank);
+            }
+        }
+
+        private static void Place(SqliteConnection connection, SqliteTransaction transaction, long partidaId, bool boardWasFull)
+        {
             long packId, playerId;
             int steps, fires;
-            string hash;
             Mark game;
 
             using (var cmd = Command(connection, transaction,
@@ -55,8 +107,7 @@ namespace RobotBombero.Server.Leaderboard
                     if (!reader.Read() || reader.GetString(8) != "TERMINADA") return;
 
                     // Si el pack cambió de reglas después de empezar, esta partida ya no lo representa.
-                    hash = reader.GetString(6);
-                    if (hash != reader.GetString(7)) return;
+                    if (reader.GetString(6) != reader.GetString(7)) return;
 
                     packId = reader.GetInt64(0);
                     playerId = reader.GetInt64(1);
@@ -66,35 +117,20 @@ namespace RobotBombero.Server.Leaderboard
                 }
             }
 
-            // 1. Si hay fila del mismo pack, sigue solo si la partida la supera.
-            using (var cmd = Command(connection, transaction, "SELECT PUNTOS, FECHA FROM CLASIFICACION WHERE ID_PACK = $k"))
+            // Una partida de 0 puntos no entra, aunque haya sitio.
+            if (game.Points <= 0) return;
+
+            // 1. Si el jugador ya tiene fila, sigue solo si la partida la supera, venga del pack que venga.
+            using (var cmd = Command(connection, transaction, "SELECT PUNTOS, FECHA FROM CLASIFICACION WHERE ID_JUGADOR = $j"))
             {
-                cmd.Parameters.AddWithValue("$k", packId);
+                cmd.Parameters.AddWithValue("$j", playerId);
                 Mark? own = ReadMark(cmd);
                 if (own != null && !game.Beats(own.Value)) return;
             }
 
-            // 2. Si hay fila de otro pack del jugador con las mismas reglas, también debe superarla, y entonces se borra.
-            using (var cmd = Command(connection, transaction, "SELECT PUNTOS, FECHA FROM (" + OtherPacksSameRules + ") ORDER BY " + Ordering + " LIMIT 1"))
-            {
-                AddSameRulesParameters(cmd, playerId, packId, hash);
-                Mark? twin = ReadMark(cmd);
-                if (twin != null && !game.Beats(twin.Value)) return;
-            }
-            using (var cmd = Command(connection, transaction, "DELETE FROM CLASIFICACION WHERE ID_CLASIFICACION IN (SELECT ID_CLASIFICACION FROM (" + OtherPacksSameRules + "))"))
-            {
-                AddSameRulesParameters(cmd, playerId, packId, hash);
-                cmd.ExecuteNonQuery();
-            }
-
-            // 3. Entra si hay hueco o si supera a la última. Si el paso 2 borró algo, hay hueco; si el pack
-            // ya tenía fila, la supera y por tanto también supera a la última: aquí no se pierde nada.
-            long count;
-            using (var cmd = Command(connection, transaction, "SELECT COUNT(*) FROM CLASIFICACION"))
-            {
-                count = (long)cmd.ExecuteScalar();
-            }
-            if (count >= MaxRows)
+            // 2. Entra si hay hueco o si supera a la última. Si el jugador ya tenía fila y la ha superado,
+            // también supera a la última, así que aquí no se pierde ninguna fila.
+            if (boardWasFull || CountRows(connection, transaction) >= MaxRows)
             {
                 using (var cmd = Command(connection, transaction, "SELECT PUNTOS, FECHA FROM CLASIFICACION ORDER BY PUNTOS ASC, FECHA DESC, ID_CLASIFICACION DESC LIMIT 1"))
                 {
@@ -103,6 +139,7 @@ namespace RobotBombero.Server.Leaderboard
                 }
             }
 
+            // La restricción UNIQUE de ID_JUGADOR hace que esto reemplace la fila anterior del jugador.
             using (var cmd = Command(connection, transaction,
                 "INSERT OR REPLACE INTO CLASIFICACION (ID_JUGADOR, ID_PACK, ID_PARTIDA, PUNTOS, PASOS, FUEGOS, FECHA) " +
                 "VALUES ($j, $k, $id, $pts, $s, $f, $d)"))
@@ -117,7 +154,7 @@ namespace RobotBombero.Server.Leaderboard
                 cmd.ExecuteNonQuery();
             }
 
-            // 4. Borra lo que sobre por encima de 100.
+            // 3. Borra lo que sobre por encima de 100.
             using (var cmd = Command(connection, transaction,
                 "DELETE FROM CLASIFICACION WHERE ID_CLASIFICACION NOT IN " +
                 "(SELECT ID_CLASIFICACION FROM CLASIFICACION ORDER BY " + Ordering + " LIMIT $max)"))
@@ -127,15 +164,11 @@ namespace RobotBombero.Server.Leaderboard
             }
         }
 
-        /// <summary>Posición (desde 1) del pack en la clasificación, o null si no está en el top.</summary>
-        public static long? RankOfPack(SqliteConnection connection, SqliteTransaction transaction, long packId)
+        private static long CountRows(SqliteConnection connection, SqliteTransaction transaction)
         {
-            using (var cmd = Command(connection, transaction,
-                "SELECT POSICION FROM (SELECT ID_PACK, ROW_NUMBER() OVER (ORDER BY " + Ordering + ") AS POSICION FROM CLASIFICACION) WHERE ID_PACK = $k"))
+            using (var cmd = Command(connection, transaction, "SELECT COUNT(*) FROM CLASIFICACION"))
             {
-                cmd.Parameters.AddWithValue("$k", packId);
-                object rank = cmd.ExecuteScalar();
-                return rank == null ? (long?)null : Convert.ToInt64(rank);
+                return (long)cmd.ExecuteScalar();
             }
         }
 
@@ -145,13 +178,6 @@ namespace RobotBombero.Server.Leaderboard
             cmd.Transaction = transaction;
             cmd.CommandText = sql;
             return cmd;
-        }
-
-        private static void AddSameRulesParameters(SqliteCommand cmd, long playerId, long packId, string hash)
-        {
-            cmd.Parameters.AddWithValue("$j", playerId);
-            cmd.Parameters.AddWithValue("$k", packId);
-            cmd.Parameters.AddWithValue("$h", hash);
         }
 
         private static Mark? ReadMark(SqliteCommand cmd)

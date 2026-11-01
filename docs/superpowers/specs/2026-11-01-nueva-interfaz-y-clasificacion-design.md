@@ -75,12 +75,10 @@ Esto equivale a `fuegos apagados x pasos`. Una partida con 0 fuegos o 0 pasos va
 Decidido:
 
 - Se ordena por puntos.
-- Hay una fila por pack de reglas, con la mejor partida de ese pack.
-- Un jugador puede aparecer varias veces si tiene varios packs.
+- Cada jugador aparece una sola vez, con la mejor partida entre todos sus packs. Así, renombrar o duplicar reglas no sirve para salir varias veces.
 - Un pack importado pasa a ser del jugador que lo importa y compite con su nombre, sin reconocer al autor original.
 - La clasificación es una tabla independiente que se actualiza al terminar cada partida. En ese momento se comprueba si la partida entra en el **top 100**.
-- Al editar las reglas de un pack o borrarlo, su fila sale de la clasificación. Renombrarlo no le afecta.
-- Si un jugador tiene varios packs con reglas idénticas, solo cuenta el mejor.
+- Si se editan las reglas del pack que da su puesto al jugador, o se borra ese pack, esa partida deja de contar. Criterio de Claude: la fila pasa a la mejor partida vigente de sus otros packs, si la hay y entra en el top. Renombrar un pack no le afecta.
 
 ## 6. Pantallas
 
@@ -126,7 +124,7 @@ Criterio de Claude:
 | `JUGADOR` | `ID_JUGADOR` (clave primaria), `NOMBRE` (único), `HUELLA_CLAVE`, `FECHA_CREACION` |
 | `PACK` | `ID_PACK` (clave primaria), `ID_JUGADOR` (clave foránea), `NOMBRE`, `FECHA_CREACION` |
 | `PARTIDA` | `ID_PARTIDA` (clave primaria), `ID_PACK` (clave foránea), `SEMILLA`, `REGLAS_JSON`, `PASOS`, `FUEGOS`, `PUNTOS`, `CAUSA_MUERTE`, `FECHA` |
-| `CLASIFICACION` | `ID_CLASIFICACION` (clave primaria), `ID_JUGADOR`, `ID_PACK` e `ID_PARTIDA` (claves foráneas), `PUNTOS`, `PASOS`, `FUEGOS`, `FECHA`. Solo contiene las filas del top, con una por pack |
+| `CLASIFICACION` | `ID_CLASIFICACION` (clave primaria), `ID_JUGADOR`, `ID_PACK` e `ID_PARTIDA` (claves foráneas), `PUNTOS`, `PASOS`, `FUEGOS`, `FECHA`. Solo contiene las filas del top, con una por jugador |
 
 ### 8.1 Validación de puntuaciones
 

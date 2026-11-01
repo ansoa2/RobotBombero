@@ -7,7 +7,7 @@ namespace RobotBombero.Tests
 {
     public class DatabaseTests
     {
-        private static readonly string[] Tables = { "JUGADOR", "PACK", "PARTIDA", "CLASIFICACION" };
+        private static readonly string[] Tables = { "JUGADOR", "PACK", "PARTIDA", "CLASIFICACION", "INICIO_PARTIDA" };
 
         // En memoria compartida: la base vive mientras haya una conexión abierta.
         private static Database NewDb(out SqliteConnection keepAlive)
@@ -47,7 +47,7 @@ namespace RobotBombero.Tests
                 db.Migrate();
                 db.Migrate();
                 using (var c = db.Open())
-                    Assert.Equal(4, Scalar(c, "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"));
+                    Assert.Equal(5, Scalar(c, "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"));
             }
         }
 
@@ -91,6 +91,24 @@ namespace RobotBombero.Tests
                 Exec(c, "INSERT INTO JUGADOR(NOMBRE,HUELLA_CLAVE,FECHA_CREACION) VALUES('Ana','k','2026-01-01')");
                 Assert.Throws<SqliteException>(() =>
                     Exec(c, "INSERT INTO JUGADOR(NOMBRE,HUELLA_CLAVE,FECHA_CREACION) VALUES('ANA','k2','2026-01-01')"));
+            }
+        }
+
+        [Fact]
+        public void Clasificacion_UniquePerPlayer_NotPerPack()
+        {
+            var db = NewDb(out var keep);
+            using (keep)
+            using (var c = db.Open())
+            {
+                Exec(c, "INSERT INTO JUGADOR(NOMBRE,HUELLA_CLAVE,FECHA_CREACION) VALUES('Ana','k','2026-01-01'),('Beto','k2','2026-01-01')");
+                Exec(c, "INSERT INTO PACK(ID_JUGADOR,NOMBRE,REGLAS_HASH,FECHA_CREACION) VALUES(1,'p','h','2026-01-01')");
+                Exec(c, "INSERT INTO PARTIDA(ID_PACK,SEMILLA,REGLAS_JSON,REGLAS_HASH,ESTADO,CADUCA,FECHA) VALUES(1,1,'[]','h','EN_CURSO','2999','2026-01-01')");
+                Exec(c, "INSERT INTO CLASIFICACION(ID_JUGADOR,ID_PACK,ID_PARTIDA,PUNTOS,PASOS,FUEGOS,FECHA) VALUES(1,1,1,1,1,1,'2026-01-01')");
+
+                Assert.Throws<SqliteException>(() =>
+                    Exec(c, "INSERT INTO CLASIFICACION(ID_JUGADOR,ID_PACK,ID_PARTIDA,PUNTOS,PASOS,FUEGOS,FECHA) VALUES(1,1,1,2,1,1,'2026-01-01')"));
+                Exec(c, "INSERT INTO CLASIFICACION(ID_JUGADOR,ID_PACK,ID_PARTIDA,PUNTOS,PASOS,FUEGOS,FECHA) VALUES(2,1,1,2,1,1,'2026-01-01')");
             }
         }
 

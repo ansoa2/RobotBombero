@@ -193,6 +193,24 @@ namespace RobotBombero.Tests
         }
 
         [Fact]
+        public async Task Start_DoesNotStoreRuleNames()
+        {
+            var (_, key) = await NewPlayer("Ana");
+            long pack = await NewPack(key, "Pack", Hash(1));
+            var rules = Basicas();
+            foreach (Rule rule in rules) rule.name = "TextoLibreDelJugador";
+
+            var (game, seed) = await StartOk(key, pack, rules);
+
+            string stored = ScalarText("SELECT REGLAS_JSON FROM PARTIDA WHERE ID_PARTIDA=" + game);
+            Assert.DoesNotContain("TextoLibreDelJugador", stored);
+            Assert.All(JsonSerializer.Deserialize<Rule[]>(stored, Json), r => Assert.Null(r.name));
+            // Los nombres no forman parte de la huella ni de la partida.
+            Assert.Equal(RulesHash.Compute(Basicas()), ScalarText("SELECT REGLAS_HASH FROM PARTIDA WHERE ID_PARTIDA=" + game));
+            AssertResult(await FinishOk(key, game), Simulate(Basicas(), seed));
+        }
+
+        [Fact]
         public async Task Start_RulesChanged_UpdatesHashAndRemovesRow()
         {
             var (id, key) = await NewPlayer("Ana");
@@ -457,24 +475,25 @@ namespace RobotBombero.Tests
         }
 
         [Fact]
-        public async Task RateLimit_GamesOlderThanOneHour_DoNotCount()
+        public async Task RateLimit_GamesOlderThanOneHour_DoNotCount_AndArePruned()
         {
-            var (_, key) = await NewPlayer("Ana");
+            var (id, key) = await NewPlayer("Ana");
             long pack = await NewPack(key, "A", Hash(1));
-            InsertGames(pack, 60, DateTime.UtcNow.AddMinutes(-59));
+            InsertStarts(id, 60, DateTime.UtcNow.AddMinutes(-59));
             Assert.Equal((HttpStatusCode)429, (await Start(key, pack, Basicas())).StatusCode);
 
-            Exec("UPDATE PARTIDA SET FECHA='" + DateTime.UtcNow.AddMinutes(-61).ToString("o") + "'");
+            Exec("UPDATE INICIO_PARTIDA SET FECHA='" + DateTime.UtcNow.AddMinutes(-61).ToString("o") + "'");
 
             await StartOk(key, pack, Basicas());
+            Assert.Equal(1, Scalar("SELECT COUNT(*) FROM INICIO_PARTIDA"));
         }
 
         [Fact]
         public async Task RateLimit_FinishingDoesNotFreeSlots()
         {
-            var (_, key) = await NewPlayer("Ana");
+            var (id, key) = await NewPlayer("Ana");
             long pack = await NewPack(key, "A", Hash(1));
-            InsertGames(pack, 59, DateTime.UtcNow.AddMinutes(-1));
+            InsertStarts(id, 59, DateTime.UtcNow.AddMinutes(-1));
             var (game, _) = await StartOk(key, pack, Basicas());
             await FinishOk(key, game);
 
@@ -482,17 +501,36 @@ namespace RobotBombero.Tests
         }
 
         [Fact]
-        public async Task RateLimit_Concurrent_NeverExceeded()
+        public async Task RateLimit_SurvivesPackDeletion()
         {
             var (_, key) = await NewPlayer("Ana");
             long pack = await NewPack(key, "A", Hash(1));
-            InsertGames(pack, 55, DateTime.UtcNow.AddMinutes(-1));
+            for (int i = 0; i < 60; i++)
+            {
+                await StartOk(key, pack, Basicas());
+            }
+
+            var del = await Send(HttpMethod.Delete, "/api/packs/" + pack, key);
+            Assert.Equal(HttpStatusCode.NoContent, del.StatusCode);
+            Assert.Equal(0, Scalar("SELECT COUNT(*) FROM PARTIDA"));
+
+            long another = await NewPack(key, "B", Hash(2));
+            Assert.Equal((HttpStatusCode)429, (await Start(key, another, Basicas())).StatusCode);
+        }
+
+        [Fact]
+        public async Task RateLimit_Concurrent_NeverExceeded()
+        {
+            var (id, key) = await NewPlayer("Ana");
+            long pack = await NewPack(key, "A", Hash(1));
+            InsertStarts(id, 55, DateTime.UtcNow.AddMinutes(-1));
 
             var results = await Task.WhenAll(Enumerable.Range(0, 16).Select(_ => Task.Run(() => Start(key, pack, Basicas()))));
 
             Assert.Equal(5, results.Count(r => r.IsSuccessStatusCode));
             Assert.Equal(11, results.Count(r => r.StatusCode == (HttpStatusCode)429));
-            Assert.Equal(60, Scalar("SELECT COUNT(*) FROM PARTIDA"));
+            Assert.Equal(60, Scalar("SELECT COUNT(*) FROM INICIO_PARTIDA"));
+            Assert.Equal(5, Scalar("SELECT COUNT(*) FROM PARTIDA"));
         }
 
         private void InsertRowForPack(long playerId, long packId, string hash)
@@ -509,7 +547,7 @@ namespace RobotBombero.Tests
             Assert.Equal(0, Scalar("SELECT COUNT(*) FROM PARTIDA WHERE ESTADO='EN_CURSO'"));
         }
 
-        private void InsertGames(long pack, int count, DateTime when)
+        private void InsertStarts(long playerId, int count, DateTime when)
         {
             using (var c = OpenDb())
             using (var tx = c.BeginTransaction(deferred: false))
@@ -519,9 +557,8 @@ namespace RobotBombero.Tests
                     using (var cmd = c.CreateCommand())
                     {
                         cmd.Transaction = tx;
-                        cmd.CommandText = "INSERT INTO PARTIDA (ID_PACK,SEMILLA,REGLAS_JSON,REGLAS_HASH,ESTADO,CADUCA,FECHA) VALUES ($p,1,'[]',$h,'EN_CURSO','2999-01-01T00:00:00.0000000Z',$f)";
-                        cmd.Parameters.AddWithValue("$p", pack);
-                        cmd.Parameters.AddWithValue("$h", Hash(1));
+                        cmd.CommandText = "INSERT INTO INICIO_PARTIDA (ID_JUGADOR,FECHA) VALUES ($j,$f)";
+                        cmd.Parameters.AddWithValue("$j", playerId);
                         cmd.Parameters.AddWithValue("$f", when.ToString("o"));
                         cmd.ExecuteNonQuery();
                     }

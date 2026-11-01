@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Data.Sqlite;
 using RobotBombero.Server.Data;
+using RobotBombero.Server.Leaderboard;
 using RobotBombero.Simulation;
 
 namespace RobotBombero.Server.Api
@@ -73,16 +74,10 @@ namespace RobotBombero.Server.Api
                             cmd.Parameters.AddWithValue("$id", id);
                             cmd.ExecuteNonQuery();
                         }
-                        // Si cambian las reglas, la marca anterior ya no es comparable: se retira de la clasificación.
+                        // Si cambian las reglas, la marca del pack ya no vale; renombrar no afecta a la clasificación.
                         if (oldHash != body.RulesHash)
                         {
-                            using (var cmd = connection.CreateCommand())
-                            {
-                                cmd.Transaction = tx;
-                                cmd.CommandText = "DELETE FROM CLASIFICACION WHERE ID_PACK = $id";
-                                cmd.Parameters.AddWithValue("$id", id);
-                                cmd.ExecuteNonQuery();
-                            }
+                            LeaderboardUpdater.OnPackInvalidated(connection, tx, id, packBeingDeleted: false);
                         }
                         tx.Commit();
                         return Results.NoContent();
@@ -102,8 +97,10 @@ namespace RobotBombero.Server.Api
                         IResult denied = CheckOwner(connection, tx, id, player.Value, out string _);
                         if (denied != null) return denied;
 
-                        // Orden de claves foráneas: CLASIFICACION -> PARTIDA -> PACK.
-                        foreach (string table in new[] { "CLASIFICACION", "PARTIDA", "PACK" })
+                        LeaderboardUpdater.OnPackInvalidated(connection, tx, id, packBeingDeleted: true);
+
+                        // Orden de claves foráneas: PARTIDA -> PACK. La fila del pack, si la había, ya no está.
+                        foreach (string table in new[] { "PARTIDA", "PACK" })
                         {
                             using (var cmd = connection.CreateCommand())
                             {
