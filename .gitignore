@@ -14,7 +14,9 @@
 .vscode/
 .idea/
 *.csproj
+!Server/**/*.csproj
 *.sln
+*.slnx
 *.suo
 *.user
 *.userprefs
