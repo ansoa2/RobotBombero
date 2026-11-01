@@ -36,3 +36,12 @@ crashlytics-build.properties
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Servidor .NET y herramientas
+Server/**/bin/
+Server/**/obj/
+Server/**/wwwroot/
+*.db
+
+# Flujo de trabajo local
+.superpowers/
