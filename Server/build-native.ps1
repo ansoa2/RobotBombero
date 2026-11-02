@@ -5,8 +5,8 @@
 param(
     [ValidateSet("Android", "Windows", "Ambas")]
     [string]$Plataforma = "Ambas",
-    # Dirección del servidor que llevará por defecto una instalación limpia (la app deja cambiarla). Vacío: el campo sale vacío.
-    [string]$Servidor = "",
+    # Dirección del servidor, fijada en la app al compilar (el jugador no la ve ni la cambia).
+    [string]$Servidor = "192.168.1.149:5080",
     [string]$UnityPath = ""
 )
 
