@@ -104,6 +104,7 @@ namespace RobotBombero.Game
 #elif UNITY_STANDALONE_WIN
             ReadFrom(WindowsFileDialog.Open("Importar pack"), onContent, onError);
 #elif UNITY_ANDROID
+            SkipStoragePermissions();
             if (NativeFilePicker.IsFilePickerBusy()) { if (onError != null) onError(ErrorCancelled); return; }
             // "*/*": el archivo del juego antiguo no tiene extensión. NativeFilePicker entrega una copia en caché (o nulo si se cancela o se deniega).
             NativeFilePicker.PickFile(path => ReadFrom(path, onContent, onError, true), "*/*");
@@ -159,8 +160,15 @@ namespace RobotBombero.Game
 #endif
 
 #if UNITY_ANDROID && !UNITY_EDITOR
+        // El selector y el guardado del sistema no necesitan permisos de almacenamiento: el complemento no debe pedirlos.
+        private static void SkipStoragePermissions()
+        {
+            using (var picker = new AndroidJavaClass("com.yasirkula.unity.NativeFilePicker")) picker.SetStatic("PermissionFreeMode", true);
+        }
+
         private static void DownloadAndroid(string fileName, string content, Action onDone, Action<string> onError)
         {
+            SkipStoragePermissions();
             if (NativeFilePicker.IsFilePickerBusy() || !NativeFilePicker.CanExportFiles()) { if (onError != null) onError(ErrorUnavailable); return; }
             // El sistema ofrece el lugar donde guardar el archivo; se parte de una copia temporal con el nombre sugerido.
             string temp = Path.Combine(Application.temporaryCachePath, fileName);
