@@ -55,6 +55,9 @@ namespace RobotBombero.Game
     public sealed class ScreenRouter
     {
         public const string LandscapeClass = "is-landscape";
+        /// <summary>Vertical pero ancho (tabletas): el fondo recorta distinto y el menú se compacta.</summary>
+        public const string TabletClass = "is-tablet";
+        public const float TabletAspect = 0.65f;
 
         private sealed class Entry
         {
@@ -123,6 +126,7 @@ namespace RobotBombero.Game
 
             IsLandscape = width > height;
             _app.EnableInClassList(LandscapeClass, IsLandscape);
+            _app.EnableInClassList(TabletClass, !IsLandscape && width / height >= TabletAspect);
 
             Texture2D background = IsLandscape ? _landscape : _portrait;
             if (background != CurrentBackground)

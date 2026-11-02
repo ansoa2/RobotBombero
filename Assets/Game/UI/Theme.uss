@@ -356,3 +356,26 @@
 .placeholder__card .btn {
     margin-top: 18px;
 }
+
+/* --- Tableta vertical (relación de aspecto cercana a 3:4) ---
+   El fondo recorta más ancho: el logo en una línea y los botones en 2 x 2 dejan libres el casco y los pies del robot. */
+
+.is-tablet .logo__title {
+    flex-direction: row;
+}
+
+.is-tablet .logo__word {
+    font-size: 42px;
+    margin-right: 10px;
+}
+
+.is-tablet .menu__buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.is-tablet .menu__buttons > .btn {
+    flex-grow: 1;
+    flex-basis: 45%;
+    margin-right: 10px;
+}

@@ -52,6 +52,21 @@ namespace RobotBombero.Game
             _enter.clicked += Submit;
             _retry.clicked += Submit;
             _name.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
+            _name.RegisterValueChangedCallback(e => NameChanged());
+            ClearMessage();
+        }
+
+        /// <summary>Un aviso del resto de la aplicación (por ejemplo, sesión caducada); desaparece al cambiar el nombre.</summary>
+        public void ShowNotice(string text)
+        {
+            _granted = null;
+            ShowMessage(text, false);
+        }
+
+        /// <summary>El jugador está corrigiendo el nombre: el mensaje anterior ya no vale. No toca el reintento de guardado.</summary>
+        public void NameChanged()
+        {
+            if (_busy || _granted != null) return;
             ClearMessage();
         }
 
