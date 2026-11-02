@@ -36,7 +36,17 @@ namespace RobotBombero.Game.Tests
             yield break;
         }
 
-        public IEnumerator DeletePack(string playerKey, long serverPackId, Action<ApiResult<bool>> done) { yield break; }
+        public ApiResult<bool> DeleteResult = ApiResult<bool>.Ok(true);
+        public int DeleteCalls;
+        public long LastDeletedPackId;
+
+        public IEnumerator DeletePack(string playerKey, long serverPackId, Action<ApiResult<bool>> done)
+        {
+            DeleteCalls++;
+            LastDeletedPackId = serverPackId;
+            done(DeleteResult);
+            yield break;
+        }
 
         public IEnumerator StartGame(string playerKey, long serverPackId, Rule[] rules, Action<ApiResult<StartedGame>> done)
         {
@@ -54,7 +64,15 @@ namespace RobotBombero.Game.Tests
             yield break;
         }
 
-        public IEnumerator GetLeaderboard(Action<ApiResult<LeaderboardRow[]>> done) { yield break; }
+        public ApiResult<LeaderboardRow[]> LeaderboardResult = ApiResult<LeaderboardRow[]>.ConnectionFailed("sin red");
+        public int LeaderboardCalls;
+
+        public IEnumerator GetLeaderboard(Action<ApiResult<LeaderboardRow[]>> done)
+        {
+            LeaderboardCalls++;
+            done(LeaderboardResult);
+            yield break;
+        }
     }
 
     public class GameSessionTests

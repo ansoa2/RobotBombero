@@ -101,7 +101,8 @@ namespace RobotBombero.Game.Editor
             SerializedProperty assets = serialized.FindProperty("assets");
             assets.FindPropertyRelative("login").objectReferenceValue = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPath + "Screens/Login.uxml");
             assets.FindPropertyRelative("mainMenu").objectReferenceValue = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPath + "Screens/MainMenu.uxml");
-            assets.FindPropertyRelative("placeholder").objectReferenceValue = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPath + "Screens/Placeholder.uxml");
+            foreach (string[] screen in new[] { new[] { "rules", "Rules" }, new[] { "ruleEditor", "RuleEditor" }, new[] { "packSelect", "PackSelect" }, new[] { "game", "Game" }, new[] { "result", "Result" }, new[] { "stats", "Stats" }, new[] { "leaderboard", "Leaderboard" } })
+                assets.FindPropertyRelative(screen[0]).objectReferenceValue = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPath + "Screens/" + screen[1] + ".uxml");
             assets.FindPropertyRelative("backgroundPortrait").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Texture2D>(ArtPath + "fondo-vertical.png");
             assets.FindPropertyRelative("backgroundLandscape").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Texture2D>(ArtPath + "fondo-horizontal.png");
             serialized.ApplyModifiedPropertiesWithoutUndo();
@@ -124,9 +125,12 @@ namespace RobotBombero.Game.Editor
             Report(BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 scenes = new[] { MainScene },
-                locationPathName = "Build/Captura/RobotBombero.exe",
+                locationPathName = "Build/CapturaT11/RobotBombero.exe",
                 target = BuildTarget.StandaloneWindows64,
-                options = BuildOptions.Development
+                // Sin Development: así el reproductor no abre el puerto del perfilador (y no aparece el aviso del cortafuegos).
+                // DevFlags se activa con RB_CAPTURE, que nunca se define en una compilación de entrega.
+                extraScriptingDefines = new[] { "RB_CAPTURE" },
+                options = BuildOptions.None
             }));
         }
 

@@ -56,14 +56,7 @@ namespace RobotBombero.Game.Tests
         {
             if (existing != null) _store.SaveProfile(existing);
             _context = new GameContext(_store, _api, Drain);
-            var assets = new UiAssets
-            {
-                login = Asset<VisualTreeAsset>("Screens/Login.uxml"),
-                mainMenu = Asset<VisualTreeAsset>("Screens/MainMenu.uxml"),
-                placeholder = Asset<VisualTreeAsset>("Screens/Placeholder.uxml"),
-                backgroundPortrait = _portrait,
-                backgroundLandscape = _landscape
-            };
+            UiAssets assets = UiFixture.Assets(_portrait, _landscape);
             _router = AppScreens.Compose(_root, assets, _context);
             _router.ShowStart();
         }
@@ -299,12 +292,7 @@ namespace RobotBombero.Game.Tests
         {
             IEnumerator pending = null;
             _context = new GameContext(_store, _api, routine => pending = routine);
-            var assets = new UiAssets
-            {
-                login = Asset<VisualTreeAsset>("Screens/Login.uxml"),
-                mainMenu = Asset<VisualTreeAsset>("Screens/MainMenu.uxml"),
-                placeholder = Asset<VisualTreeAsset>("Screens/Placeholder.uxml")
-            };
+            UiAssets assets = UiFixture.Assets(null, null);
             _router = AppScreens.Compose(_root, assets, _context);
             _router.ShowStart();
             _api.CreatePlayerResult = ApiResult<PlayerCreated>.Rejected(409, null);
@@ -353,6 +341,33 @@ namespace RobotBombero.Game.Tests
             Assert.AreSame(_portrait, _router.CurrentBackground);
         }
 
+        [TestCase(768f, 1024f, true)]
+        [TestCase(540f, 960f, false)]
+        [TestCase(360f, 640f, false)]
+        [TestCase(1024f, 768f, false)]
+        public void WidePortrait_GetsTabletClass(float width, float height, bool tablet)
+        {
+            Start();
+
+            _router.ApplyLayout(width, height);
+
+            Assert.AreEqual(tablet, _root.Q("app").ClassListContains(ScreenRouter.TabletClass));
+        }
+
+        [Test]
+        public void ValidationMessage_DisappearsWhenTheNameChanges()
+        {
+            Start();
+            Login("ab");
+            Assert.IsTrue(IsDisplayed(Message));
+
+            NameField.value = "abc";
+            ((LoginController)_root.Q("login").GetFirstAncestorOfType<TemplateContainer>().userData).NameChanged();
+
+            Assert.IsFalse(IsDisplayed(Message));
+            Assert.IsTrue(IsDisplayed(Enter));
+        }
+
         [Test]
         public void SafeArea_ConvertsScreenPixelsToPanelInsets()
         {
@@ -377,11 +392,11 @@ namespace RobotBombero.Game.Tests
 
         // --- Menú ---
 
-        [TestCase("menu-play", ScreenId.PackSelect)]
-        [TestCase("menu-rules", ScreenId.Rules)]
-        [TestCase("menu-stats", ScreenId.Stats)]
-        [TestCase("menu-leaderboard", ScreenId.Leaderboard)]
-        public void MenuButton_OpensScreen_AndBackReturns(string button, ScreenId expected)
+        [TestCase("menu-play", ScreenId.PackSelect, "select-back")]
+        [TestCase("menu-rules", ScreenId.Rules, "rules-back")]
+        [TestCase("menu-stats", ScreenId.Stats, "stats-back")]
+        [TestCase("menu-leaderboard", ScreenId.Leaderboard, "lb-back")]
+        public void MenuButton_OpensScreen_AndBackReturns(string button, ScreenId expected, string back)
         {
             Start(new Profile { playerName = "Ana", playerKey = "k-secret" });
 
@@ -390,7 +405,7 @@ namespace RobotBombero.Game.Tests
             Assert.AreEqual(expected, _router.Current);
             Assert.IsNull(_root.Q("menu"), "El menú ya no debe estar en el árbol");
 
-            Click(_root.Q<Button>("placeholder-back"));
+            Click(_root.Q<Button>(back));
 
             Assert.AreEqual(ScreenId.Menu, _router.Current);
             Assert.IsNotNull(_root.Q("menu"));
@@ -410,7 +425,7 @@ namespace RobotBombero.Game.Tests
         }
 
         [Test]
-        public void Register_ReplacesPlaceholder()
+        public void Register_ReplacesScreen()
         {
             Start(new Profile { playerName = "Ana", playerKey = "k-secret" });
             var own = new VisualElement { name = "propia" };

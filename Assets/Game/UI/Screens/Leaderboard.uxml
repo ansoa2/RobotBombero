@@ -1,0 +1,25 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="leaderboard" class="screen page">
+        <ui:VisualElement class="page__inner page__inner--wide">
+            <ui:VisualElement class="page__head">
+                <ui:Button name="lb-back" text="← Volver" class="btn btn--small page__back" />
+                <ui:Label text="Clasificación global" class="page__title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="panel page__panel">
+                <ui:Label name="lb-message" class="text-muted page__empty" />
+                <ui:Button name="lb-retry" text="Reintentar" class="btn btn--small btn--main page__empty-button" />
+                <ui:VisualElement class="lb-row lb-head">
+                    <ui:Label text="#" class="lb-rank" />
+                    <ui:Label text="Jugador" class="lb-main" />
+                    <ui:Label text="Pack" class="lb-pack" />
+                    <ui:Label text="Puntos" class="lb-points" />
+                    <ui:Label text="Pasos" class="lb-steps" />
+                    <ui:Label text="Fuegos" class="lb-fires" />
+                </ui:VisualElement>
+                <ui:ScrollView name="lb-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:VisualElement name="lb-list" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

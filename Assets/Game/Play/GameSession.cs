@@ -73,6 +73,8 @@ namespace RobotBombero.Game
         public bool IsRanked { get; private set; }
         public bool IsEnded { get { return Simulation != null && Simulation.IsEnded; } }
         public SessionResult Result { get; private set; }
+        /// <summary>El servidor rechazó la clave del jugador (401) en alguna llamada: la sesión ya no es válida.</summary>
+        public bool Unauthorized { get; private set; }
 
         /// <summary>La simulación acaba de terminar. El resultado definitivo llega por OnResult tras Finish.</summary>
         public event Action OnEnded;
@@ -93,6 +95,7 @@ namespace RobotBombero.Game
                 {
                     ApiResult<StartedGame> started = null;
                     yield return _api.StartGame(_profile.playerKey, _pack.serverPackId, _pack.content.rules, r => started = r);
+                    NoteStatus(started);
                     if (started != null && started.IsOk && started.Value != null)
                     {
                         seed = started.Value.seed;
@@ -120,12 +123,14 @@ namespace RobotBombero.Game
 
             ApiResult<long> saved = null;
             yield return _api.SavePack(_profile.playerKey, _pack.serverPackId, name, hash, r => saved = r);
+            NoteStatus(saved);
 
             // El pack ya no existe en el servidor (borrado desde otro sitio): se vuelve a crear.
             if (saved != null && saved.Status == ApiStatus.Rejected && saved.HttpStatus == 404 && _pack.serverPackId > 0)
             {
                 _pack.serverPackId = 0;
                 yield return _api.SavePack(_profile.playerKey, 0, name, hash, r => saved = r);
+                NoteStatus(saved);
             }
 
             if (saved == null || !saved.IsOk)
@@ -211,6 +216,7 @@ namespace RobotBombero.Game
             {
                 ApiResult<GameResult> finished = null;
                 yield return _api.FinishGame(_profile.playerKey, _gameId, r => finished = r);
+                NoteStatus(finished);
                 if (finished != null && finished.IsOk && finished.Value != null)
                 {
                     GameResult server = finished.Value;
@@ -250,6 +256,11 @@ namespace RobotBombero.Game
                 Persist();
             }
             if (OnEnded != null) OnEnded();
+        }
+
+        private void NoteStatus<T>(ApiResult<T> result)
+        {
+            if (result != null && result.Status == ApiStatus.Rejected && result.HttpStatus == 401) Unauthorized = true;
         }
 
         private void Persist()
