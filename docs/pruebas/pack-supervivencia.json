@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "name": "Supervivencia",
+  "rules": [
+    { "name": "Apagar el fuego de delante", "battery": "Anyone", "temp": "Anyone", "light": "Bright", "prox": "Anyone", "cell": "Anyone", "actions": ["Put Out"] },
+    { "name": "Tope en línea: girar y gastar", "battery": "Anyone", "temp": "Down", "light": "Anyone", "prox": "Obstacle Yes", "cell": "Black", "actions": ["TurnL", "Put Out"] },
+    { "name": "No cruzar línea: gastar para volver", "battery": "High", "temp": "Up", "light": "Dark", "prox": "Anyone", "cell": "Normal", "actions": ["Put Out"] },
+    { "name": "Rodear obstáculo hacia el fuego", "battery": "High", "temp": "Up", "light": "Anyone", "prox": "Obstacle Yes", "cell": "Anyone", "actions": ["TurnR", "Fwd"] },
+    { "name": "Avanzar hacia el fuego", "battery": "High", "temp": "Up", "light": "Anyone", "prox": "Anyone", "cell": "Anyone", "actions": ["Fwd"] },
+    { "name": "Recargar en base girando (derecha)", "battery": "Anyone", "temp": "Up", "light": "Anyone", "prox": "Anyone", "cell": "Base", "actions": ["TurnR"] },
+    { "name": "Entrar en la línea oscura", "battery": "Anyone", "temp": "Anyone", "light": "Dark", "prox": "Anyone", "cell": "Normal", "actions": ["Fwd"] },
+    { "name": "Tope volviendo: girar", "battery": "Medium", "temp": "Anyone", "light": "Anyone", "prox": "Obstacle Yes", "cell": "Normal", "actions": ["TurnL"] },
+    { "name": "Tope sin volver: gastar y girar", "battery": "Anyone", "temp": "Anyone", "light": "Anyone", "prox": "Obstacle Yes", "cell": "Normal", "actions": ["Fwd", "Fwd", "TurnL"] },
+    { "name": "Recargar en base girando (izquierda)", "battery": "Anyone", "temp": "Anyone", "light": "Anyone", "prox": "Anyone", "cell": "Base", "actions": ["TurnL"] },
+    { "name": "Alinearse con la línea y seguirla", "battery": "Anyone", "temp": "Anyone", "light": "Normal", "prox": "Anyone", "cell": "Black", "actions": ["TurnL", "Fwd", "Fwd"] },
+    { "name": "Buscar la dirección del fuego", "battery": "High", "temp": "Anyone", "light": "Anyone", "prox": "Anyone", "cell": "Anyone", "actions": ["TurnL"] },
+    { "name": "Seguir recto de vuelta", "battery": "Anyone", "temp": "Anyone", "light": "Anyone", "prox": "Anyone", "cell": "Anyone", "actions": ["Fwd"] }
+  ]
+}
