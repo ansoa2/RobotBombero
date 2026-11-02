@@ -11,7 +11,7 @@ namespace RobotBombero.Game
         public const float NarrowWidth = 520f;
 
         private const string MsgLoading = "Cargando la clasificación…";
-        private const string MsgOffline = "No se puede cargar la clasificación: no hay conexión con el servidor.";
+        public const string MsgOffline = "Sin conexión";
         private const string MsgServer = "El servidor no ha podido enviar la clasificación. Inténtalo de nuevo en un momento.";
         private const string MsgEmpty = "Todavía no hay partidas en la clasificación. ¡Sé el primero!";
 

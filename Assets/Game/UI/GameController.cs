@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using RobotBombero.Simulation;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -31,6 +32,7 @@ namespace RobotBombero.Game
         private int _generation;
         private bool _manualUsed;
         private bool _ending;
+        private bool _starting;
         private double _lastTime;
 
         public GameController(VisualElement view, GameContext context, Action<ScreenId> go)
@@ -38,7 +40,7 @@ namespace RobotBombero.Game
             _view = view;
             _context = context;
             _go = go;
-            _pack = UiKit.Require<Label>(view, "game-pack");
+            _pack = UiKit.Plain(UiKit.Require<Label>(view, "game-pack"));
             _badge = UiKit.Require<Label>(view, "game-badge");
             _status = UiKit.Require<Label>(view, "game-status");
             _battery = UiKit.Require<Label>(view, "game-battery");
@@ -92,6 +94,8 @@ namespace RobotBombero.Game
             _session = null;
             _manualUsed = false;
             _ending = false;
+            _starting = false;
+            ScreenAwake.Set(false);
             _lastTime = Time.realtimeSinceStartupAsDouble;
             _board.Reset();
             UiKit.Show(_testPanel, false);
@@ -107,37 +111,69 @@ namespace RobotBombero.Game
             _pack.text = pack.content.name;
             if (!_context.Packs.CanPlay(pack)) { _status.text = "Este pack no tiene reglas: añade al menos una en Editar reglas."; return; }
 
-            _status.text = "Preparando la partida…";
-            var session = new GameSession(pack, _context.Profile, _context.Api, _context.Store);
+            // Abrir la pantalla no llama al servidor ni gasta cupo: la partida del servidor empieza con el primer Paso o Automático.
+            // Hasta entonces se dibuja el tablero inicial (el primer fuego es fijo, así que se ve igual antes y después).
+            var session = new GameSession(pack, _context.Profile, _context.Api, _context.Store,
+                packStillExists: () => _context.Packs.All.Contains(pack));
             session.OnEnded += () => OnEnded(session);
             session.OnResult += result => OnResult(session, result);
-            _context.Run(Begin(session, _generation));
-        }
-
-        private IEnumerator Begin(GameSession session, int generation)
-        {
-            yield return session.Begin();
-            if (generation != _generation) yield break;
-            if (session.Unauthorized) { _context.ExpireSession(); yield break; }
-
             _session = session;
             SetControls(true);
             UpdateBadge();
             RefreshSpeeds();
             UpdateAutoButton();
-            _status.text = session.IsRanked
-                ? "Paso avanza un ciclo (la primera regla que se cumple, con todas sus acciones); Automático sigue solo."
-                : "Sin conexión: esta partida no puntúa, pero cuenta en tus estadísticas.";
+            _status.text = _context.HasIdentity ? HintRanked : HintOffline;
             Render();
+        }
+
+        private const string HintRanked = "Paso avanza un ciclo (la primera regla que se cumple, con todas sus acciones); Automático sigue solo.";
+        private const string HintOffline = "Sin conexión: esta partida no puntúa, pero cuenta en tus estadísticas.";
+
+        /// <summary>Ejecuta la acción cuando la partida ya ha empezado; si no, la empieza antes (con el servidor) y la ejecuta después.</summary>
+        private void WhenStarted(Action action)
+        {
+            if (_session == null || _starting) return;
+            if (_session.IsStarted) { action(); return; }
+            _starting = true;
+            SetControls(false);
+            _status.text = "Preparando la partida…";
+            _context.Run(StartThen(_session, _generation, action));
+        }
+
+        private IEnumerator StartThen(GameSession session, int generation, Action action)
+        {
+            yield return session.Begin();
+            if (generation != _generation) yield break;
+            _starting = false;
+            if (session.Unauthorized)
+            {
+                bool current = _context.Profile != null && _context.Profile.playerKey == session.SentKey;
+                _context.ExpireSession(session.SentKey);
+                if (current) yield break;
+            }
+
+            SetControls(true);
+            UpdateBadge();
+            _status.text = session.IsRanked ? HintRanked : UnrankedStatus(session.StartReason);
+            action();
+        }
+
+        private static string UnrankedStatus(UnrankedReason reason)
+        {
+            return reason == UnrankedReason.Offline || reason == UnrankedReason.None
+                ? HintOffline
+                : Labels.Unranked(reason) + " Cuenta en tus estadísticas.";
         }
 
         // --- Controles ---
 
         private void Step()
         {
-            if (_session == null) return;
-            _session.StepOnce();
-            Render();
+            WhenStarted(() =>
+            {
+                _session.StepOnce();
+                Render();
+            });
         }
 
         private void ToggleTestPanel()
@@ -150,9 +186,11 @@ namespace RobotBombero.Game
 
         private void ToggleAuto()
         {
-            if (_session == null) return;
-            _session.SetAuto(_session.Mode != SessionMode.Auto);
-            UpdateAutoButton();
+            WhenStarted(() =>
+            {
+                _session.SetAuto(_session.Mode != SessionMode.Auto);
+                UpdateAutoButton();
+            });
         }
 
         private void SetSpeed(int index)
@@ -164,7 +202,9 @@ namespace RobotBombero.Game
 
         private void Manual(string action)
         {
-            if (_session == null || _session.IsEnded) return;
+            if (_session == null || _session.IsEnded || _starting) return;
+            // Los controles manuales no clasifican: no hace falta el servidor.
+            if (!_session.IsStarted) _session.BeginLocal();
             _manualUsed = true;
             _session.SetAuto(false);
             _session.ApplyManual(action);
@@ -190,9 +230,11 @@ namespace RobotBombero.Game
             Tick(delta);
         }
 
-        private void Back()
+        /// <summary>Atrás (botón, Esc o botón del sistema): sale, o pide confirmación si hay una partida en marcha.</summary>
+        public void Back()
         {
-            bool inProgress = _session != null && !_session.IsEnded
+            if (_ending) return;
+            bool inProgress = _session != null && _session.IsStarted && !_session.IsEnded
                 && (_session.Simulation.Steps > 0 || _manualUsed || _session.Mode == SessionMode.Auto);
             if (!inProgress) { Leave(); return; }
 
@@ -205,6 +247,7 @@ namespace RobotBombero.Game
             _generation++;
             if (_session != null) _session.SetAuto(false);
             _session = null;
+            ScreenAwake.Set(false);
             _go(ScreenId.PackSelect);
         }
 
@@ -222,7 +265,12 @@ namespace RobotBombero.Game
         private void OnResult(GameSession session, SessionResult result)
         {
             if (session != _session) return;
-            if (session.Unauthorized) { _context.ExpireSession(); return; }
+            if (session.Unauthorized)
+            {
+                bool current = _context.Profile != null && _context.Profile.playerKey == session.SentKey;
+                _context.ExpireSession(session.SentKey);
+                if (current) return;
+            }
             _context.LastResult = result;
             _context.LastResultPack = session.Pack.content.name;
             _context.LastResultManual = _manualUsed;
@@ -233,8 +281,8 @@ namespace RobotBombero.Game
 
         private void Render()
         {
-            if (_session == null || _session.Simulation == null) return;
-            GameSimulation sim = _session.Simulation;
+            if (_session == null) return;
+            GameSimulation sim = _session.Simulation ?? _session.Preview;
             _board.Render(sim);
             ShowCounters(sim.Steps, sim.Fires, sim.Battery);
             SetText(_sensors[0], Labels.Value(sim.BatteryState));
@@ -271,7 +319,7 @@ namespace RobotBombero.Game
 
         private void UpdateBadge()
         {
-            bool unranked = _session != null && !_session.IsRanked;
+            bool unranked = _session != null && (_session.IsStarted ? !_session.IsRanked : !_context.HasIdentity);
             _badge.text = BadgeText;
             UiKit.Show(_badge, unranked);
         }
@@ -281,6 +329,8 @@ namespace RobotBombero.Game
             bool auto = _session != null && _session.Mode == SessionMode.Auto;
             _auto.text = auto ? "Pausar" : "Automático";
             _auto.EnableInClassList("is-selected", auto);
+            // En automático la pantalla no se apaga sola; al pausar o terminar, vuelve el ajuste del sistema.
+            ScreenAwake.Set(auto);
         }
 
         private void RefreshSpeeds()

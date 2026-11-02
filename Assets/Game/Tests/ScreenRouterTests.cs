@@ -315,7 +315,7 @@ namespace RobotBombero.Game.Tests
 
             string note = _root.Q<Label>("login-note").text;
             StringAssert.Contains("dispositivo", note);
-            StringAssert.Contains("datos del navegador", note);
+            StringAssert.Contains("datos de la aplicación", note);
         }
 
         // --- Orientación y zonas seguras ---

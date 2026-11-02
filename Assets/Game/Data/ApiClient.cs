@@ -159,7 +159,10 @@ namespace RobotBombero.Game
     /// <summary>Cliente sobre UnityWebRequest con rutas relativas (funciona en cualquier host). Nunca escribe la clave en el log.</summary>
     public class ApiClient : IApiClient, IServerTarget
     {
-        private const int TimeoutSeconds = 10;
+        /// <summary>Tiempo máximo de una llamada normal.</summary>
+        public const int TimeoutSeconds = 10;
+        /// <summary>Al empezar una partida no se espera lo mismo: sin conexión, el jugador no debe quedarse mirando una pantalla de carga.</summary>
+        public const int StartTimeoutSeconds = 4;
         private const string KeyHeader = "X-Player-Key";
 
         private string _baseUrl;
@@ -186,8 +189,8 @@ namespace RobotBombero.Game
         {
             string body = ApiParsing.PackBodyJson(name, rulesHash);
             if (serverPackId <= 0)
-                return Send("POST", "/api/packs", playerKey, body, done, ApiParsing.ParsePackId);
-            return Send("PUT", "/api/packs/" + serverPackId, playerKey, body, done, json => serverPackId);
+                return Send("POST", "/api/packs", playerKey, body, done, ApiParsing.ParsePackId, StartTimeoutSeconds);
+            return Send("PUT", "/api/packs/" + serverPackId, playerKey, body, done, json => serverPackId, StartTimeoutSeconds);
         }
 
         public IEnumerator DeletePack(string playerKey, long serverPackId, Action<ApiResult<bool>> done)
@@ -198,7 +201,7 @@ namespace RobotBombero.Game
         public IEnumerator StartGame(string playerKey, long serverPackId, Rule[] rules, Action<ApiResult<StartedGame>> done)
         {
             return Send("POST", "/api/games", playerKey, ApiParsing.StartBodyJson(serverPackId, rules), done,
-                ApiParsing.ParseStarted);
+                ApiParsing.ParseStarted, StartTimeoutSeconds);
         }
 
         public IEnumerator FinishGame(string playerKey, long gameId, Action<ApiResult<GameResult>> done)
@@ -211,12 +214,12 @@ namespace RobotBombero.Game
             return Send("GET", "/api/leaderboard", null, null, done, ApiParsing.ParseLeaderboard);
         }
 
-        private IEnumerator Send<T>(string method, string path, string playerKey, string body, Action<ApiResult<T>> done, Func<string, T> parse)
+        private IEnumerator Send<T>(string method, string path, string playerKey, string body, Action<ApiResult<T>> done, Func<string, T> parse, int timeoutSeconds = TimeoutSeconds)
         {
             ApiResult<T> result;
             using (var request = new UnityWebRequest(_baseUrl + path, method))
             {
-                request.timeout = TimeoutSeconds;
+                request.timeout = timeoutSeconds;
                 request.downloadHandler = new DownloadHandlerBuffer();
                 if (body != null)
                 {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using RobotBombero.Simulation;
 
 namespace RobotBombero.Game
 {
@@ -56,9 +57,31 @@ namespace RobotBombero.Game
         {
             { "Battery", "Sin batería" },
             { "WalkedIntoFire", "Avanzó hacia el fuego" },
-            { "FireTimeout", "100 ciclos sin apagar un fuego" },
-            { "MissionComplete", "Misión superada: 5.000 pasos" }
+            { "FireTimeout", SimConfig.FireTimeout + " ciclos sin apagar un fuego" },
+            { "MissionComplete", "Misión superada: " + Number(SimConfig.DefaultMaxSteps) + " pasos" }
         };
+
+        /// <summary>El texto de por qué una partida no entra en la clasificación; nulo si entra.</summary>
+        public static string Unranked(UnrankedReason reason)
+        {
+            switch (reason)
+            {
+                case UnrankedReason.Manual:
+                    return "Sin puntuación: esta partida usó los controles manuales de prueba, así que no cuenta en la clasificación ni en las estadísticas.";
+                case UnrankedReason.Offline:
+                    return "Sin conexión: esta partida no entra en la clasificación";
+                case UnrankedReason.RateLimited:
+                    return "Has alcanzado el límite de 60 partidas por hora. Esta no entra en la clasificación.";
+                case UnrankedReason.Expired:
+                    return "La partida caducó.";
+                case UnrankedReason.Rejected:
+                    return "El servidor rechazó la partida.";
+                case UnrankedReason.FinishPending:
+                    return "Sin conexión: se reintentará al volver a conectar";
+                default:
+                    return null;
+            }
+        }
 
         public static string Field(string key)
         {

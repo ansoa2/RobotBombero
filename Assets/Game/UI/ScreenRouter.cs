@@ -50,7 +50,7 @@ namespace RobotBombero.Game
 
     /// <summary>
     /// Decide qué pantalla se ve y adapta el marco a la orientación. No necesita una escena: recibe el árbol de Root.uxml.
-    /// Sin una identidad concedida por el servidor, cualquier destino lleva al acceso.
+    /// Sin acceso (ni identidad concedida por el servidor ni juego sin conexión), cualquier destino lleva al acceso.
     /// </summary>
     public sealed class ScreenRouter
     {
@@ -63,6 +63,7 @@ namespace RobotBombero.Game
         {
             public Func<VisualElement> Build;
             public Action OnShow;
+            public Action OnBack;
             public VisualElement View;
         }
 
@@ -94,10 +95,27 @@ namespace RobotBombero.Game
         public Texture2D CurrentBackground { get; private set; }
 
         /// <summary>Asocia una vista a una pantalla; sustituye la anterior. La vista se crea la primera vez que se muestra y se conserva.</summary>
-        public void Register(ScreenId id, Func<VisualElement> build, Action onShow = null)
+        public void Register(ScreenId id, Func<VisualElement> build, Action onShow = null, Action onBack = null)
         {
             if (build == null) throw new ArgumentNullException("build");
-            _screens[id] = new Entry { Build = build, OnShow = onShow };
+            _screens[id] = new Entry { Build = build, OnShow = onShow, OnBack = onBack };
+        }
+
+        /// <summary>Se ha mostrado una pantalla (después de su OnShow).</summary>
+        public event Action<ScreenId> Changed;
+
+        /// <summary>
+        /// El botón Atrás de Android o Esc en Windows: cierra un diálogo abierto o vuelve una pantalla, con lo que haga el
+        /// botón Atrás de esa pantalla (en la partida, la confirmación de salir). Devuelve falso si no hay adónde volver (menú y acceso).
+        /// </summary>
+        public bool HandleBack()
+        {
+            Entry entry;
+            if (Current == null || !_screens.TryGetValue(Current.Value, out entry) || entry.View == null) return false;
+            if (Dialog.IsOpen(entry.View)) { Dialog.Close(entry.View); return true; }
+            if (entry.OnBack == null) return false;
+            entry.OnBack();
+            return true;
         }
 
         public void ShowStart()
@@ -117,6 +135,7 @@ namespace RobotBombero.Game
             _host.Add(entry.View);
             Current = id;
             if (entry.OnShow != null) entry.OnShow();
+            if (Changed != null) Changed(id);
         }
 
         /// <summary>Elige clase y fondo según el tamaño del panel. Un panel cuadrado cuenta como vertical.</summary>

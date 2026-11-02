@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using RobotBombero.Simulation;
 
 namespace RobotBombero.Game
@@ -41,6 +42,7 @@ namespace RobotBombero.Game
         {
             if (string.IsNullOrWhiteSpace(name)) return "Escribe un nombre para el pack.";
             if (name.Trim().Length > PackLimits.MaxNameLength) return "El nombre admite como máximo " + PackLimits.MaxNameLength + " caracteres.";
+            if (PackValidator.HasControlCharacters(name.Trim())) return "El nombre no puede llevar saltos de línea ni otros caracteres de control.";
             return null;
         }
 
@@ -113,6 +115,12 @@ namespace RobotBombero.Game
         {
             List.Remove(pack);
             _context.Store.DeletePack(pack.localId);
+            // Sus partidas ya no existirán en el servidor: no hay cierre que reintentar.
+            if (pack.serverPackId > 0)
+            {
+                List<PendingFinish> finishes = _context.Store.LoadPendingFinishes();
+                if (finishes.RemoveAll(f => f.serverPackId == pack.serverPackId) > 0) _context.Store.SavePendingFinishes(finishes);
+            }
             if (pack.serverPackId > 0 && !Pending.Contains(pack.serverPackId))
             {
                 Pending.Add(pack.serverPackId);
@@ -171,6 +179,8 @@ namespace RobotBombero.Game
                     _offline = false;
                     yield return RunDeletes();
                     if (!_context.HasIdentity) yield break;
+                    if (!_offline) yield return RunFinishes();
+                    if (!_context.HasIdentity) yield break;
 
                     foreach (LocalPack pack in new List<LocalPack>(List))
                     {
@@ -190,8 +200,9 @@ namespace RobotBombero.Game
             foreach (long id in new List<long>(Pending))
             {
                 ApiResult<bool> deleted = null;
-                yield return _context.Api.DeletePack(_context.Profile.playerKey, id, r => deleted = r);
-                if (_context.ExpireIfUnauthorized(deleted)) yield break;
+                string sentKey = _context.Profile.playerKey;
+                yield return _context.Api.DeletePack(sentKey, id, r => deleted = r);
+                if (_context.ExpireIfUnauthorized(deleted, sentKey)) yield break;
 
                 bool gone = deleted != null && (deleted.IsOk || (deleted.Status == ApiStatus.Rejected && deleted.HttpStatus == 404));
                 if (gone)
@@ -215,9 +226,10 @@ namespace RobotBombero.Game
             string hash = RulesHash.Compute(pack.content.rules);
             string name = pack.content.name;
             ApiResult<long> saved = null;
-            yield return _context.Api.SavePack(_context.Profile.playerKey, pack.serverPackId, name, hash, r => saved = r);
+            string sentKey = _context.Profile.playerKey;
+            yield return _context.Api.SavePack(sentKey, pack.serverPackId, name, hash, r => saved = r);
 
-            if (_context.ExpireIfUnauthorized(saved)) yield break;
+            if (_context.ExpireIfUnauthorized(saved, sentKey)) yield break;
             if (saved == null || saved.Status == ApiStatus.ConnectionFailed) _offline = true;
             // Borrado durante la petición: guardar ahora devolvería el archivo.
             if (!List.Contains(pack)) yield break;
@@ -241,15 +253,71 @@ namespace RobotBombero.Game
         /// <summary>Tras una sesión caducada: los packs siguen aquí, pero el servidor ya no los conoce ni hay nada que borrar allí.</summary>
         public void ForgetServerIds()
         {
+            ForgetPackServerIds();
+            Pending.Clear();
+            try
+            {
+                _context.Store.SavePendingDeletes(Pending);
+                _context.Store.SavePendingFinishes(new List<PendingFinish>());
+            }
+            catch (IOException) { Warn(); }
+            catch (UnauthorizedAccessException) { Warn(); }
+        }
+
+        /// <summary>Solo los ids de servidor de los packs (para una identidad nueva): los borrados y cierres pendientes no se tocan.</summary>
+        public void ForgetPackServerIds()
+        {
             foreach (LocalPack pack in List)
             {
                 pack.serverPackId = 0;
                 pack.serverRulesHash = null;
                 pack.serverName = null;
-                Save(pack);
+                // Un fallo al escribir un pack no debe impedir olvidar el resto ni avisar a la interfaz.
+                try { Save(pack); } catch (IOException) { Warn(); } catch (UnauthorizedAccessException) { Warn(); }
             }
-            Pending.Clear();
-            _context.Store.SavePendingDeletes(Pending);
+        }
+
+        private static void Warn()
+        {
+            UnityEngine.Debug.LogWarning("RobotBombero: no se pudo guardar un cambio local al cerrar la sesión.");
+        }
+
+        // --- Cierres pendientes de partidas clasificadas ---
+
+        /// <summary>Verdadero si el cierre puede reintentarse más tarde: sin conexión o error del servidor (5xx).</summary>
+        public static bool IsRetryable<T>(ApiResult<T> result)
+        {
+            if (result == null || result.Status == ApiStatus.ConnectionFailed) return true;
+            return result.Status == ApiStatus.Rejected && result.HttpStatus >= 500;
+        }
+
+        /// <summary>
+        /// Intenta cerrar una partida pendiente. Con respuesta definitiva (éxito, 404, 410, 403...) la quita de la lista, sin
+        /// tocar las estadísticas (ya contaron al terminar). Sin conexión o con un 5xx sigue pendiente. done recibe la respuesta.
+        /// </summary>
+        public IEnumerator RetryFinish(PendingFinish item, Action<ApiResult<GameResult>> done = null)
+        {
+            if (!_context.HasIdentity) { if (done != null) done(null); yield break; }
+            string sentKey = _context.Profile.playerKey;
+            ApiResult<GameResult> result = null;
+            yield return _context.Api.FinishGame(sentKey, item.gameId, r => result = r);
+            if (_context.ExpireIfUnauthorized(result, sentKey)) { if (done != null) done(result); yield break; }
+            if (!IsRetryable(result))
+            {
+                try { _context.Store.RemovePendingFinish(item.gameId); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+            }
+            if (done != null) done(result);
+        }
+
+        private IEnumerator RunFinishes()
+        {
+            foreach (PendingFinish item in _context.Store.LoadPendingFinishes())
+            {
+                ApiResult<GameResult> result = null;
+                yield return RetryFinish(item, r => result = r);
+                if (!_context.HasIdentity) yield break;
+                if (IsRetryable(result)) { _offline = true; yield break; }
+            }
         }
     }
 }

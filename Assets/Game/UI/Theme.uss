@@ -229,6 +229,10 @@
     text-shadow: 0 1px 6px rgba(9, 12, 22, 0.9);
 }
 
+.menu__player--offline {
+    -unity-font-style: italic;
+}
+
 .menu__buttons > .btn {
     margin-bottom: 10px;
 }

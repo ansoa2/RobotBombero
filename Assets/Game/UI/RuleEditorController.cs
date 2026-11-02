@@ -34,7 +34,7 @@ namespace RobotBombero.Game
         {
             _context = context;
             _go = go;
-            _title = UiKit.Require<Label>(view, "editor-title");
+            _title = UiKit.Plain(UiKit.Require<Label>(view, "editor-title"));
             _listView = UiKit.Require<VisualElement>(view, "editor-list-view");
             _rules = UiKit.Require<VisualElement>(view, "editor-rules");
             _detailView = UiKit.Require<VisualElement>(view, "editor-detail");
@@ -63,7 +63,7 @@ namespace RobotBombero.Game
             ShowList();
         }
 
-        private void Back()
+        public void Back()
         {
             if (_editing >= 0) { ShowList(); return; }
             _go(ScreenId.Rules);

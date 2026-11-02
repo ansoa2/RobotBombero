@@ -35,6 +35,7 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:Label name="result-note" class="text-note result__note" />
+                    <ui:Button name="result-retry" text="Reintentar" class="btn btn--small" />
                 </ui:ScrollView>
                 <ui:VisualElement class="toolbar toolbar--bottom">
                     <ui:Button name="result-again" text="Jugar otra vez" class="btn btn--main btn--center toolbar__grow" />

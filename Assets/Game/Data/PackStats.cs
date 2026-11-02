@@ -66,5 +66,15 @@ namespace RobotBombero.Game
         public string playerName;
         public string playerKey;
         public long playerId;
+        /// <summary>El jugador eligió jugar sin conexión y aún no tiene nombre en el servidor. Se pierde al registrarse.</summary>
+        public bool offline;
+    }
+
+    /// <summary>Una partida clasificada cuyo cierre no llegó al servidor. Se reintenta hasta que este responda algo definitivo.</summary>
+    [Serializable]
+    public class PendingFinish
+    {
+        public long serverPackId;
+        public long gameId;
     }
 }

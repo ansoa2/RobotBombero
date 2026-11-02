@@ -14,20 +14,19 @@ namespace RobotBombero.Game
     }
 
     /// <summary>
-    /// La dirección del servidor tal como la escribe el jugador (192.168.1.149:5080, http://mipc, ...)
-    /// convertida en una URL base sin barra final. Sin esquema se usa http; sin puerto, el 5080.
+    /// La dirección del servidor fijada al compilar (host:puerto, http://mipc, ...) convertida en una URL base sin barra final.
+    /// Sin esquema se usa http; sin puerto, el 5080. El jugador nunca la escribe ni la ve.
     /// </summary>
     public static class ServerAddress
     {
         public const int DefaultPort = 5080;
-        public const string Example = "192.168.1.149:5080";
 
         private const string Http = "http://";
         private const string Https = "https://";
 
         private static string Invalid(string why)
         {
-            return why + " Escribe la dirección del ordenador y el puerto, por ejemplo " + Example + ".";
+            return why;
         }
 
         public static ServerAddressResult Normalize(string input)
@@ -58,18 +57,6 @@ namespace RobotBombero.Game
 
             if (!IsValidHost(host)) return ServerAddressResult.Fail(Invalid("La dirección del servidor no es válida."));
             return ServerAddressResult.Ok(scheme + host.ToLowerInvariant() + ":" + port);
-        }
-
-        /// <summary>La URL sin el http:// inicial, para mostrarla en un campo (192.168.1.149:5080).</summary>
-        public static string Display(string url)
-        {
-            if (string.IsNullOrEmpty(url)) return "";
-            return url.StartsWith(Http, StringComparison.OrdinalIgnoreCase) ? url.Substring(Http.Length) : url;
-        }
-
-        public static string OfflineMessage(string url)
-        {
-            return "No se pudo conectar con " + url + ". Comprueba que el servidor del ordenador está encendido y que estás en la misma wifi que él.";
         }
 
         private static bool TryPort(string text, out int port)

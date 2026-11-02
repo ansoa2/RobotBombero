@@ -12,6 +12,12 @@ namespace RobotBombero.Game
         public GameContext Context { get; private set; }
         public ScreenRouter Router { get; private set; }
 
+        private void Update()
+        {
+            // Atrás de Android llega como Esc; en Windows, Esc.
+            if (Router != null && Input.GetKeyDown(KeyCode.Escape)) Router.HandleBack();
+        }
+
         private void Start()
         {
             string dataRoot = Application.persistentDataPath;
@@ -28,7 +34,7 @@ namespace RobotBombero.Game
 #if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
             api = DevSamples.DemoApi(apiUrl) ?? api;
 #endif
-            // En WebGL las rutas son relativas; en las apps nativas el jugador elige el servidor (ver ServerConfig).
+            // En WebGL las rutas son relativas; en las apps nativas la dirección es la fijada al compilar (ver ServerConfig).
             Context = new GameContext(new LocalStore(dataRoot), api, routine => StartCoroutine(routine), null, server);
             Router = AppScreens.Compose(root, assets, Context);
             Router.ShowStart();

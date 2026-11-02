@@ -12,6 +12,10 @@ namespace RobotBombero.Game.Tests
         public ApiResult<StartedGame> StartResult = ApiResult<StartedGame>.Ok(new StartedGame { gameId = 9, seed = 42 });
         public ApiResult<GameResult> FinishResult = ApiResult<GameResult>.ConnectionFailed("sin red");
 
+        public readonly System.Collections.Generic.Queue<ApiResult<StartedGame>> StartQueue = new System.Collections.Generic.Queue<ApiResult<StartedGame>>();
+        public readonly System.Collections.Generic.Queue<ApiResult<long>> SavePackQueue = new System.Collections.Generic.Queue<ApiResult<long>>();
+        public Action OnFinish;
+        public long LastFinishGameId;
         public bool FinishNeverCompletes;
         public int SavePackCalls, StartCalls, FinishCalls;
         public string LastKey;
@@ -33,7 +37,7 @@ namespace RobotBombero.Game.Tests
             SavePackCalls++;
             if (OnSavePack != null) OnSavePack();
             LastKey = playerKey;
-            done(SavePackResult);
+            done(SavePackQueue.Count > 0 ? SavePackQueue.Dequeue() : SavePackResult);
             yield break;
         }
 
@@ -56,13 +60,15 @@ namespace RobotBombero.Game.Tests
         {
             StartCalls++;
             LastKey = playerKey;
-            done(StartResult);
+            done(StartQueue.Count > 0 ? StartQueue.Dequeue() : StartResult);
             yield break;
         }
 
         public IEnumerator FinishGame(string playerKey, long gameId, Action<ApiResult<GameResult>> done)
         {
             FinishCalls++;
+            LastFinishGameId = gameId;
+            if (OnFinish != null) OnFinish();
             while (FinishNeverCompletes) yield return null;
             done(FinishResult);
             yield break;

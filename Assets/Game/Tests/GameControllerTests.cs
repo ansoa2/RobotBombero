@@ -33,12 +33,15 @@ namespace RobotBombero.Game.Tests
             Start();
             Play();
 
-            Assert.AreEqual(1, Api.StartCalls);
+            Assert.AreEqual(0, Api.StartCalls, "Abrir la pantalla no llama al servidor");
             Assert.AreEqual(64, Root.Q("board-grid").childCount);
             Assert.IsFalse(IsShown(Root.Q("game-badge")), "Una partida clasificable no lleva etiqueta");
             Assert.AreEqual("50", Lbl("game-battery").text);
             StringAssert.Contains("Alta", Lbl("sensor-battery").text);
             Assert.IsTrue(Btn("game-step").enabledSelf);
+            Click("game-step");
+            Assert.AreEqual(1, Api.StartCalls, "La partida del servidor empieza con el primer Paso");
+            Assert.IsFalse(IsShown(Root.Q("game-badge")));
         }
 
         [Test]
@@ -174,6 +177,7 @@ namespace RobotBombero.Game.Tests
             Api.SavePackResult = ApiResult<long>.ConnectionFailed("sin red");
             LocalPack pack = Play("p1", 0);
 
+            Click("game-step");
             Assert.IsTrue(IsShown(Root.Q("game-badge")));
             StepUntilLeft();
 
@@ -219,7 +223,7 @@ namespace RobotBombero.Game.Tests
         [Test]
         public void Result_RegisteredWithoutRank_IsOutsideTop100()
         {
-            ShowResult(new SessionResult { Steps = 5, Fires = 0, Points = 0, EndReason = "Battery", Registered = true });
+            ShowResult(new SessionResult { Steps = 5, Fires = 1, Points = 5, EndReason = "Battery", Registered = true });
 
             Assert.AreEqual("Fuera del top 100", Lbl("result-rank").text);
         }
@@ -416,6 +420,7 @@ namespace RobotBombero.Game.Tests
             Context.PlayPack = pack;
 
             Router.Show(ScreenId.Game);
+            Click("game-step");
 
             AssertSessionEnded(pack);
             Assert.AreEqual(1, Store.LoadPacks().Single().stats.games, "Las estadísticas se conservan");
@@ -477,6 +482,7 @@ namespace RobotBombero.Game.Tests
             Context.PlayPack = pack;
             Context.PlayPack.serverRulesHash = "viejo";
             Router.Show(ScreenId.Game);
+            Click("game-step");
             Assert.AreEqual(ScreenId.Login, Router.Current);
 
             Root.Q<TextField>("login-name").value = "Nueva";

@@ -13,12 +13,10 @@
                 <ui:Label text="¿Cómo quieres llamarte?" class="login__title" />
                 <ui:Label text="Elige un nombre único para entrar como invitado." class="text-muted" />
                 <ui:TextField name="login-name" class="field" placeholder-text="Por ejemplo, Bombera_7" hide-placeholder-on-focus="true" />
-                <ui:VisualElement name="login-server-block">
-                    <ui:TextField name="login-server" label="Dirección del servidor" class="field field--stacked" placeholder-text="Por ejemplo, 192.168.1.149:5080" hide-placeholder-on-focus="true" />
-                </ui:VisualElement>
                 <ui:Label name="login-message" class="login__message" />
                 <ui:Button name="login-enter" text="Entrar" class="btn btn--main btn--center" />
                 <ui:Button name="login-retry" text="Reintentar" class="btn btn--main btn--center" />
+                <ui:Button name="login-offline" text="Jugar sin conexión" class="btn btn--center" />
                 <ui:Label name="login-note" text="Tu progreso se guarda en este dispositivo y se pierde si borras los datos del navegador." class="text-note" />
             </ui:VisualElement>
         </ui:VisualElement>

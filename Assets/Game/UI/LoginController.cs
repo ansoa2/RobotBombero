@@ -18,18 +18,19 @@ namespace RobotBombero.Game
         private const string MsgLength = "El nombre debe tener entre 3 y 20 caracteres.";
         private const string MsgCharacters = "Usa solo letras sin acentos, números, _ o -. La ñ tampoco vale.";
         private const string MsgTaken = "Ese nombre ya está en uso. Prueba con otro.";
-        private const string MsgOffline = "No se puede contactar con el servidor. Comprueba la conexión y vuelve a intentarlo.";
+        public const string MsgOffline = "No se puede conectar con el servidor.";
         private const string MsgServer = "El servidor no ha podido atender la petición. Inténtalo de nuevo en un momento.";
         private const string MsgCannotSave = "No se ha podido guardar tu perfil en este dispositivo. Revisa el espacio del navegador y reintenta.";
 
         private const string TextEnter = "Entrar";
         private const string TextBusy = "Entrando…";
+        public const string TextOffline = "Jugar sin conexión";
+        private readonly Button _offline;
 
         private readonly GameContext _context;
         private readonly Action _loggedIn;
         private readonly TextField _name;
-        private readonly TextField _server;
-        private readonly VisualElement _serverBlock;
+        private readonly Action _playOffline;
         private readonly Button _enter;
         private readonly Button _retry;
         private readonly Label _message;
@@ -38,36 +39,45 @@ namespace RobotBombero.Game
         // Nombre ya concedido por el servidor que falta guardar. Volver a pedirlo daría 409.
         private Profile _granted;
 
-        public LoginController(VisualElement view, GameContext context, Action loggedIn)
+        public LoginController(VisualElement view, GameContext context, Action loggedIn, Action playOffline = null)
         {
             if (view == null) throw new ArgumentNullException("view");
             if (context == null) throw new ArgumentNullException("context");
             _context = context;
             _loggedIn = loggedIn;
+            _playOffline = playOffline;
             _name = Require<TextField>(view, "login-name");
-            _server = Require<TextField>(view, "login-server");
-            _serverBlock = Require<VisualElement>(view, "login-server-block");
             _enter = Require<Button>(view, "login-enter");
             _retry = Require<Button>(view, "login-retry");
+            _offline = Require<Button>(view, "login-offline");
             _message = Require<Label>(view, "login-message");
 
             _name.maxLength = MaxNameLength;
-            _server.maxLength = 100;
-            _serverBlock.style.display = context.UsesServerAddress ? DisplayStyle.Flex : DisplayStyle.None;
-            if (context.UsesServerAddress)
-            {
-                _server.value = ServerAddress.Display(context.ServerUrl);
-                Label note = view.Q<Label>("login-note");
-                if (note != null) note.text = "Tu progreso se guarda en este dispositivo y se pierde si borras los datos de la aplicación.";
-            }
-            _server.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
+            Label note = view.Q<Label>("login-note");
+            if (note != null) note.text = "Tu progreso se guarda en este dispositivo y se pierde si borras los datos de la aplicación.";
             _enter.text = TextEnter;
             _enter.clicked += Submit;
             _retry.clicked += Submit;
+            _offline.text = TextOffline;
+            _offline.clicked += PlayOffline;
             _name.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             _name.RegisterValueChangedCallback(e => NameChanged());
-            _server.RegisterValueChangedCallback(e => NameChanged());
             ClearMessage();
+        }
+
+        /// <summary>Se muestra la pantalla (al arrancar, tras una sesión caducada o desde "Registrar nombre"): sin avisos viejos.</summary>
+        public void OnShow()
+        {
+            if (_busy || _granted != null) return;
+            ClearMessage();
+        }
+
+        /// <summary>Sigue sin conexión: se recuerda para el próximo arranque y se entra al menú sin tocar la red.</summary>
+        public void PlayOffline()
+        {
+            if (_busy) return;
+            _context.StartOffline();
+            if (_playOffline != null) _playOffline();
         }
 
         /// <summary>Un aviso del resto de la aplicación (por ejemplo, sesión caducada); desaparece al cambiar el nombre.</summary>
@@ -106,13 +116,6 @@ namespace RobotBombero.Game
                 return;
             }
 
-            if (_context.UsesServerAddress)
-            {
-                string addressError = _context.SetServerAddress(_server.value);
-                if (addressError != null) { ShowMessage(addressError, false); return; }
-                _server.SetValueWithoutNotify(ServerAddress.Display(_context.ServerUrl));
-            }
-
             string name = (_name.value ?? "").Trim();
             string invalid = Validate(name);
             if (invalid != null)
@@ -134,7 +137,8 @@ namespace RobotBombero.Game
 
             if (result == null || result.Status == ApiStatus.ConnectionFailed)
             {
-                ShowMessage(_context.UsesServerAddress ? ServerAddress.OfflineMessage(_context.ServerUrl) : MsgOffline, true);
+                // Nada se borra por no poder conectar: solo se avisa, y "Jugar sin conexión" sigue disponible.
+                ShowMessage(MsgOffline, true);
             }
             else if (result.Status == ApiStatus.Rejected)
             {
@@ -169,6 +173,8 @@ namespace RobotBombero.Game
             catch (IOException) { ShowMessage(MsgCannotSave, true); return; }
             catch (UnauthorizedAccessException) { ShowMessage(MsgCannotSave, true); return; }
 
+            // Sin identidad previa, los ids de servidor que queden en los packs son de otro servidor o de otra base: se olvidan.
+            if (!_context.HasIdentity) _context.Packs.ForgetPackServerIds();
             _context.Profile = _granted;
             _granted = null;
             ClearMessage();
@@ -186,7 +192,7 @@ namespace RobotBombero.Game
             _enter.SetEnabled(!busy);
             _retry.SetEnabled(!busy);
             _name.SetEnabled(!busy);
-            _server.SetEnabled(!busy);
+            _offline.SetEnabled(!busy);
             _enter.text = busy ? TextBusy : TextEnter;
         }
 

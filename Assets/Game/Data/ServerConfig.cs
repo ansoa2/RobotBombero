@@ -9,8 +9,8 @@ namespace RobotBombero.Game
     }
 
     /// <summary>
-    /// Si la plataforma necesita que el jugador elija el servidor (todas menos WebGL, que usa rutas relativas)
-    /// y cuál es la dirección por defecto fijada al compilar.
+    /// Si la plataforma usa una dirección de servidor (todas menos WebGL, que usa rutas relativas) y cuál es:
+    /// la fijada al compilar con el parámetro del script. El jugador no la ve ni la cambia.
     /// </summary>
     public sealed class ServerConfig
     {

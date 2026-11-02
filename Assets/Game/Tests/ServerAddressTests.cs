@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace RobotBombero.Game.Tests
 {
-    /// <summary>La dirección del servidor que escribe el jugador: con o sin http://, con o sin puerto (por defecto 5080).</summary>
+    /// <summary>La dirección del servidor fijada al compilar: con o sin http://, con o sin puerto (por defecto 5080).</summary>
     public class ServerAddressTests
     {
         [TestCase("192.168.1.149:5080", "http://192.168.1.149:5080")]
@@ -47,24 +47,6 @@ namespace RobotBombero.Game.Tests
             Assert.IsFalse(result.IsValid);
             Assert.IsNull(result.Url);
             Assert.IsNotEmpty(result.Error);
-            StringAssert.Contains("192.168.1.149:5080", result.Error, "El mensaje debe dar un ejemplo");
-        }
-
-        [Test]
-        public void Display_DropsTheHttpScheme()
-        {
-            Assert.AreEqual("192.168.1.149:5080", ServerAddress.Display("http://192.168.1.149:5080"));
-            Assert.AreEqual("https://mipc:5080", ServerAddress.Display("https://mipc:5080"));
-            Assert.AreEqual("", ServerAddress.Display(null));
-        }
-
-        [Test]
-        public void OfflineMessage_NamesTheAddress_AndRemindsServerAndWifi()
-        {
-            string text = ServerAddress.OfflineMessage("http://192.168.1.149:5080");
-            StringAssert.Contains("http://192.168.1.149:5080", text);
-            StringAssert.Contains("servidor", text);
-            StringAssert.Contains("wifi", text);
         }
     }
 }

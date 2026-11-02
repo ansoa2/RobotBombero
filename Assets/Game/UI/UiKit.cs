@@ -8,7 +8,7 @@ namespace RobotBombero.Game
     {
         public static Label Label(string name, string text, params string[] classes)
         {
-            var label = new Label(text);
+            var label = new Label(text) { enableRichText = false };
             if (name != null) label.name = name;
             AddClasses(label, classes);
             return label;
@@ -16,7 +16,7 @@ namespace RobotBombero.Game
 
         public static Button Button(string name, string text, Action click, params string[] classes)
         {
-            var button = new Button(click) { text = text };
+            var button = new Button(click) { text = text, enableRichText = false };
             if (name != null) button.name = name;
             button.AddToClassList("btn");
             AddClasses(button, classes);
@@ -28,6 +28,13 @@ namespace RobotBombero.Game
             var box = new VisualElement();
             AddClasses(box, classes);
             return box;
+        }
+
+        /// <summary>Un texto que puede venir de otro jugador (nombres de pack): se escribe tal cual, sin interpretar etiquetas como <b>.</summary>
+        public static Label Plain(Label label)
+        {
+            label.enableRichText = false;
+            return label;
         }
 
         public static void Show(VisualElement element, bool shown)

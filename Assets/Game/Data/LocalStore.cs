@@ -18,7 +18,7 @@ namespace RobotBombero.Game
         private const string PacksDir = "packs";
         private const string TempSuffix = ".tmp";
         private const string PendingFile = "pending-deletes.json";
-        private const string SettingsFile = "settings.json";
+        private const string PendingFinishFile = "pending-finishes.json";
 
         private readonly string _root;
 
@@ -39,10 +39,11 @@ namespace RobotBombero.Game
             }
             catch (ArgumentException) { }
             catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
 
             // Perfil ilegible: se conserva una copia para no perder la clave por un guardado posterior.
             Debug.LogWarning("RobotBombero: el perfil local es ilegible; se conserva una copia .corrupt.");
-            try { File.Copy(path, path + ".corrupt", true); } catch (IOException) { }
+            try { File.Copy(path, path + ".corrupt", true); } catch (IOException) { } catch (UnauthorizedAccessException) { }
             return new Profile();
         }
 
@@ -50,31 +51,6 @@ namespace RobotBombero.Game
         {
             if (profile == null) throw new ArgumentNullException("profile");
             WriteAtomic(Path.Combine(_root, ProfileFile), JsonUtility.ToJson(profile));
-        }
-
-        [Serializable]
-        private sealed class Settings
-        {
-            public string serverAddress;
-        }
-
-        /// <summary>La dirección del servidor elegida en este dispositivo (URL normalizada), o nulo. Un archivo ilegible cuenta como vacío.</summary>
-        public string LoadServerAddress()
-        {
-            string path = Path.Combine(_root, SettingsFile);
-            if (!File.Exists(path)) return null;
-            try
-            {
-                var settings = JsonUtility.FromJson<Settings>(File.ReadAllText(path, Encoding.UTF8));
-                return settings == null || string.IsNullOrEmpty(settings.serverAddress) ? null : settings.serverAddress;
-            }
-            catch (ArgumentException) { return null; }
-            catch (IOException) { return null; }
-        }
-
-        public void SaveServerAddress(string url)
-        {
-            WriteAtomic(Path.Combine(_root, SettingsFile), JsonUtility.ToJson(new Settings { serverAddress = url }));
         }
 
         [Serializable]
@@ -96,6 +72,7 @@ namespace RobotBombero.Game
             }
             catch (ArgumentException) { }
             catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
             return result;
         }
 
@@ -103,6 +80,55 @@ namespace RobotBombero.Game
         {
             if (ids == null) throw new ArgumentNullException("ids");
             WriteAtomic(Path.Combine(_root, PendingFile), JsonUtility.ToJson(new PendingDeletes { ids = ids.ToArray() }));
+        }
+
+        [Serializable]
+        private sealed class PendingFinishes
+        {
+            public PendingFinish[] items;
+        }
+
+        /// <summary>Partidas clasificadas cuyo cierre aún no ha llegado al servidor. Un archivo ilegible cuenta como vacío.</summary>
+        public List<PendingFinish> LoadPendingFinishes()
+        {
+            string path = Path.Combine(_root, PendingFinishFile);
+            var result = new List<PendingFinish>();
+            if (!File.Exists(path)) return result;
+            try
+            {
+                var data = JsonUtility.FromJson<PendingFinishes>(File.ReadAllText(path, Encoding.UTF8));
+                if (data != null && data.items != null)
+                {
+                    foreach (PendingFinish item in data.items)
+                        if (item != null && item.gameId > 0) result.Add(item);
+                }
+            }
+            catch (ArgumentException) { }
+            catch (IOException) { }
+            catch (UnauthorizedAccessException) { }
+            return result;
+        }
+
+        public void SavePendingFinishes(List<PendingFinish> items)
+        {
+            if (items == null) throw new ArgumentNullException("items");
+            WriteAtomic(Path.Combine(_root, PendingFinishFile), JsonUtility.ToJson(new PendingFinishes { items = items.ToArray() }));
+        }
+
+        /// <summary>Anota un cierre pendiente (una vez por partida).</summary>
+        public void AddPendingFinish(PendingFinish item)
+        {
+            if (item == null) throw new ArgumentNullException("item");
+            List<PendingFinish> items = LoadPendingFinishes();
+            if (items.Exists(p => p.gameId == item.gameId)) return;
+            items.Add(item);
+            SavePendingFinishes(items);
+        }
+
+        public void RemovePendingFinish(long gameId)
+        {
+            List<PendingFinish> items = LoadPendingFinishes();
+            if (items.RemoveAll(p => p.gameId == gameId) > 0) SavePendingFinishes(items);
         }
 
         public List<LocalPack> LoadPacks()

@@ -24,7 +24,7 @@
                 <ui:Button name="menu-leaderboard" class="btn">
                     <ui:Label text="Clasificación global" class="btn__label" picking-mode="Ignore" />
                 </ui:Button>
-                <ui:Button name="menu-server" class="btn btn--small" text="Servidor" />
+                <ui:Button name="menu-register" class="btn btn--small" text="Registrar nombre" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

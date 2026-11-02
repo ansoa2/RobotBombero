@@ -10,7 +10,7 @@ namespace RobotBombero.Game.Tests
         public string BaseUrl { get; set; }
     }
 
-    /// <summary>Dónde se guarda la dirección del servidor y cómo llega al cliente de red.</summary>
+    /// <summary>La dirección del servidor es la de la compilación: no se guarda, no se elige y no llega a ningún texto.</summary>
     public class ServerSettingsTests
     {
         private string _root;
@@ -32,96 +32,54 @@ namespace RobotBombero.Game.Tests
         private static void Drain(IEnumerator e) { while (e.MoveNext()) { } }
 
         [Test]
-        public void LocalStore_ServerAddress_RoundTrips_AndDefaultsToNull()
-        {
-            Assert.IsNull(_store.LoadServerAddress());
-            _store.SaveServerAddress("http://10.0.0.5:5080");
-            Assert.AreEqual("http://10.0.0.5:5080", new LocalStore(_root).LoadServerAddress());
-        }
-
-        [Test]
-        public void LocalStore_ServerAddress_SurvivesProfileSaves()
-        {
-            _store.SaveServerAddress("http://10.0.0.5:5080");
-            _store.SaveProfile(new Profile());
-            Assert.AreEqual("http://10.0.0.5:5080", _store.LoadServerAddress());
-        }
-
-        [Test]
-        public void LocalStore_CorruptSettings_CountAsEmpty()
-        {
-            Directory.CreateDirectory(_root);
-            File.WriteAllText(Path.Combine(_root, "settings.json"), "{no es json");
-            Assert.IsNull(_store.LoadServerAddress());
-        }
-
-        [Test]
-        public void Context_WithoutServerConfig_DoesNotUseAddresses()
+        public void Context_WithoutServerConfig_UsesRelativePaths()
         {
             var api = new TargetApi();
-            var context = new GameContext(_store, api, Drain);
-            Assert.IsFalse(context.UsesServerAddress);
+            new GameContext(_store, api, Drain);
             Assert.IsNull(api.BaseUrl, "WebGL: rutas relativas");
         }
 
         [Test]
-        public void Context_CleanInstall_UsesTheBuildDefault()
+        public void Context_UsesOnlyTheBuildAddress()
         {
             var api = new TargetApi();
-            var context = new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149:5080"));
-            Assert.IsTrue(context.UsesServerAddress);
-            Assert.AreEqual("http://192.168.1.149:5080", context.ServerUrl);
+            new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149:5080"));
             Assert.AreEqual("http://192.168.1.149:5080", api.BaseUrl);
         }
 
         [Test]
-        public void Context_StoredAddress_WinsOverTheBuildDefault()
+        public void Context_IgnoresAnyOldStoredAddress()
         {
-            _store.SaveServerAddress("http://10.0.0.5:5080");
+            Directory.CreateDirectory(_root);
+            File.WriteAllText(Path.Combine(_root, "settings.json"), "{\"serverAddress\":\"http://10.0.0.5:5080\"}");
             var api = new TargetApi();
-            var context = new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149:5080"));
-            Assert.AreEqual("http://10.0.0.5:5080", context.ServerUrl);
-            Assert.AreEqual("http://10.0.0.5:5080", api.BaseUrl);
+            new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149:5080"));
+            Assert.AreEqual("http://192.168.1.149:5080", api.BaseUrl);
         }
 
         [Test]
-        public void Context_NoDefault_StartsEmpty()
+        public void Context_NoBuildAddress_StartsEmpty()
         {
-            var context = new GameContext(_store, new TargetApi(), Drain, null, new ServerConfig(true, null));
-            Assert.AreEqual("", context.ServerUrl);
+            var api = new TargetApi { BaseUrl = "x" };
+            new GameContext(_store, api, Drain, null, new ServerConfig(true, null));
+            Assert.AreEqual("", api.BaseUrl);
         }
 
         [Test]
-        public void SetServerAddress_Valid_NormalizesStoresAndRetargetsTheClient()
-        {
-            var api = new TargetApi();
-            var context = new GameContext(_store, api, Drain, null, new ServerConfig(true, null));
-            Assert.IsNull(context.SetServerAddress(" 192.168.1.20 "));
-            Assert.AreEqual("http://192.168.1.20:5080", context.ServerUrl);
-            Assert.AreEqual("http://192.168.1.20:5080", api.BaseUrl);
-            Assert.AreEqual("http://192.168.1.20:5080", _store.LoadServerAddress());
-        }
-
-        [Test]
-        public void SetServerAddress_Invalid_ReturnsTheError_AndChangesNothing()
+        public void ExpireSession_KeepsTheBuildAddress()
         {
             var api = new TargetApi();
             var context = new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149"));
-            string error = context.SetServerAddress("192.168.1.999");
-            Assert.IsNotEmpty(error);
-            Assert.AreEqual("http://192.168.1.149:5080", context.ServerUrl);
+            context.ExpireSession();
             Assert.AreEqual("http://192.168.1.149:5080", api.BaseUrl);
-            Assert.IsNull(_store.LoadServerAddress());
         }
 
         [Test]
-        public void ExpireSession_KeepsTheServerAddress()
+        public void LocalStore_HasNoAddressHandling()
         {
-            var context = new GameContext(_store, new TargetApi(), Drain, null, new ServerConfig(true, "192.168.1.149"));
-            context.SetServerAddress("10.0.0.5");
-            context.ExpireSession();
-            Assert.AreEqual("http://10.0.0.5:5080", context.ServerUrl);
-            Assert.AreEqual("http://10.0.0.5:5080", _store.LoadServerAddress());
+            Assert.IsNull(typeof(LocalStore).GetMethod("LoadServerAddress"));
+            Assert.IsNull(typeof(LocalStore).GetMethod("SaveServerAddress"));
+            Assert.IsNull(typeof(GameContext).GetMethod("SetServerAddress"));
         }
     }
 }

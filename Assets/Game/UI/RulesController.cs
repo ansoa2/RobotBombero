@@ -23,7 +23,7 @@ namespace RobotBombero.Game
             _go = go;
             _list = UiKit.Require<VisualElement>(view, "rules-list");
             _empty = UiKit.Require<VisualElement>(view, "rules-empty");
-            _message = UiKit.Require<Label>(view, "rules-message");
+            _message = UiKit.Plain(UiKit.Require<Label>(view, "rules-message"));
 
             UiKit.Require<Button>(view, "rules-back").clicked += () => _go(ScreenId.Menu);
             UiKit.Require<Button>(view, "rules-new").clicked += NewPack;
