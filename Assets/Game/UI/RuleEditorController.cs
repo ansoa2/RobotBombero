@@ -26,6 +26,10 @@ namespace RobotBombero.Game
         private LocalPack _pack;
         private int _editing = -1;
 
+        /// <summary>Por debajo de este ancho de lista, los botones de cada regla van debajo de su resumen.</summary>
+        public const float NarrowWidth = 480f;
+        public const string NarrowClass = "rules-narrow";
+
         public RuleEditorController(VisualElement view, GameContext context, Action<ScreenId> go)
         {
             _context = context;
@@ -42,6 +46,13 @@ namespace RobotBombero.Game
             UiKit.Require<Button>(view, "editor-back").clicked += Back;
             UiKit.Require<Button>(view, "editor-detail-done").clicked += ShowList;
             _addRule.clicked += AddRule;
+            // USS no recoloca la fila aunque tenga flex-wrap: sin esto, en un móvil el resumen se queda en una columna de una palabra.
+            _rules.RegisterCallback<GeometryChangedEvent>(e => ApplyWidth(view, e.newRect.width));
+        }
+
+        public static void ApplyWidth(VisualElement view, float width)
+        {
+            view.EnableInClassList(NarrowClass, width < NarrowWidth);
         }
 
         public void OnShow()

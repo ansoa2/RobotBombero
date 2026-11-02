@@ -129,6 +129,16 @@ namespace RobotBombero.Tests
             Assert.Empty(r.Content.Headers.ContentEncoding);
         }
 
+        [Theory]
+        [InlineData("/")]
+        [InlineData("/game.wasm.unityweb")]
+        [InlineData("/game.loader.js")]
+        public async Task GameFiles_AreAlwaysRevalidated(string url)
+        {
+            var r = await client.GetAsync(url);
+            Assert.True(r.Headers.CacheControl.NoCache, url);
+        }
+
         [Fact]
         public async Task UnknownApiRoute_Returns404_NotIndex()
         {

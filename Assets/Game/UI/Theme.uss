@@ -69,16 +69,19 @@
     white-space: normal;
 }
 
-.btn:hover {
+/* Con :enabled: el tema por defecto de Unity usa :hover:enabled y, sin esto, deja el botón gris claro con texto blanco. */
+.btn:hover:enabled {
     background-color: rgba(255, 255, 255, 0.18);
     border-color: var(--color-accent);
 }
 
-.btn:focus {
+.btn:focus,
+.btn:focus:enabled {
     border-color: var(--color-accent);
 }
 
-.btn:active {
+.btn:active:enabled,
+.btn:hover:active:enabled {
     background-color: rgba(255, 255, 255, 0.26);
 }
 
@@ -93,13 +96,14 @@
     border-width: 0;
 }
 
-.btn--main:hover {
+.btn--main:hover:enabled {
     background-color: var(--color-action);
     -unity-background-image-tint-color: rgb(255, 225, 205);
     border-width: 0;
 }
 
-.btn--main:active {
+.btn--main:active:enabled,
+.btn--main:hover:active:enabled {
     background-color: var(--color-action-end);
     -unity-background-image-tint-color: rgb(225, 190, 170);
 }
@@ -281,7 +285,8 @@
 }
 
 .field:focus .unity-base-text-field__input,
-.field .unity-base-text-field__input:focus {
+.field .unity-base-text-field__input:focus,
+.field .unity-base-text-field__input:focus:enabled {
     border-color: var(--color-accent);
 }
 

@@ -13,7 +13,7 @@
             <ui:VisualElement class="menu__buttons">
                 <ui:Button name="menu-play" class="btn btn--main">
                     <ui:Label text="Jugar" class="btn__label" picking-mode="Ignore" />
-                    <ui:Label text="▶" class="btn__icon" picking-mode="Ignore" />
+                    <ui:Label text="→" class="btn__icon" picking-mode="Ignore" />
                 </ui:Button>
                 <ui:Button name="menu-rules" class="btn">
                     <ui:Label text="Editar reglas" class="btn__label" picking-mode="Ignore" />

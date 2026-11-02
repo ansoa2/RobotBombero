@@ -446,7 +446,7 @@ namespace RobotBombero.Game.Tests
             foreach (string path in new[] { "Fonts/Inter-Regular.ttf", "Fonts/Inter-SemiBold.ttf" })
             {
                 Font font = Asset<Font>(path);
-                foreach (char c in "áéíóúüñÁÉÍÓÚÑ¿¡…▶")
+                foreach (char c in "áéíóúüñÁÉÍÓÚÑ¿¡…")
                     Assert.IsTrue(font.HasCharacter(c), path + " no tiene '" + c + "'");
             }
         }

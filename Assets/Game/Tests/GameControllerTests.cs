@@ -1,6 +1,7 @@
 using System.Linq;
 using NUnit.Framework;
 using RobotBombero.Simulation;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace RobotBombero.Game.Tests
@@ -89,6 +90,21 @@ namespace RobotBombero.Game.Tests
             Assert.AreEqual(1, pack.stats.games);
             Assert.AreEqual(1, Store.LoadPacks().Single().stats.games, "Se guarda en el dispositivo");
             Assert.AreEqual(1, Api.FinishCalls);
+        }
+
+        [Test]
+        public void NewGame_ShowsTheControlsFromTheTop()
+        {
+            Start();
+            Play();
+            var controls = Root.Q<ScrollView>("game-controls");
+            controls.verticalScroller.highValue = 500f;
+            controls.scrollOffset = new Vector2(0f, 300f);
+            Assert.AreEqual(300f, controls.scrollOffset.y, 0.01f);
+
+            Router.Show(ScreenId.Game);
+
+            Assert.AreEqual(0f, controls.scrollOffset.y, 0.01f);
         }
 
         [Test]

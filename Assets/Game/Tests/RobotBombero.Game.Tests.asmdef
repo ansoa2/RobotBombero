@@ -3,6 +3,7 @@
     "rootNamespace": "RobotBombero.Game.Tests",
     "references": [
         "RobotBombero.Game",
+        "RobotBombero.Game.Editor",
         "RobotBombero.Simulation"
     ],
     "includePlatforms": [

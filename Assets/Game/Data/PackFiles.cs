@@ -64,7 +64,7 @@ namespace RobotBombero.Game
             parsed.name = UniqueName(parsed.name, existingNames);
             return ImportResult.Ok(new LocalPack
             {
-                localId = Guid.NewGuid().ToString("N"),
+                localId = LocalPack.NewId(),
                 serverPackId = 0,
                 content = parsed,
                 stats = new PackStats()

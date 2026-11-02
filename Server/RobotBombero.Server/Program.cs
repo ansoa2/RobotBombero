@@ -44,6 +44,8 @@ app.UseStaticFiles(new StaticFileOptions
     DefaultContentType = "application/octet-stream",
     OnPrepareResponse = ctx =>
     {
+        // Los nombres de los archivos no cambian entre compilaciones: el navegador siempre pregunta si hay otra versión.
+        ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.CacheControl] = "no-cache";
         // Solo los .br se sirven ya comprimidos. Los .unityweb los descomprime Unity en JavaScript.
         if (ctx.File.Name.EndsWith(".br", StringComparison.OrdinalIgnoreCase))
             ctx.Context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.ContentEncoding] = "br";

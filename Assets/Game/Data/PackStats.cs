@@ -42,6 +42,15 @@ namespace RobotBombero.Game
     [Serializable]
     public class LocalPack
     {
+        private static long _lastIdTicks;
+
+        /// <summary>Identificador nuevo. Empieza por la hora: LocalStore carga los packs por nombre de archivo, así que conservan el orden de creación.</summary>
+        public static string NewId()
+        {
+            _lastIdTicks = Math.Max(DateTime.UtcNow.Ticks, _lastIdTicks + 1);
+            return _lastIdTicks.ToString("x16") + Guid.NewGuid().ToString("N");
+        }
+
         public string localId;
         public long serverPackId;
         /// <summary>Huella y nombre con los que el pack se subió por última vez; si cambian, hay que volver a subirlo.</summary>

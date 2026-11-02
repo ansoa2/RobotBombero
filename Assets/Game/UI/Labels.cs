@@ -106,10 +106,10 @@ namespace RobotBombero.Game
             return ratio.ToString("0.####", CultureInfo.InvariantCulture).Replace('.', ',');
         }
 
-        /// <summary>Media con coma decimal y un decimal como máximo.</summary>
+        /// <summary>Media con punto de millares, coma decimal y un decimal como máximo.</summary>
         public static string Average(float value)
         {
-            return value.ToString("0.#", CultureInfo.InvariantCulture).Replace('.', ',');
+            return value.ToString("#,##0.#", CultureInfo.InvariantCulture).Replace(',', ' ').Replace('.', ',').Replace(' ', '.');
         }
 
         /// <summary>Nombre de elemento de interfaz para un valor: sin espacios.</summary>

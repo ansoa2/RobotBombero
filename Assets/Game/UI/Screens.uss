@@ -21,7 +21,7 @@
     color: #FFB4AA;
 }
 
-.btn--danger:hover {
+.btn--danger:hover:enabled {
     border-color: #FF6B5E;
 }
 
@@ -37,7 +37,9 @@
 }
 
 .chip.is-selected,
-.btn.is-selected {
+.btn.is-selected,
+.chip.is-selected:hover:enabled,
+.btn.is-selected:hover:enabled {
     background-color: var(--color-action);
     border-color: var(--color-accent);
     color: var(--color-text);
@@ -121,18 +123,16 @@
     margin-top: 10px;
 }
 
+/* USS no tiene selector de primer hijo: el margen negativo del contenedor compensa el del primer elemento. */
 .toolbar {
     flex-direction: row;
     flex-shrink: 0;
+    margin-left: -8px;
     margin-bottom: 10px;
 }
 
 .toolbar > .btn {
     margin-left: 8px;
-}
-
-.toolbar > .btn:first-child {
-    margin-left: 0;
 }
 
 .toolbar__grow {
@@ -141,7 +141,7 @@
 }
 
 .toolbar--bottom {
-    margin: 10px 0 0 0;
+    margin: 10px 0 0 -8px;
 }
 
 .is-landscape .page {
@@ -209,11 +209,12 @@
 
 .stat-line__name {
     flex-shrink: 0;
+    padding: 0;
 }
 
 .stat-line__value {
     flex-shrink: 1;
-    margin-left: 12px;
+    margin: 0 0 0 12px;
     -unity-font-definition: var(--font-strong);
     -unity-text-align: upper-right;
     white-space: normal;
@@ -340,6 +341,7 @@
 
 .dialog__buttons {
     flex-direction: row;
+    margin-left: -8px;
     margin-top: 14px;
 }
 
@@ -347,10 +349,6 @@
     flex-grow: 1;
     flex-basis: 0;
     margin-left: 8px;
-}
-
-.dialog__buttons > .btn:first-child {
-    margin-left: 0;
 }
 
 /* --- Resultado --- */
@@ -365,6 +363,7 @@
 
 .result__row {
     flex-direction: row;
+    margin-left: -8px;
     margin-top: 10px;
 }
 
@@ -372,10 +371,6 @@
     flex-grow: 1;
     flex-basis: 0;
     margin-left: 8px;
-}
-
-.result__row > .tile:first-child {
-    margin-left: 0;
 }
 
 .result__note {
@@ -622,6 +617,7 @@
 
 .hud {
     flex-direction: row;
+    margin-left: -6px;
     margin-bottom: 8px;
 }
 
@@ -632,8 +628,7 @@
     padding: 6px 8px;
 }
 
-.hud > .tile:first-child {
-    margin-left: 0;
+.hud > .hud__battery {
     flex-grow: 2;
 }
 
@@ -808,8 +803,8 @@
 
 .page__scroll .unity-base-slider__tracker,
 .game__controls .unity-base-slider__tracker {
-    background-color: transparent;
-    border-width: 0;
+    /* Solo es decoración: oculto, el tema por defecto no puede pintarlo de gris al pasar por encima. */
+    display: none;
 }
 
 .page__scroll .unity-base-slider__dragger,
@@ -849,9 +844,22 @@
 .card--rule > .card__buttons {
     flex-shrink: 0;
     margin-top: 6px;
+    margin-right: -8px;
 }
 
-.card--rule .card__buttons > .btn:last-child {
+.rules-narrow .card--rule {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.rules-narrow .card--rule > .rule__head {
+    flex-grow: 0;
+    flex-basis: auto;
+    margin-right: 0;
+}
+
+.rules-narrow .card--rule > .card__buttons {
     margin-right: 0;
 }
 

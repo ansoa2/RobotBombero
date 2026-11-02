@@ -195,6 +195,19 @@ namespace RobotBombero.Game.Tests
             StringAssert.DoesNotContain("Obstacle", text);
         }
 
+        [TestCase(360f, true)]
+        [TestCase(479f, true)]
+        [TestCase(480f, false)]
+        [TestCase(560f, false)]
+        public void RuleCards_StackTheirButtonsWhenNarrow(float width, bool narrow)
+        {
+            var view = new VisualElement();
+
+            RuleEditorController.ApplyWidth(view, width);
+
+            Assert.AreEqual(narrow, view.ClassListContains(RuleEditorController.NarrowClass));
+        }
+
         // --- Lista de packs ---
 
         [Test]

@@ -134,18 +134,6 @@ namespace RobotBombero.Game.Editor
             }));
         }
 
-        /// <summary>Compilación WebGL de comprobación de la plantilla y del tamaño de descarga.</summary>
-        public static void BuildWebGlCheck()
-        {
-            Report(BuildPipeline.BuildPlayer(new BuildPlayerOptions
-            {
-                scenes = new[] { MainScene },
-                locationPathName = "Build/WebGL",
-                target = BuildTarget.WebGL,
-                options = BuildOptions.None
-            }));
-        }
-
         private static void Report(BuildReport report)
         {
             BuildSummary summary = report.summary;

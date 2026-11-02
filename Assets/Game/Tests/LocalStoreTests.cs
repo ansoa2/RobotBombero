@@ -20,6 +20,23 @@ namespace RobotBombero.Game.Tests
         }
 
         [Test]
+        public void Reload_KeepsTheOrderInWhichPacksWereCreated()
+        {
+            var store = new LocalStore(_root);
+            var names = new string[20];
+            for (int i = 0; i < names.Length; i++)
+            {
+                names[i] = "Pack" + i;
+                LocalPack pack = TestData.Local(LocalPack.NewId(), names[i], 7);
+                store.SavePack(pack);
+            }
+
+            var reloaded = new LocalStore(_root).LoadPacks();
+
+            Assert.AreEqual(names, reloaded.ConvertAll(p => p.content.name).ToArray());
+        }
+
+        [Test]
         public void SaveAndReload_PreservesPacksAndStats()
         {
             var store = new LocalStore(_root);

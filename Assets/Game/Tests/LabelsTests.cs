@@ -124,13 +124,22 @@ namespace RobotBombero.Game.Tests
             Assert.AreEqual(expected, Labels.Ratio(fires, steps));
         }
 
+        [TestCase(5000f, "5.000")]
+        [TestCase(1234.5f, "1.234,5")]
+        [TestCase(38.7f, "38,7")]
+        [TestCase(0f, "0")]
+        public void Average_UsesSpanishSeparators(float value, string expected)
+        {
+            Assert.AreEqual(expected, Labels.Average(value));
+        }
+
         [Test]
         public void Fonts_HaveTheGlyphsUsedByControls()
         {
             foreach (string path in new[] { "Assets/Game/UI/Fonts/Inter-Regular.ttf", "Assets/Game/UI/Fonts/Inter-SemiBold.ttf" })
             {
                 var font = AssetDatabase.LoadAssetAtPath<Font>(path);
-                foreach (char c in "↑↓×←▶·")
+                foreach (char c in "↑↓×←→·")
                     Assert.IsTrue(font.HasCharacter(c), path + " no tiene '" + c + "'");
             }
         }

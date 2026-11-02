@@ -21,6 +21,7 @@ namespace RobotBombero.Game
         private readonly BoardView _board;
         private readonly Label _pack, _badge, _status, _battery, _steps, _fires, _testNote;
         private readonly VisualElement _batteryBar, _testPanel, _boardHolder;
+        private readonly ScrollView _controls;
         private readonly Button _back, _step, _auto, _testToggle;
         private readonly Button[] _speeds = new Button[GameSession.Speeds.Length];
         private readonly Button[] _manual = new Button[4];
@@ -47,6 +48,7 @@ namespace RobotBombero.Game
             _batteryBar = UiKit.Require<VisualElement>(view, "game-battery-bar");
             _testPanel = UiKit.Require<VisualElement>(view, "game-test-panel");
             _boardHolder = UiKit.Require<VisualElement>(view, "board-holder");
+            _controls = UiKit.Require<ScrollView>(view, "game-controls");
             _back = UiKit.Require<Button>(view, "game-back");
             _step = UiKit.Require<Button>(view, "game-step");
             _auto = UiKit.Require<Button>(view, "game-auto");
@@ -94,6 +96,8 @@ namespace RobotBombero.Game
             _board.Reset();
             UiKit.Show(_testPanel, false);
             UiKit.Show(_badge, false);
+            // La vista se reutiliza: sin esto, la partida nueva empieza con Paso y Automático fuera de la vista.
+            _controls.scrollOffset = Vector2.zero;
             _testNote.text = "Sin puntuación: con estos botones la partida no puntúa ni cuenta en las estadísticas.";
             SetControls(false);
             ShowCounters(0, 0, 50);
@@ -141,7 +145,7 @@ namespace RobotBombero.Game
             bool open = _testPanel.style.display == DisplayStyle.None;
             UiKit.Show(_testPanel, open);
             // El panel nace bajo el pliegue: se lleva a la vista para que se vean los botones.
-            if (open) _view.schedule.Execute(() => UiKit.Require<ScrollView>(_view, "game-controls").ScrollTo(_testPanel));
+            if (open) _view.schedule.Execute(() => _controls.ScrollTo(_testPanel));
         }
 
         private void ToggleAuto()

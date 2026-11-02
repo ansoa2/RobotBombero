@@ -25,16 +25,29 @@ set ROBOTBOMBERO_PORT=5090
 
 La base de datos se crea sola en `Server/data/robotbombero.db`. No se sube a git.
 
-## Dónde van los archivos del juego
+## Compilar el juego y arrancarlo todo
 
-Copia la compilación WebGL de Unity dentro de `Server/RobotBombero.Server/wwwroot`
-(el archivo `index.html` debe quedar directamente en esa carpeta). Esa carpeta no
-se sube a git. Si no existe, créala.
+Con Unity cerrado, desde la carpeta del proyecto:
 
-Se admiten los archivos de Unity con compresión Brotli (`.br`) y los
-`.unityweb` del modo "decompression fallback". Como la red local usa HTTP y no
-HTTPS, los navegadores no aceptan Brotli directo, así que conviene compilar en
-Unity con **Decompression Fallback** activado.
+```
+powershell -ExecutionPolicy Bypass -File Server\build-and-run.ps1
+```
+
+El script compila la versión WebGL en `Server/RobotBombero.Server/wwwroot` y arranca
+el servidor. Si Unity tiene el proyecto abierto, avisa y no hace nada. Con
+`-SoloCompilar` no arranca el servidor, y con `-UnityPath "ruta\Unity.exe"` usa otra
+instalación de Unity. Esa carpeta se genera entera en cada compilación y no se sube a git.
+
+La compilación usa Brotli con **Decompression Fallback**, porque la red local usa HTTP
+y los navegadores solo aceptan Brotli directo por HTTPS. Salen estos archivos, que el
+servidor envía tal cual y el cargador de Unity descomprime en el navegador:
+
+- `index.html` y `TemplateData/`
+- `Build/wwwroot.loader.js`
+- `Build/wwwroot.framework.js.unityweb`, `Build/wwwroot.wasm.unityweb` y `Build/wwwroot.data.unityweb`
+
+Por eso la consola del navegador muestra el aviso "You can reduce startup time if you
+configure your web server to add Content-Encoding: br". Es normal en HTTP: no hay que hacer nada.
 
 ## Abrirlo desde el móvil
 

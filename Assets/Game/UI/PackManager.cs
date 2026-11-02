@@ -81,7 +81,7 @@ namespace RobotBombero.Game
 
             pack = new LocalPack
             {
-                localId = Guid.NewGuid().ToString("N"),
+                localId = LocalPack.NewId(),
                 content = new RulePackFile
                 {
                     formatVersion = PackLimits.CurrentFormatVersion,
