@@ -1,4 +1,4 @@
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
+#if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
 using System;
 using System.Collections;
 using UnityEngine;
@@ -7,11 +7,12 @@ using UnityEngine.UIElements;
 namespace RobotBombero.Game
 {
     /// <summary>
-    /// Solo en compilaciones de desarrollo o en el editor: permiten capturar las pantallas sin ratón.
+    /// Solo en compilaciones de desarrollo, en el editor o con RB_CAPTURE: permiten capturar las pantallas sin ratón.
     /// -rb-data dir        carpeta del almacén local
     /// -rb-api url         dirección del servidor
     /// -rb-screen id       identidad de demostración en memoria (sin guardar) y abre esa pantalla
     /// -rb-name texto      escribe ese nombre en el acceso
+    /// -rb-sample          con -rb-screen: packs de ejemplo, resultado y pack de partida (ver DevSamples)
     /// -rb-press a,b       pulsa esos botones, en orden, con eventos reales del panel
     /// </summary>
     internal static class DevFlags
@@ -24,12 +25,18 @@ namespace RobotBombero.Game
             return null;
         }
 
+        public static bool Has(string flag)
+        {
+            return Array.IndexOf(Environment.GetCommandLineArgs(), flag) >= 0;
+        }
+
         public static IEnumerator Apply(VisualElement root, GameContext context, ScreenRouter router)
         {
             string screen = Get("-rb-screen");
             if (screen != null)
             {
                 context.Profile = new Profile { playerName = "Bombera_7", playerKey = "demostracion", playerId = 1 };
+                if (Has("-rb-sample")) DevSamples.Seed(context);
                 router.Show((ScreenId)Enum.Parse(typeof(ScreenId), screen));
             }
 

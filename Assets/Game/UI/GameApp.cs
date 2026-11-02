@@ -16,15 +16,19 @@ namespace RobotBombero.Game
         {
             string dataRoot = Application.persistentDataPath;
             string apiUrl = "";
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
+#if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
             dataRoot = DevFlags.Get("-rb-data") ?? dataRoot;
             apiUrl = DevFlags.Get("-rb-api") ?? apiUrl;
 #endif
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
-            Context = new GameContext(new LocalStore(dataRoot), new ApiClient(apiUrl), routine => StartCoroutine(routine));
+            IApiClient api = new ApiClient(apiUrl);
+#if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
+            api = DevSamples.DemoApi(apiUrl) ?? api;
+#endif
+            Context = new GameContext(new LocalStore(dataRoot), api, routine => StartCoroutine(routine));
             Router = AppScreens.Compose(root, assets, Context);
             Router.ShowStart();
-#if DEVELOPMENT_BUILD || UNITY_EDITOR
+#if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
             StartCoroutine(DevFlags.Apply(root, Context, Router));
 #endif
         }
