@@ -66,6 +66,8 @@ namespace RobotBombero.Game
         public long Points;
         public string EndReason;
         public long? Rank;
+        /// <summary>Posición actual del jugador en la clasificación (con otra partida, quizá), o nulo si no tiene fila.</summary>
+        public long? PlayerRank;
     }
 
     [Serializable]
@@ -93,6 +95,7 @@ namespace RobotBombero.Game
         [Serializable] private class StartBody { public long packId; public Rule[] rules; }
 
         private static readonly Regex RankPattern = new Regex("\"rank\"\\s*:\\s*(null|-?[0-9]+)", RegexOptions.CultureInvariant);
+        private static readonly Regex PlayerRankPattern = new Regex("\"playerRank\"\\s*:\\s*(null|-?[0-9]+)", RegexOptions.CultureInvariant);
 
         public static GameResult ParseFinish(string json)
         {
@@ -103,7 +106,10 @@ namespace RobotBombero.Game
             long? rank = null;
             Match m = RankPattern.Match(json);
             if (m.Success && m.Groups[1].Value != "null") rank = long.Parse(m.Groups[1].Value);
-            return new GameResult { Steps = dto.steps, Fires = dto.fires, Points = dto.points, EndReason = dto.endReason, Rank = rank };
+            long? playerRank = null;
+            Match p = PlayerRankPattern.Match(json);
+            if (p.Success && p.Groups[1].Value != "null") playerRank = long.Parse(p.Groups[1].Value);
+            return new GameResult { Steps = dto.steps, Fires = dto.fires, Points = dto.points, EndReason = dto.endReason, Rank = rank, PlayerRank = playerRank };
         }
 
         public static LeaderboardRow[] ParseLeaderboard(string json)

@@ -31,12 +31,15 @@ namespace RobotBombero.Game.Tests
         public IEnumerator SavePack(string playerKey, long serverPackId, string name, string rulesHash, Action<ApiResult<long>> done)
         {
             SavePackCalls++;
+            if (OnSavePack != null) OnSavePack();
             LastKey = playerKey;
             done(SavePackResult);
             yield break;
         }
 
         public ApiResult<bool> DeleteResult = ApiResult<bool>.Ok(true);
+        public bool DeleteStalls;
+        public Action OnSavePack;
         public int DeleteCalls;
         public long LastDeletedPackId;
 
@@ -44,6 +47,7 @@ namespace RobotBombero.Game.Tests
         {
             DeleteCalls++;
             LastDeletedPackId = serverPackId;
+            while (DeleteStalls) yield return null;
             done(DeleteResult);
             yield break;
         }

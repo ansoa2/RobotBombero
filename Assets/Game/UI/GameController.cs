@@ -122,7 +122,7 @@ namespace RobotBombero.Game
             RefreshSpeeds();
             UpdateAutoButton();
             _status.text = session.IsRanked
-                ? "Paso avanza una acción; Automático sigue solo."
+                ? "Paso avanza un ciclo (la primera regla que se cumple, con todas sus acciones); Automático sigue solo."
                 : "Sin conexión: esta partida no puntúa, pero cuenta en tus estadísticas.";
             Render();
         }

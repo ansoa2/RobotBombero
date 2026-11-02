@@ -117,15 +117,26 @@ namespace RobotBombero.Game.Tests
         }
 
         [Test]
-        public void Reset_RedrawsEverything()
+        public void Reset_RedrawsEverything_WithoutLeftoverClasses()
         {
             _board.Render(_sim);
             _board.Reset();
-            int before = _board.CellUpdates;
 
-            _board.Render(_sim);
+            for (int i = 0; i < _grid.childCount; i++)
+                Assert.IsFalse(_grid[i].GetClasses().Any(c => c.StartsWith("cell--")), "Clase sobrante tras Reset en la celda " + i);
+            Assert.AreEqual(0, _grid.Query(className: "cell__icon--fire").ToList().Count);
+            Assert.AreEqual(0, _grid.Query(className: "cell__icon--robot").ToList().Count);
+
+            // Otra partida con el fuego en otro sitio: cada celda debe tener exactamente una clase de estado.
+            int before = _board.CellUpdates;
+            var other = new GameSimulation(new[] { TurnRule() }, 99);
+            other.ApplyManual("TurnL");
+            _board.Render(other);
 
             Assert.AreEqual(64 + 1, _board.CellUpdates - before);
+            for (int i = 0; i < _grid.childCount; i++)
+                Assert.AreEqual(1, _grid[i].GetClasses().Count(c => c.StartsWith("cell--")), "Celda " + i);
+            Assert.AreEqual(1, _grid.Query(className: "cell--fire").ToList().Count);
         }
     }
 }

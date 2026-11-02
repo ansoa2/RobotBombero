@@ -47,7 +47,13 @@ namespace RobotBombero.Game
         /// <summary>Olvida lo dibujado: el siguiente Render pinta todo.</summary>
         public void Reset()
         {
-            for (int i = 0; i < _states.Length; i++) _states[i] = null;
+            for (int i = 0; i < _states.Length; i++)
+            {
+                // Sin esto, una celda que cambie de estado tras reiniciar conservaría la clase de la partida anterior.
+                foreach (string c in StateClasses) _cells[i].RemoveFromClassList(c);
+                _icons[i].RemoveFromClassList("cell__icon--fire");
+                _states[i] = null;
+            }
             if (_robot >= 0) _icons[_robot].RemoveFromClassList("cell__icon--robot");
             _pointer.RemoveFromHierarchy();
             _robot = -1;

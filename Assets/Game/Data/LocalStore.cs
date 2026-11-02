@@ -17,6 +17,7 @@ namespace RobotBombero.Game
         private const string ProfileFile = "profile.json";
         private const string PacksDir = "packs";
         private const string TempSuffix = ".tmp";
+        private const string PendingFile = "pending-deletes.json";
 
         private readonly string _root;
 
@@ -48,6 +49,34 @@ namespace RobotBombero.Game
         {
             if (profile == null) throw new ArgumentNullException("profile");
             WriteAtomic(Path.Combine(_root, ProfileFile), JsonUtility.ToJson(profile));
+        }
+
+        [Serializable]
+        private sealed class PendingDeletes
+        {
+            public long[] ids;
+        }
+
+        /// <summary>Ids de packs borrados en este dispositivo que el servidor aún puede conservar. Un archivo ilegible cuenta como vacío.</summary>
+        public List<long> LoadPendingDeletes()
+        {
+            string path = Path.Combine(_root, PendingFile);
+            var result = new List<long>();
+            if (!File.Exists(path)) return result;
+            try
+            {
+                var data = JsonUtility.FromJson<PendingDeletes>(File.ReadAllText(path, Encoding.UTF8));
+                if (data != null && data.ids != null) result.AddRange(data.ids);
+            }
+            catch (ArgumentException) { }
+            catch (IOException) { }
+            return result;
+        }
+
+        public void SavePendingDeletes(List<long> ids)
+        {
+            if (ids == null) throw new ArgumentNullException("ids");
+            WriteAtomic(Path.Combine(_root, PendingFile), JsonUtility.ToJson(new PendingDeletes { ids = ids.ToArray() }));
         }
 
         public List<LocalPack> LoadPacks()

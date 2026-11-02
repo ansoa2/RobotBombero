@@ -20,6 +20,8 @@ namespace RobotBombero.Game
         public string EndReason;
         /// <summary>Posición, solo si el servidor la dio (esta partida es la fila del jugador en la clasificación).</summary>
         public long? Rank;
+        /// <summary>Posición actual del jugador, aunque esta partida no sea su fila; nulo si no tiene fila.</summary>
+        public long? PlayerRank;
         public bool FromServer;
         /// <summary>Falso si la partida no se registró en el servidor (sin conexión, sin clasificar o con acciones manuales).</summary>
         public bool Registered;
@@ -229,6 +231,7 @@ namespace RobotBombero.Game
                         Points = server.Points,
                         EndReason = server.EndReason,
                         Rank = server.Rank,
+                        PlayerRank = server.PlayerRank,
                         FromServer = true,
                         Registered = true
                     };

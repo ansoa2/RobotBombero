@@ -197,7 +197,7 @@ namespace RobotBombero.Game.Tests
             Assert.AreEqual("10", Lbl("result-fires").text);
             Assert.AreEqual("0,0081", Lbl("result-ratio").text);
             Assert.AreEqual("12.340", Lbl("result-points").text);
-            Assert.AreEqual("Puesto 7", Lbl("result-rank").text);
+            Assert.AreEqual("Nueva marca: puesto 7", Lbl("result-rank").text);
         }
 
         [Test]
@@ -206,6 +206,28 @@ namespace RobotBombero.Game.Tests
             ShowResult(new SessionResult { Steps = 5, Fires = 0, Points = 0, EndReason = "Battery", Registered = true });
 
             Assert.AreEqual("Fuera del top 100", Lbl("result-rank").text);
+        }
+
+        [Test]
+        public void Result_WeakerGame_ShowsPlayersCurrentRank_NotOutsideTop100()
+        {
+            ShowResult(new SessionResult { Steps = 50, Fires = 1, Points = 50, EndReason = "Battery", Registered = true, PlayerRank = 4 });
+
+            Assert.AreEqual("No mejora tu marca · Tu puesto: 4", Lbl("result-rank").text);
+        }
+
+        [Test]
+        public void ParseFinish_ReadsRankAndPlayerRank()
+        {
+            GameResult both = ApiParsing.ParseFinish("{\"steps\":5,\"fires\":1,\"points\":5,\"endReason\":\"Battery\",\"rank\":null,\"playerRank\":4}");
+            GameResult none = ApiParsing.ParseFinish("{\"steps\":5,\"fires\":1,\"points\":5,\"endReason\":\"Battery\",\"rank\":2,\"playerRank\":2}");
+            GameResult old = ApiParsing.ParseFinish("{\"steps\":5,\"fires\":1,\"points\":5,\"endReason\":\"Battery\",\"rank\":null,\"playerRank\":null}");
+
+            Assert.IsNull(both.Rank);
+            Assert.AreEqual(4, both.PlayerRank);
+            Assert.AreEqual(2, none.Rank);
+            Assert.AreEqual(2, none.PlayerRank);
+            Assert.IsNull(old.PlayerRank);
         }
 
         [Test]

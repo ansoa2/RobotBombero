@@ -25,7 +25,6 @@ namespace RobotBombero.Game
 
         private LocalPack _pack;
         private int _editing = -1;
-        private bool _dirty;
 
         public RuleEditorController(VisualElement view, GameContext context, Action<ScreenId> go)
         {
@@ -48,7 +47,6 @@ namespace RobotBombero.Game
         public void OnShow()
         {
             _pack = _context.EditingPack;
-            _dirty = false;
             _title.text = _pack == null ? "Editor de reglas" : _pack.content.name;
             _addRule.SetEnabled(_pack != null);
             ShowList();
@@ -57,14 +55,11 @@ namespace RobotBombero.Game
         private void Back()
         {
             if (_editing >= 0) { ShowList(); return; }
-            if (_dirty && _pack != null) _context.Run(_context.Packs.Sync(_pack));
-            _dirty = false;
             _go(ScreenId.Rules);
         }
 
         private void Changed()
         {
-            _dirty = true;
             _context.Packs.Save(_pack);
         }
 

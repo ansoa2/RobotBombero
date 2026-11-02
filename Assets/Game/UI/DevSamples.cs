@@ -9,6 +9,7 @@ namespace RobotBombero.Game
     /// Solo para capturar pantallas con datos creíbles (compilado únicamente en desarrollo, en el editor o con
     /// RB_CAPTURE): un servidor de mentira sin red y unos packs de ejemplo. Nunca existe en una compilación de entrega.
     /// -rb-api demo | demo-offline     servidor de mentira
+    /// -rb-rank new|weaker|out        posición del resultado de ejemplo
     /// -rb-sample                      crea packs de ejemplo con estadísticas y prepara resultado y pack de partida
     /// </summary>
     internal static class DevSamples
@@ -39,7 +40,11 @@ namespace RobotBombero.Game
             context.Packs.Add(Pack("Mi primer pack", 1, new[] { Rule("Siempre", "Anyone", "Anyone", "Anyone", "Anyone", "Anyone", "Fwd") }, 0, 0, 0, 0));
             context.PlayPack = context.Packs.All[0];
             context.EditingPack = context.Packs.All[0];
-            context.LastResult = new SessionResult { Steps = 1840, Fires = 11, Points = 20240, EndReason = "WalkedIntoFire", Rank = 7, Registered = true, FromServer = true };
+            // -rb-rank new (por defecto), weaker (no mejora la marca) u out (sin fila en el top 100)
+            string rank = DevFlags.Get("-rb-rank");
+            context.LastResult = new SessionResult { Steps = 1840, Fires = 11, Points = 20240, EndReason = "WalkedIntoFire", Registered = true, FromServer = true };
+            if (rank == "weaker") context.LastResult.PlayerRank = 4;
+            else if (rank != "out") context.LastResult.Rank = 7;
             context.LastResultPack = context.Packs.All[0].content.name;
         }
 

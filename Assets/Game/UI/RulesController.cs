@@ -27,13 +27,15 @@ namespace RobotBombero.Game
             UiKit.Require<Button>(view, "rules-new").clicked += NewPack;
             // El selector de archivos de WebGL solo se abre dentro de un gesto del usuario: se arma al pulsar,
             // no al soltar (ver FileBridge.PickJson).
-            UiKit.Require<Button>(view, "rules-import").RegisterCallback<PointerDownEvent>(e => BeginImport());
+            // Con TrickleDown: Clickable detiene la propagación del PointerDown del propio botón, y una devolución en la fase normal no llegaría a ejecutarse.
+            UiKit.Require<Button>(view, "rules-import").RegisterCallback<PointerDownEvent>(OnImportPointerDown, TrickleDown.TrickleDown);
         }
 
         public void OnShow()
         {
             UiKit.Show(_message, false);
             Refresh();
+            _context.Run(_context.Packs.SyncPending());
         }
 
         private void Refresh()
@@ -80,7 +82,7 @@ namespace RobotBombero.Game
                 if (error == null)
                 {
                     Refresh();
-                    _context.Run(_context.Packs.Sync(pack));
+                    _context.Run(_context.Packs.SyncPending());
                 }
                 return error;
             });
@@ -91,10 +93,9 @@ namespace RobotBombero.Game
             string message = "¿Eliminar «" + pack.content.name + "»? Se perderán sus reglas y estadísticas de este dispositivo. No se puede deshacer.";
             Dialog.Confirm(_view, "Eliminar pack", message, "Eliminar", () =>
             {
-                long serverId = pack.serverPackId;
                 _context.Packs.Delete(pack);
                 Refresh();
-                if (serverId > 0) _context.Run(_context.Packs.DeleteRemote(serverId));
+                _context.Run(_context.Packs.SyncPending());
             });
         }
 
@@ -103,6 +104,11 @@ namespace RobotBombero.Game
             string fileName = FileName(pack.content.name) + ".json";
             if (_context.Files.Download(fileName, PackFiles.Export(pack))) Info("Pack exportado como " + fileName + ".");
             else Problem("No se pudo exportar el pack en este dispositivo.");
+        }
+
+        private void OnImportPointerDown(PointerDownEvent e)
+        {
+            if (e.button == 0) BeginImport();
         }
 
         /// <summary>Se llama al pulsar (no al soltar) el botón Importar.</summary>

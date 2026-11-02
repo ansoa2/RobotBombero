@@ -98,7 +98,11 @@ namespace RobotBombero.Game
             router.Register(ScreenId.Login, () =>
             {
                 VisualElement view = Instantiate(assets.login);
-                login = new LoginController(view, context, () => router.Show(ScreenId.Menu));
+                login = new LoginController(view, context, () =>
+                {
+                    router.Show(ScreenId.Menu);
+                    context.Run(context.Packs.SyncPending());
+                });
                 view.userData = login;
                 return view;
             });

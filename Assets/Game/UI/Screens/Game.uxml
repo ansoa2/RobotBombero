@@ -46,7 +46,7 @@
                     <ui:Label name="game-test-note" class="text-note" />
                     <ui:VisualElement name="game-manual" class="game__manual-row" />
                 </ui:VisualElement>
-                <ui:Label text="Tablero: la flecha naranja marca hacia dónde mira el robot. Verde: base, recarga la batería. Gris: obstáculo. Azul oscuro: celda oscura." class="text-note" />
+                <ui:Label text="Tablero: la barra naranja marca hacia dónde mira el robot. Verde: base, recarga la batería. Gris: obstáculo. Azul oscuro: celda oscura." class="text-note" />
             </ui:ScrollView>
         </ui:VisualElement>
     </ui:VisualElement>

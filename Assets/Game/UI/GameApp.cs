@@ -28,6 +28,8 @@ namespace RobotBombero.Game
             Context = new GameContext(new LocalStore(dataRoot), api, routine => StartCoroutine(routine));
             Router = AppScreens.Compose(root, assets, Context);
             Router.ShowStart();
+            // Con una identidad válida, se ponen al día los borrados y cambios que no llegaron al servidor.
+            Context.Run(Context.Packs.SyncPending());
 #if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
             StartCoroutine(DevFlags.Apply(root, Context, Router));
 #endif

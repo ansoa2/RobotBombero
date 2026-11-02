@@ -56,7 +56,9 @@ namespace RobotBombero.Game
         {
             if (_context.LastResultManual) return RankNoScore;
             if (!r.Registered) return RankNotRegistered;
-            return r.Rank.HasValue ? "Puesto " + Labels.Number(r.Rank.Value) : RankOutsideTop;
+            if (r.Rank.HasValue) return "Nueva marca: puesto " + Labels.Number(r.Rank.Value);
+            if (r.PlayerRank.HasValue) return "No mejora tu marca · Tu puesto: " + Labels.Number(r.PlayerRank.Value);
+            return RankOutsideTop;
         }
 
         private void PlayAgain()
