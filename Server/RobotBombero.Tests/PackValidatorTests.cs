@@ -177,6 +177,40 @@ namespace RobotBombero.Tests
             Assert.False(PackValidator.Validate(pack).IsValid);
         }
 
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("   ")]
+        [InlineData("\t")]
+        [InlineData("\n")]
+        public void WhitespaceOnlyName_Fails(string name)
+        {
+            var pack = MakePack();
+            pack.name = name;
+            Assert.False(PackValidator.Validate(pack).IsValid);
+        }
+
+        [Theory]
+        [InlineData("Pack\nuno")]
+        [InlineData("Pack\tuno")]
+        [InlineData("Pack\u0000")]
+        [InlineData("\u001bPack")]
+        [InlineData("Pack\u007f")]
+        [InlineData("Pack\u0085")]
+        public void ControlCharactersInName_Fail(string name)
+        {
+            var pack = MakePack();
+            pack.name = name;
+            Assert.False(PackValidator.Validate(pack).IsValid);
+        }
+
+        [Fact]
+        public void AccentsAndSymbolsInName_Pass()
+        {
+            var pack = MakePack();
+            pack.name = "Pack ñandú <b>1</b> ";
+            Assert.True(PackValidator.Validate(pack).IsValid);
+        }
+
         [Fact]
         public void WrongFormatVersion_Fails()
         {

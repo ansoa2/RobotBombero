@@ -25,6 +25,7 @@ namespace RobotBombero.Server.Api
             return body != null
                 && !string.IsNullOrWhiteSpace(body.Name)
                 && body.Name.Length <= PackLimits.MaxNameLength
+                && !PackValidator.HasControlCharacters(body.Name)
                 && body.RulesHash != null
                 && HashPattern.IsMatch(body.RulesHash);
         }

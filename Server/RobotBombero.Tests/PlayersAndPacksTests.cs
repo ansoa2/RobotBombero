@@ -185,6 +185,25 @@ namespace RobotBombero.Tests
             Assert.Equal(HttpStatusCode.Unauthorized, r.StatusCode);
         }
 
+        [Theory]
+        [InlineData("   ")]
+        [InlineData("Pack\nuno")]
+        [InlineData("Pack\tuno")]
+        [InlineData("\u001bPack")]
+        [InlineData("Pack\u007f")]
+        [InlineData("Pack\u0085")]
+        public async Task Pack_NameWithControlCharactersOrOnlySpaces_400_OnCreateAndRename(string name)
+        {
+            var (_, key) = await NewPlayer("Ana");
+            var r = await Send(HttpMethod.Post, "/api/packs", key, new { name, rulesHash = HashA });
+            Assert.Equal(HttpStatusCode.BadRequest, r.StatusCode);
+
+            long packId = await NewPack(key, "Bueno", HashA);
+            r = await Send(HttpMethod.Put, "/api/packs/" + packId, key, new { name, rulesHash = HashA });
+            Assert.Equal(HttpStatusCode.BadRequest, r.StatusCode);
+            Assert.Equal(1, Scalar("SELECT COUNT(*) FROM PACK WHERE NOMBRE = 'Bueno'"));
+        }
+
         [Fact]
         public async Task Pack_InvalidBody_400()
         {

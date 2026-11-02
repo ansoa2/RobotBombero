@@ -51,7 +51,8 @@ namespace RobotBombero.Simulation
             if (pack == null) return ValidationResult.Fail("Pack nulo.");
             if (pack.formatVersion != PackLimits.CurrentFormatVersion)
                 return ValidationResult.Fail("Versión de formato no soportada: " + pack.formatVersion + ".");
-            if (string.IsNullOrEmpty(pack.name)) return ValidationResult.Fail("El pack no tiene nombre.");
+            if (string.IsNullOrWhiteSpace(pack.name)) return ValidationResult.Fail("El pack no tiene nombre.");
+            if (HasControlCharacters(pack.name)) return ValidationResult.Fail("El nombre del pack contiene caracteres no válidos.");
             if (pack.name.Length > PackLimits.MaxNameLength)
                 return ValidationResult.Fail("El nombre del pack supera " + PackLimits.MaxNameLength + " caracteres.");
             if (pack.rules == null) return ValidationResult.Fail("El pack no tiene reglas.");
@@ -65,6 +66,17 @@ namespace RobotBombero.Simulation
                 if (error != null) return ValidationResult.Fail("Regla " + (i + 1) + ": " + error);
             }
             return ValidationResult.Ok();
+        }
+
+        /// <summary>Verdadero si el texto lleva saltos de línea, tabuladores u otros caracteres de control.</summary>
+        public static bool HasControlCharacters(string text)
+        {
+            if (text == null) return false;
+            foreach (char c in text)
+            {
+                if (char.IsControl(c)) return true;
+            }
+            return false;
         }
 
         private static string ValidateRule(Rule rule)
