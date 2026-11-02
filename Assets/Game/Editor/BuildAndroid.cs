@@ -31,7 +31,7 @@ public static class BuildAndroid
 
     /// <summary>
     /// Identidad, IL2CPP con ARM64 y ARMv7, giro libre, HTTP permitido (red local) e iconos.
-    /// Solo toca ajustes de Android y de identidad: nada de lo que usa la compilación WebGL.
+    /// Solo toca ajustes de Android y de identidad.
     /// </summary>
     public static void ApplySettings()
     {

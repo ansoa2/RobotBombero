@@ -9,33 +9,26 @@ namespace RobotBombero.Game
     }
 
     /// <summary>
-    /// Si la plataforma usa una dirección de servidor (todas menos WebGL, que usa rutas relativas) y cuál es:
-    /// la fijada al compilar con el parámetro del script. El jugador no la ve ni la cambia.
+    /// La dirección del servidor de esta app: la fijada al compilar con el parámetro del script. El jugador no la ve ni la cambia.
     /// </summary>
     public sealed class ServerConfig
     {
         /// <summary>Recurso de texto que escribe el script de compilación con la dirección por defecto. Puede no existir.</summary>
         public const string DefaultResource = "rb-server-default";
 
-        public ServerConfig(bool enabled, string defaultAddress)
+        public ServerConfig(string defaultAddress)
         {
-            Enabled = enabled;
             DefaultAddress = defaultAddress;
         }
 
-        public bool Enabled { get; private set; }
         public string DefaultAddress { get; private set; }
 
-        /// <summary>La configuración de esta plataforma: WebGL (fuera del editor) no usa dirección.</summary>
+        /// <summary>La configuración de esta app.</summary>
         public static ServerConfig ForPlatform()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            return new ServerConfig(false, null);
-#else
             var asset = Resources.Load<TextAsset>(DefaultResource);
             string text = asset == null ? null : asset.text.Trim();
-            return new ServerConfig(true, string.IsNullOrEmpty(text) ? null : text);
-#endif
+            return new ServerConfig(string.IsNullOrEmpty(text) ? null : text);
         }
     }
 }

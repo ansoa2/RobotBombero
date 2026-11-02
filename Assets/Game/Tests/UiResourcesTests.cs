@@ -7,8 +7,8 @@ using NUnit.Framework;
 namespace RobotBombero.Game.Tests
 {
     /// <summary>
-    /// Fallos que solo se ven en el navegador. WebGL no tiene fuentes del sistema a las que recurrir, y Font.HasCharacter
-    /// da true en el editor gracias a ellas: por eso se lee la tabla de caracteres del propio archivo de la fuente.
+    /// Fallos que solo se ven fuera del editor. Font.HasCharacter da true en el editor gracias a las fuentes del sistema,
+    /// por eso se lee la tabla de caracteres del propio archivo de la fuente.
     /// </summary>
     public class UiResourcesTests
     {

@@ -33,7 +33,7 @@ namespace RobotBombero.Game.Tests
         [Test]
         public void FileBridgeService_IsAvailableOnlyWhereItWorks()
         {
-#if UNITY_EDITOR || UNITY_WEBGL
+#if UNITY_EDITOR
             Assert.IsTrue(new FileBridgeService().IsAvailable);
 #else
             Assert.IsFalse(new FileBridgeService().IsAvailable);

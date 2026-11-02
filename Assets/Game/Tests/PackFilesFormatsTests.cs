@@ -144,23 +144,13 @@ namespace RobotBombero.Game.Tests
         }
 
         [Test]
-        public void NativePlatform_ImportArmsOnOrdinaryClick_NotOnPointerDown()
+        public void Import_ArmsOnOrdinaryClick()
         {
             Start();
-            Files.NeedsPointerDown = false;
             VisualElement view = Load<VisualTreeAsset>("Screens/Rules.uxml").CloneTree();
             var rules = new RulesController(view, Context, id => { });
             rules.OnShow();
-            Button import = view.Q<Button>("rules-import");
-
-            using (PointerDownEvent e = PointerDownEvent.GetPooled(new Event { type = EventType.MouseDown, button = 0 }))
-            {
-                e.target = import;
-                import.SendEvent(e);
-            }
-            Assert.AreEqual(0, Files.PickCalls);
-
-            Click(import);
+            Click(view.Q<Button>("rules-import"));
             Assert.AreEqual(1, Files.PickCalls);
         }
 

@@ -27,14 +27,14 @@ namespace RobotBombero.Game
             dataRoot = DevFlags.Get("-rb-data") ?? dataRoot;
             apiUrl = DevFlags.Get("-rb-api") ?? apiUrl;
             // Con -rb-api el servidor de la prueba es el indicado (sustituye al valor por defecto de la compilación).
-            if (DevFlags.Get("-rb-api") != null && !apiUrl.StartsWith("demo")) server = new ServerConfig(true, apiUrl);
+            if (DevFlags.Get("-rb-api") != null && !apiUrl.StartsWith("demo")) server = new ServerConfig(apiUrl);
 #endif
             VisualElement root = GetComponent<UIDocument>().rootVisualElement;
             IApiClient api = new ApiClient(apiUrl);
 #if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
             api = DevSamples.DemoApi(apiUrl) ?? api;
 #endif
-            // En WebGL las rutas son relativas; en las apps nativas la dirección es la fijada al compilar (ver ServerConfig).
+            // La dirección del servidor es la fijada al compilar (ver ServerConfig).
             Context = new GameContext(new LocalStore(dataRoot), api, routine => StartCoroutine(routine), null, server);
             Router = AppScreens.Compose(root, assets, Context);
             Router.ShowStart();

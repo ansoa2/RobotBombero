@@ -172,7 +172,7 @@ namespace RobotBombero.Game
             _baseUrl = baseUrl ?? "";
         }
 
-        /// <summary>Vacío en WebGL (rutas relativas); en las apps nativas, http://host:puerto sin barra final.</summary>
+        /// <summary>Vacío hasta que se fija la dirección; después, http://host:puerto sin barra final.</summary>
         public string BaseUrl
         {
             get { return _baseUrl; }

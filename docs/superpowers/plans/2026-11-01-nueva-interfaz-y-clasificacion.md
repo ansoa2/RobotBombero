@@ -1,5 +1,7 @@
 # RobotBombero: nueva interfaz y clasificación. Plan de implementación
 
+> **Nota posterior:** la entrega para navegador de la Tarea 12 (compilación WebGL, plantilla, servidor de archivos estáticos y `build-and-run.ps1`) se retiró más tarde: el juego se entrega solo como aplicaciones nativas para Android y Windows. El resto del plan se conserva como se escribió.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Convertir RobotBombero en un juego Unity para navegador, con interfaz nueva, packs de reglas, estadísticas y clasificación en un servidor local validado.

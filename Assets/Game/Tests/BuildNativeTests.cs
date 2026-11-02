@@ -57,14 +57,6 @@ namespace RobotBombero.Game.Tests
         }
 
         [Test]
-        public void AndroidSettings_DoNotTouchTheWebGlBuildSettings()
-        {
-            BuildAndroid.ApplySettings();
-            Assert.AreEqual(WebGLCompressionFormat.Brotli, PlayerSettings.WebGL.compressionFormat);
-            Assert.IsTrue(PlayerSettings.WebGL.decompressionFallback);
-        }
-
-        [Test]
         public void AndroidSettings_UseTheAppIcons()
         {
             BuildAndroid.ApplySettings();

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RobotBombero.Game
 {
     /// <summary>
-    /// Almacén local: profile.json y packs/{localId}.json bajo rootPath (persistentDataPath en todas las plataformas: archivos normales, nada propio de WebGL).
+    /// Almacén local: profile.json y packs/{localId}.json bajo rootPath (persistentDataPath: archivos normales).
     /// Cada escritura va a un archivo temporal que luego sustituye al definitivo, así un fallo a medias
     /// no destruye lo que ya había. La clave del jugador no se escribe nunca en el log.
     /// </summary>
@@ -212,7 +212,7 @@ namespace RobotBombero.Game
                 }
                 catch (PlatformNotSupportedException)
                 {
-                    // Algunos sistemas de archivos (p. ej. el de WebGL) no implementan Replace.
+                    // Algunos sistemas de archivos no implementan Replace.
                     File.Copy(temp, path, true);
                     File.Delete(temp);
                 }
@@ -222,7 +222,5 @@ namespace RobotBombero.Game
                 File.Move(temp, path);
             }
         }
-
-        // En WebGL la plantilla activa autoSyncPersistentDataPath, que vuelca a IndexedDB sin llamadas extra.
     }
 }

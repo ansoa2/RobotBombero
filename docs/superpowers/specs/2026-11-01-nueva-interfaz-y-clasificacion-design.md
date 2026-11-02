@@ -1,6 +1,6 @@
 # RobotBombero: nueva interfaz multiplataforma y clasificación
 
-Fecha: 2026-11-01. Estado: aprobado por el autor. Aplicaciones nativas para Android y Windows (el navegador queda para retirarse); servidor oculto y juego sin conexión incorporados.
+Fecha: 2026-11-01. Estado: aprobado por el autor. Aplicaciones nativas para Android y Windows (la versión de navegador se ha retirado); servidor oculto y juego sin conexión incorporados.
 
 En este documento, "decidido" significa que lo ha pedido o aprobado el autor. "Criterio de Claude" significa que es una propuesta que el autor aún debe revisar.
 
@@ -121,7 +121,7 @@ Decidido:
 Criterio de Claude:
 
 - Servidor en C# con base de datos SQLite, para compartir la lógica con el juego.
-- El servidor también puede entregar la versión de navegador (en retirada). Las aplicaciones nativas de Android y Windows se conectan a él por la dirección fijada al compilar.
+- El servidor solo ofrece la API: no entrega el juego. Las aplicaciones nativas de Android y Windows se conectan a él por la dirección fijada al compilar.
 - Esquema inicial:
 
 | Tabla | Campos principales |
@@ -152,11 +152,11 @@ Criterio de Claude:
 
 ## 10. Criterio de Claude para la construcción
 
-- **Plataforma:** Unity WebGL, abierto desde un enlace y sin instalar nada. Los móviles antiguos pueden tener una primera carga pesada. Se puede valorar una versión nativa más adelante.
+- **Plataforma:** aplicaciones nativas de Unity para Android (APK) y Windows (ejecutable), que se instalan. No hay versión de navegador.
 - **Arquitectura:** separar la simulación en una biblioteca de C# sin dependencias de Unity, usada por el juego y el servidor, con pruebas que comprueben que su comportamiento coincide con el actual.
 - **Proyecto:** se trabaja en `RobotBombero_Unity6`, sin tocar el original.
 - **Controles manuales:** los botones actuales FWD, L, R y Put_out quedarían en un modo de prueba sin puntuación, porque saltarse las reglas invalidaría la clasificación.
-- **Dispositivos mínimos:** navegadores actualizados de móvil y escritorio compatibles con WebGL 2. Los móviles que no puedan ejecutarlo verán un aviso claro. Es una limitación frente al objetivo de "cualquier móvil", y se puede estudiar una versión nativa más adelante.
+- **Dispositivos mínimos:** Android 8.0 (API 26) o superior, con ARM64 o ARMv7, y Windows de 64 bits. No hay versión para iOS ni para navegador, así que no se cubre "cualquier móvil".
 - **Fallos que se corrigen en la simulación:**
   - I-01: cada partida empieza con un tablero limpio, sin fuego invisible.
   - I-02: una batería de 30 o 10 pasa a ser Medium. Es un cambio deliberado de comportamiento.

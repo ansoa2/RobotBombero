@@ -21,9 +21,8 @@ namespace RobotBombero.Game
             Packs = new PackManager(this);
 
             // La dirección del servidor es la de la compilación y nada más: no se guarda, no se elige y no se muestra.
-            // En WebGL (sin configuración) las rutas son relativas.
             var target = api as IServerTarget;
-            if (target != null && server != null && server.Enabled)
+            if (target != null && server != null)
             {
                 ServerAddressResult address = ServerAddress.Normalize(server.DefaultAddress);
                 target.BaseUrl = address.IsValid ? address.Url : "";

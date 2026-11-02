@@ -35,18 +35,7 @@ namespace RobotBombero.Game
             _filesNote.text = context.Files.IsAvailable ? "" : "Importar y exportar packs: Próximamente en esta versión.";
             var emptyLabel = _empty as Label;
             if (emptyLabel != null && !context.Files.IsAvailable) emptyLabel.text = "Todavía no tienes ningún pack. Crea uno nuevo.";
-            if (context.Files.PickNeedsPointerDown)
-            {
-                // Solo WebGL: el selector del navegador solo se abre dentro de un gesto del usuario, así que se arma al pulsar,
-                // no al soltar (ver FileBridge.PickJson).
-                // Con TrickleDown: Clickable detiene la propagación del PointerDown del propio botón, y una devolución en la fase normal no llegaría a ejecutarse.
-                _import.RegisterCallback<PointerDownEvent>(OnImportPointerDown, TrickleDown.TrickleDown);
-            }
-            else
-            {
-                // Apps nativas: un clic normal.
-                _import.clicked += BeginImport;
-            }
+            _import.clicked += BeginImport;
         }
 
         public void OnShow()
@@ -130,12 +119,7 @@ namespace RobotBombero.Game
                 });
         }
 
-        private void OnImportPointerDown(PointerDownEvent e)
-        {
-            if (e.button == 0) BeginImport();
-        }
-
-        /// <summary>Se llama al pulsar (no al soltar) el botón Importar.</summary>
+        /// <summary>Se llama al pulsar el botón Importar.</summary>
         public void BeginImport()
         {
             _context.Files.PickJson(OnImported, OnImportError);

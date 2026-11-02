@@ -86,7 +86,7 @@ public static class BuildCommon
         finally
         {
             RemoveServerDefault();
-            // BuildPlayer cambia el destino activo; se devuelve al de antes (WebGL, normalmente) para no dejar el editor en otra plataforma.
+            // BuildPlayer cambia el destino activo; se devuelve al de antes para no dejar el editor en otra plataforma.
             if (EditorUserBuildSettings.activeBuildTarget != previous)
             {
                 EditorUserBuildSettings.SwitchActiveBuildTarget(previousGroup, previous);

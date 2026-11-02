@@ -15,7 +15,7 @@ namespace RobotBombero.Game.Tests
         private void StartNative(bool loggedIn)
         {
             if (loggedIn) Store.SaveProfile(new Profile { playerName = "Ana", playerKey = "k-secret", playerId = 3 });
-            Context = new GameContext(Store, Api, Drain, Files, new ServerConfig(true, BuildAddress));
+            Context = new GameContext(Store, Api, Drain, Files, new ServerConfig(BuildAddress));
             Router = AppScreens.Compose(Root, Assets(new Texture2D(2, 4), new Texture2D(4, 2)), Context);
             Router.ShowStart();
         }

@@ -18,8 +18,6 @@ namespace RobotBombero.Game.Tests
         public int PickCalls;
         public bool Available = true;
         public bool DownloadCancelled;
-        public bool NeedsPointerDown = true;
-        public bool PickNeedsPointerDown { get { return NeedsPointerDown; } }
         public bool IsAvailable { get { return Available; } }
         private Action<string> _onContent, _onError;
 

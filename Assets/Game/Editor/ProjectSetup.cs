@@ -31,7 +31,7 @@ namespace RobotBombero.Game.Editor
 
         private static void ConfigureImages()
         {
-            // Crunch reduce mucho la descarga en WebGL. Los fondos no llevan transparencia.
+            // Crunch reduce el tamaño de las imágenes. Los fondos no llevan transparencia.
             Image(ArtPath + "fondo-vertical.png", 1920, true, false);
             Image(ArtPath + "fondo-horizontal.png", 1920, true, false);
             Image(ArtPath + "robot.png", 512, true, true);

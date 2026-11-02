@@ -88,7 +88,7 @@ namespace RobotBombero.Game
                     Block(putOut,
                         "Cuesta " + SimConfig.PutOutCost + " de batería. Apaga el fuego solo si está justo en la casilla de delante; si no, la batería se gasta sin efecto."),
                     Block("Recargar",
-                        "Si el robot avanza o gira estando sobre la base, la batería se recarga hasta " + SimConfig.InitialBattery + " (un giro gasta " + SimConfig.TurnCost + " justo después). Apagar o quedarse sin regla no recarga.")),
+                        "Si el robot se mueve o gira estando sobre la base, la batería se recarga hasta " + SimConfig.InitialBattery + " (un giro gasta " + SimConfig.TurnCost + " justo después). Un Avanzar bloqueado por un obstáculo o por el borde no recarga, ni tampoco apagar fuego o quedarse sin regla.")),
 
                 Page("Cómo termina la partida",
                     Block(null,

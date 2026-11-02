@@ -71,9 +71,13 @@ namespace RobotBombero.Game.Tests
             none.Step();
             Assert.AreEqual(SimConfig.InitialBattery - SimConfig.NoRuleCost, none.Battery);
 
-            var turn = new GameSimulation(new[] { new Rule { name = "r", battery = "Anyone", temp = "Anyone", light = "Anyone", prox = "Anyone", cell = "Base", actions = new[] { "TurnL" } } }, 1);
+            var turn = new GameSimulation(new[] { new Rule { name = "r", battery = "Anyone", temp = "Anyone", light = "Anyone", prox = "Anyone", cell = "Anyone", actions = new[] { "TurnL" } } }, 1);
+            Assert.AreNotEqual("Base", turn.SensorCell, "El robot no empieza sobre la base: el giro no recarga");
+            int dirRow = turn.DirRow, dirCol = turn.DirCol;
             turn.Step();
-            Assert.AreEqual(SimConfig.InitialBattery - SimConfig.NoRuleCost, turn.Battery);
+            // TurnCost y NoRuleCost valen lo mismo: el cambio de dirección demuestra que la regla sí se aplicó.
+            Assert.IsTrue(turn.DirRow != dirRow || turn.DirCol != dirCol, "La regla de giro debe aplicarse");
+            Assert.AreEqual(SimConfig.InitialBattery - SimConfig.TurnCost, turn.Battery);
         }
 
         // --- Contenido del tutorial ---

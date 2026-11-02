@@ -32,18 +32,18 @@ namespace RobotBombero.Game.Tests
         private static void Drain(IEnumerator e) { while (e.MoveNext()) { } }
 
         [Test]
-        public void Context_WithoutServerConfig_UsesRelativePaths()
+        public void Context_WithoutServerConfig_LeavesTheBaseUrlEmpty()
         {
             var api = new TargetApi();
             new GameContext(_store, api, Drain);
-            Assert.IsNull(api.BaseUrl, "WebGL: rutas relativas");
+            Assert.IsNull(api.BaseUrl);
         }
 
         [Test]
         public void Context_UsesOnlyTheBuildAddress()
         {
             var api = new TargetApi();
-            new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149:5080"));
+            new GameContext(_store, api, Drain, null, new ServerConfig("192.168.1.149:5080"));
             Assert.AreEqual("http://192.168.1.149:5080", api.BaseUrl);
         }
 
@@ -53,7 +53,7 @@ namespace RobotBombero.Game.Tests
             Directory.CreateDirectory(_root);
             File.WriteAllText(Path.Combine(_root, "settings.json"), "{\"serverAddress\":\"http://10.0.0.5:5080\"}");
             var api = new TargetApi();
-            new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149:5080"));
+            new GameContext(_store, api, Drain, null, new ServerConfig("192.168.1.149:5080"));
             Assert.AreEqual("http://192.168.1.149:5080", api.BaseUrl);
         }
 
@@ -61,7 +61,7 @@ namespace RobotBombero.Game.Tests
         public void Context_NoBuildAddress_StartsEmpty()
         {
             var api = new TargetApi { BaseUrl = "x" };
-            new GameContext(_store, api, Drain, null, new ServerConfig(true, null));
+            new GameContext(_store, api, Drain, null, new ServerConfig(null));
             Assert.AreEqual("", api.BaseUrl);
         }
 
@@ -69,7 +69,7 @@ namespace RobotBombero.Game.Tests
         public void ExpireSession_KeepsTheBuildAddress()
         {
             var api = new TargetApi();
-            var context = new GameContext(_store, api, Drain, null, new ServerConfig(true, "192.168.1.149"));
+            var context = new GameContext(_store, api, Drain, null, new ServerConfig("192.168.1.149"));
             context.ExpireSession();
             Assert.AreEqual("http://192.168.1.149:5080", api.BaseUrl);
         }

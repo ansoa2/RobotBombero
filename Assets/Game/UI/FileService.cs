@@ -7,8 +7,6 @@ namespace RobotBombero.Game
     {
         /// <summary>Falso donde no hay selector ni guardado de archivos: la interfaz oculta importar y exportar.</summary>
         bool IsAvailable { get; }
-        /// <summary>Verdadero solo en WebGL: el selector debe armarse al pulsar (pointer-down); en el resto basta un clic.</summary>
-        bool PickNeedsPointerDown { get; }
         void Download(string fileName, string content, Action onDone, Action<string> onError);
         void PickJson(Action<string> onContent, Action<string> onError);
     }
@@ -16,7 +14,6 @@ namespace RobotBombero.Game
     public sealed class FileBridgeService : IFileService
     {
         public bool IsAvailable { get { return FileBridge.IsAvailable; } }
-        public bool PickNeedsPointerDown { get { return FileBridge.PickNeedsPointerDown; } }
 
         public void Download(string fileName, string content, Action onDone, Action<string> onError)
         {
