@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- IL2CPP no debe recortar nuestros tipos: JsonUtility lee y escribe sus campos sin que el código C# los toque. -->
+<linker>
+  <assembly fullname="RobotBombero.Simulation" preserve="all" />
+  <assembly fullname="RobotBombero.Game" preserve="all" />
+</linker>

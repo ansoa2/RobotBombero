@@ -14,7 +14,9 @@
 .vscode/
 .idea/
 *.csproj
+!Server/**/*.csproj
 *.sln
+*.slnx
 *.suo
 *.user
 *.userprefs
@@ -36,3 +38,19 @@ crashlytics-build.properties
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Servidor .NET y herramientas
+Server/**/bin/
+Server/**/obj/
+Server/**/wwwroot/
+*.db
+
+# Flujo de trabajo local
+.superpowers/
+
+# Datos locales del servidor
+Server/data/
+
+# Dirección del servidor por defecto: la escribe y la retira el script de compilación nativa
+/Assets/Game/Resources/
+/Assets/Game/Resources.meta

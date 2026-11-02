@@ -1,0 +1,1054 @@
+/* Pantallas de contenido: reglas, editor, elegir pack, partida, resultado, estadísticas y clasificación.
+   Usa los mismos colores y la misma clase .is-landscape que Theme.uss. Mínimo táctil: 44 píxeles lógicos. */
+
+/* --- Botones pequeños y fichas --- */
+
+.btn--small {
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 15px;
+    border-radius: 12px;
+}
+
+.btn--icon {
+    min-width: 48px;
+    padding: 0;
+    justify-content: center;
+    -unity-text-align: middle-center;
+}
+
+.btn--danger {
+    color: #FFB4AA;
+}
+
+.btn--danger:hover:enabled {
+    border-color: #FF6B5E;
+}
+
+.chip {
+    min-height: 44px;
+    min-width: 44px;
+    margin: 0 6px 6px 0;
+    padding: 0 12px;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    font-size: 15px;
+    border-radius: 22px;
+}
+
+.chip.is-selected,
+.btn.is-selected,
+.chip.is-selected:hover:enabled,
+.btn.is-selected:hover:enabled {
+    background-color: var(--color-action);
+    border-color: var(--color-accent);
+    color: var(--color-text);
+}
+
+/* --- Páginas con lista --- */
+
+.page {
+    padding: 12px 14px;
+    align-items: center;
+}
+
+.page__inner {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 720px;
+    min-height: 0;
+}
+
+.page__inner--wide {
+    max-width: 900px;
+}
+
+.page__head {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+}
+
+.page__back {
+    min-width: 96px;
+    margin-right: 12px;
+    justify-content: center;
+    -unity-text-align: middle-center;
+    background-color: var(--color-panel);
+}
+
+.page__title {
+    flex-shrink: 1;
+    -unity-font-definition: var(--font-strong);
+    font-size: 24px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+    text-shadow: 0 2px 10px rgba(9, 12, 22, 0.9);
+}
+
+.page__panel {
+    background-color: rgba(9, 12, 22, 0.88);
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+}
+
+.page__scroll {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.page__message {
+    color: var(--color-accent);
+    font-size: 14px;
+    white-space: normal;
+    flex-shrink: 0;
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
+.page__message.is-error {
+    color: #FF9C8A;
+}
+
+.page__empty {
+    padding: 14px 2px;
+    white-space: normal;
+}
+
+.page__empty-button {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+/* USS no tiene selector de primer hijo: el margen negativo del contenedor compensa el del primer elemento. */
+.toolbar {
+    flex-direction: row;
+    flex-shrink: 0;
+    margin-left: -8px;
+    margin-bottom: 10px;
+}
+
+.toolbar > .btn {
+    margin-left: 8px;
+}
+
+.toolbar__grow {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.toolbar--bottom {
+    margin: 10px 0 0 -8px;
+}
+
+.is-landscape .page {
+    align-items: flex-start;
+    padding: 10px 14px 10px 28px;
+}
+
+.is-landscape .page__inner {
+    max-width: 560px;
+}
+
+.is-landscape .page__inner--wide {
+    max-width: 780px;
+}
+
+.is-landscape .page__title {
+    font-size: 21px;
+}
+
+/* --- Tarjetas --- */
+
+.card {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.card--row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.card__text {
+    flex-grow: 1;
+    flex-shrink: 1;
+    margin-right: 10px;
+}
+
+.card__title {
+    -unity-font-definition: var(--font-strong);
+    font-size: 17px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 2px 0;
+}
+
+.card__buttons {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.card__buttons > .btn {
+    margin: 0 8px 6px 0;
+}
+
+.stat-line {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.stat-line__name {
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.stat-line__value {
+    flex-shrink: 1;
+    margin: 0 0 0 12px;
+    -unity-font-definition: var(--font-strong);
+    -unity-text-align: upper-right;
+    white-space: normal;
+    padding: 0;
+}
+
+/* --- Editor de reglas --- */
+
+.rule__head {
+    flex-direction: row;
+    align-items: center;
+}
+
+.rule__number {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    margin: 0 10px 0 0;
+    padding: 0;
+    border-radius: 14px;
+    background-color: var(--color-action);
+    -unity-font-definition: var(--font-strong);
+    -unity-text-align: middle-center;
+}
+
+.rule__summary {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 15px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.detail__section {
+    color: var(--color-accent);
+    -unity-font-definition: var(--font-strong);
+    font-size: 14px;
+    margin: 6px 0 8px 0;
+    padding: 0;
+}
+
+.detail__done {
+    flex-shrink: 0;
+    margin-top: 10px;
+}
+
+.field-block {
+    margin-bottom: 8px;
+}
+
+.field-block__title {
+    color: var(--color-muted);
+    font-size: 13px;
+    margin: 4px 0 6px 0;
+    padding: 0;
+}
+
+.chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.action-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 6px;
+    padding: 4px 6px 4px 12px;
+    background-color: var(--color-control);
+    border-radius: 12px;
+}
+
+.action-row__number {
+    width: 24px;
+    padding: 0;
+    margin: 0;
+    color: var(--color-muted);
+}
+
+.action-row__name {
+    flex-grow: 1;
+    flex-shrink: 1;
+    -unity-font-definition: var(--font-strong);
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.action-row > .btn {
+    margin-left: 6px;
+}
+
+/* --- Diálogos --- */
+
+.dialog {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 18px;
+    background-color: rgba(0, 0, 0, 0.62);
+}
+
+.dialog__card {
+    width: 100%;
+    max-width: 420px;
+    background-color: rgba(14, 18, 32, 0.98);
+}
+
+.dialog__title {
+    -unity-font-definition: var(--font-strong);
+    font-size: 19px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 8px 0;
+}
+
+.dialog__message {
+    font-size: 15px;
+}
+
+.dialog__buttons {
+    flex-direction: row;
+    margin-left: -8px;
+    margin-top: 14px;
+}
+
+.dialog__buttons > .btn {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-left: 8px;
+}
+
+/* --- Resultado --- */
+
+.result__cause {
+    -unity-font-definition: var(--font-strong);
+    font-size: 26px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 2px 0;
+}
+
+.result__row {
+    flex-direction: row;
+    margin-left: -8px;
+    margin-top: 10px;
+}
+
+.result__row > .tile {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-left: 8px;
+}
+
+.result__note {
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.tile {
+    padding: 8px 10px;
+    background-color: var(--color-control);
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.tile--wide {
+    margin-top: 10px;
+}
+
+.tile--main {
+    background-color: rgba(255, 122, 47, 0.18);
+    border-color: var(--color-action);
+}
+
+.tile__name {
+    color: var(--color-muted);
+    -unity-font-definition: var(--font-strong);
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 0;
+    margin: 0;
+}
+
+.tile__value {
+    -unity-font-definition: var(--font-strong);
+    font-size: 22px;
+    padding: 0;
+    margin: 2px 0 0 0;
+}
+
+.tile__value--big {
+    font-size: 36px;
+}
+
+.tile__value--rank {
+    font-size: 22px;
+    white-space: normal;
+}
+
+.tile__hint {
+    color: var(--color-muted);
+    font-size: 12px;
+    padding: 0;
+    margin: 0;
+}
+
+/* --- Clasificación --- */
+
+.lb-row {
+    flex-direction: row;
+    align-items: center;
+    min-height: 44px;
+    padding: 6px 8px;
+    border-bottom-width: 1px;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.lb-head {
+    flex-shrink: 0;
+    min-height: 28px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.lb-head > .unity-label {
+    font-size: 12px;
+    color: var(--color-muted);
+}
+
+.lb-rank {
+    width: 36px;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+    -unity-font-definition: var(--font-strong);
+}
+
+.lb-main {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0 8px 0 0;
+}
+
+.lb-name {
+    -unity-font-definition: var(--font-strong);
+    font-size: 16px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.lb-sub {
+    display: none;
+    color: var(--color-muted);
+    font-size: 12px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.lb-pack {
+    width: 28%;
+    flex-shrink: 1;
+    padding: 0;
+    margin: 0 8px 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lb-points,
+.lb-steps,
+.lb-fires {
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0;
+    -unity-text-align: middle-right;
+}
+
+.lb-points {
+    width: 84px;
+    -unity-font-definition: var(--font-strong);
+}
+
+.lb-steps {
+    width: 72px;
+}
+
+.lb-fires {
+    width: 64px;
+}
+
+.lb-row--own {
+    background-color: rgba(255, 122, 47, 0.24);
+    border-radius: 8px;
+}
+
+.is-narrow .lb-sub {
+    display: flex;
+}
+
+.is-narrow .lb-pack,
+.is-narrow .lb-steps,
+.is-narrow .lb-fires,
+.is-narrow .lb-head {
+    display: none;
+}
+
+/* --- Partida --- */
+
+.game {
+    padding: 10px 12px;
+}
+
+.game__head {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 8px;
+}
+
+.game__pack {
+    flex-grow: 1;
+    flex-shrink: 1;
+    -unity-font-definition: var(--font-strong);
+    font-size: 17px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+    text-shadow: 0 2px 8px rgba(9, 12, 22, 0.9);
+}
+
+.badge {
+    flex-shrink: 0;
+    margin-left: 8px;
+    padding: 6px 10px;
+    color: var(--color-accent);
+    -unity-font-definition: var(--font-strong);
+    font-size: 12px;
+    background-color: rgba(255, 179, 122, 0.18);
+    border-width: 1px;
+    border-color: var(--color-accent);
+    border-radius: 10px;
+}
+
+.game__body {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 0;
+}
+
+.game__board-area {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-height: 140px;
+    align-items: center;
+    justify-content: center;
+}
+
+.game__controls {
+    flex-grow: 0;
+    flex-shrink: 0;
+    max-height: 55%;
+    margin-top: 8px;
+    padding: 10px 12px;
+}
+
+.is-landscape .game__body {
+    flex-direction: row;
+}
+
+.is-landscape .game__board-area {
+    margin-right: 10px;
+}
+
+.is-landscape .game__controls {
+    flex-shrink: 0;
+    width: 46%;
+    max-width: 440px;
+    max-height: none;
+    margin-top: 0;
+}
+
+.game__status {
+    color: var(--color-muted);
+    font-size: 13px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 8px 0;
+}
+
+.hud {
+    flex-direction: row;
+    margin-left: -6px;
+    margin-bottom: 8px;
+}
+
+.hud > .tile {
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-left: 6px;
+    padding: 6px 8px;
+}
+
+.hud > .hud__battery {
+    flex-grow: 2;
+}
+
+.hud .tile__value {
+    font-size: 20px;
+    margin: 0;
+}
+
+.bar {
+    height: 7px;
+    margin-top: 4px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.16);
+}
+
+.bar__fill {
+    height: 100%;
+    border-radius: 4px;
+    background-color: #5FD38D;
+}
+
+.bar__fill.bar--medium {
+    background-color: #FFC857;
+}
+
+.bar__fill.bar--low {
+    background-color: #FF5A4A;
+}
+
+.sensors {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 2px;
+}
+
+.sensor {
+    flex-grow: 1;
+    min-width: 30%;
+    margin: 0 6px 6px 0;
+    padding: 4px 8px;
+    background-color: var(--color-control);
+    border-radius: 10px;
+}
+
+.sensor__name {
+    color: var(--color-muted);
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+}
+
+.sensor__value {
+    -unity-font-definition: var(--font-strong);
+    font-size: 14px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+}
+
+.game__test-toggle {
+    margin-top: 4px;
+    justify-content: center;
+    -unity-text-align: middle-center;
+}
+
+.game__test {
+    margin-top: 8px;
+}
+
+.game__manual-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.game__manual {
+    flex-grow: 1;
+    flex-basis: 45%;
+    margin: 0 6px 6px 0;
+    justify-content: center;
+    -unity-text-align: middle-center;
+}
+
+.is-landscape .game__controls .btn {
+    min-height: 44px;
+}
+
+/* --- Tablero --- */
+
+.board {
+    background-color: #0F1626;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.board__grid {
+    flex-grow: 1;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.cell {
+    width: 12.5%;
+    height: 12.5%;
+    border-width: 1px;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.cell--free {
+    background-color: #2F4466;
+}
+
+.cell--dark {
+    background-color: #151D30;
+}
+
+.cell--fire {
+    background-color: #55301F;
+}
+
+.cell--obstacle {
+    background-color: #6D7280;
+    border-color: #9AA0AE;
+}
+
+.cell--base {
+    background-color: #1F7A57;
+    border-color: #5FD38D;
+}
+
+.cell__icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.cell__icon--fire {
+    background-image: url("project://database/Assets/Game/Art/fuego.png");
+}
+
+.cell__icon--robot {
+    background-image: url("project://database/Assets/Game/Art/robot.png");
+}
+
+.cell__pointer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+}
+
+
+
+/* --- Barras de desplazamiento finas, sin flechas --- */
+
+.page__scroll .unity-scroller__low-button,
+.page__scroll .unity-scroller__high-button,
+.game__controls .unity-scroller__low-button,
+.game__controls .unity-scroller__high-button {
+    display: none;
+}
+
+.page__scroll .unity-scroll-view__vertical-scroller,
+.game__controls .unity-scroll-view__vertical-scroller {
+    width: 8px;
+    margin-left: 4px;
+}
+
+.page__scroll .unity-base-slider__tracker,
+.game__controls .unity-base-slider__tracker {
+    /* Solo es decoración: oculto, el tema por defecto no puede pintarlo de gris al pasar por encima. */
+    display: none;
+}
+
+.page__scroll .unity-base-slider__dragger,
+.game__controls .unity-base-slider__dragger {
+    width: 6px;
+    background-color: rgba(255, 255, 255, 0.35);
+    border-width: 0;
+    border-radius: 3px;
+}
+
+.cell__pointer-tip {
+    width: 46%;
+    height: 13%;
+    border-radius: 4px;
+    background-color: var(--color-action);
+    border-width: 1px;
+    border-color: #FFFFFF;
+}
+
+.page__hint {
+    margin-bottom: 8px;
+}
+
+/* Tarjeta de regla: el resumen y los botones en una fila cuando cabe, y debajo cuando no. */
+.card--rule {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.card--rule > .rule__head {
+    flex-grow: 1;
+    flex-basis: 240px;
+    margin-right: 10px;
+}
+
+.card--rule > .card__buttons {
+    flex-shrink: 0;
+    margin-top: 6px;
+    margin-right: -8px;
+}
+
+.rules-narrow .card--rule {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.rules-narrow .card--rule > .rule__head {
+    flex-grow: 0;
+    flex-basis: auto;
+    margin-right: 0;
+}
+
+.rules-narrow .card--rule > .card__buttons {
+    margin-right: 0;
+}
+
+/* Horizontal con poca altura: la partida compacta sus controles para que quepan Paso, Automático y velocidad. */
+.is-landscape .game__status {
+    margin-bottom: 4px;
+}
+
+.is-landscape .game__controls {
+    padding: 8px 10px;
+}
+
+.is-landscape .game__controls .toolbar {
+    margin-bottom: 6px;
+}
+
+.is-landscape .hud {
+    margin-bottom: 6px;
+}
+
+.is-landscape .hud > .tile {
+    padding: 4px 8px;
+}
+
+.is-landscape .sensor {
+    padding: 2px 8px;
+    margin-bottom: 4px;
+}
+
+.result__row > .result__points {
+    flex-grow: 3;
+}
+
+.result__row > .result__rank {
+    flex-grow: 2;
+}
+
+.tile__value--rank {
+    font-size: 18px;
+}
+
+.is-landscape .result__cause {
+    font-size: 22px;
+}
+
+.stat-line__name,
+.stat-line__value {
+    font-size: 15px;
+}
+
+.detail__head {
+    flex-direction: row;
+    align-items: center;
+    flex-shrink: 0;
+    margin-bottom: 4px;
+}
+
+.detail__title {
+    flex-grow: 1;
+    font-size: 19px;
+    margin: 0;
+}
+
+/* --- Información de los sensores --- */
+
+.field-block__head {
+    flex-direction: row;
+    align-items: center;
+}
+
+.field-block__head > .field-block__title {
+    flex-shrink: 1;
+    margin-right: 0;
+}
+
+/* Zona táctil de 44 px; el círculo visible es más pequeño. */
+.info-btn {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-btn__dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: var(--color-accent);
+    justify-content: center;
+    align-items: center;
+}
+
+.info-btn__letter {
+    color: var(--color-accent);
+    font-size: 15px;
+    -unity-font-definition: var(--font-strong);
+    -unity-text-align: middle-center;
+    padding: 0;
+    margin: 0;
+}
+
+.info-btn:hover:enabled .info-btn__dot,
+.info-btn:focus .info-btn__dot {
+    background-color: rgba(255, 179, 122, 0.25);
+}
+
+.dialog__card--info {
+    max-height: 100%;
+    flex-shrink: 1;
+}
+
+.dialog__scroll {
+    flex-shrink: 1;
+    flex-grow: 0;
+    min-height: 60px;
+}
+
+.sensor-info__measures {
+    font-size: 15px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 12px 0;
+}
+
+.sensor-info__option {
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    background-color: var(--color-control);
+    border-radius: 10px;
+}
+
+.sensor-info__value {
+    color: var(--color-accent);
+    -unity-font-definition: var(--font-strong);
+    font-size: 15px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 2px 0;
+}
+
+.sensor-info__meaning {
+    font-size: 14px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+}
+
+/* --- Cómo se juega --- */
+
+.tutorial__counter {
+    font-size: 13px;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0 0 2px 0;
+}
+
+.tutorial__title {
+    -unity-font-definition: var(--font-strong);
+    font-size: 20px;
+    white-space: normal;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0 0 8px 0;
+    color: var(--color-accent);
+}
+
+.tutorial__block {
+    margin-bottom: 12px;
+}
+
+.tutorial__heading {
+    -unity-font-definition: var(--font-strong);
+    font-size: 16px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 4px 0;
+}
+
+.tutorial__text {
+    font-size: 15px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 6px 0;
+}

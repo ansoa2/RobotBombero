@@ -1,0 +1,34 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="menu" class="screen shell">
+        <ui:VisualElement class="shell__column">
+            <ui:VisualElement class="logo" picking-mode="Ignore">
+                <ui:Label text="Simulador de reglas" class="logo__tag" />
+                <ui:VisualElement class="logo__title">
+                    <ui:Label text="Robot" class="logo__word" />
+                    <ui:Label text="Bombero" class="logo__word" />
+                </ui:VisualElement>
+                <ui:Label name="menu-player" class="menu__player" />
+            </ui:VisualElement>
+            <ui:VisualElement class="shell__spacer" picking-mode="Ignore" />
+            <ui:VisualElement class="menu__buttons">
+                <ui:Button name="menu-play" class="btn btn--main">
+                    <ui:Label text="Jugar" class="btn__label" picking-mode="Ignore" />
+                    <ui:Label text="→" class="btn__icon" picking-mode="Ignore" />
+                </ui:Button>
+                <ui:Button name="menu-rules" class="btn">
+                    <ui:Label text="Editar reglas" class="btn__label" picking-mode="Ignore" />
+                </ui:Button>
+                <ui:Button name="menu-stats" class="btn">
+                    <ui:Label text="Estadísticas" class="btn__label" picking-mode="Ignore" />
+                </ui:Button>
+                <ui:Button name="menu-leaderboard" class="btn">
+                    <ui:Label text="Clasificación global" class="btn__label" picking-mode="Ignore" />
+                </ui:Button>
+                <ui:Button name="menu-tutorial" class="btn">
+                    <ui:Label text="Cómo se juega" class="btn__label" picking-mode="Ignore" />
+                </ui:Button>
+                <ui:Button name="menu-register" class="btn btn--small" text="Registrar nombre" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

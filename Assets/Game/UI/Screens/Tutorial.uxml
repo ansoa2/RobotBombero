@@ -1,0 +1,21 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="tutorial" class="screen page">
+        <ui:VisualElement class="page__inner">
+            <ui:VisualElement class="page__head">
+                <ui:Button name="tutorial-back" text="← Volver" class="btn btn--small page__back" />
+                <ui:Label text="Cómo se juega" class="page__title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="panel page__panel">
+                <ui:Label name="tutorial-counter" class="text-muted tutorial__counter" />
+                <ui:Label name="tutorial-page-title" class="tutorial__title" />
+                <ui:ScrollView name="tutorial-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:VisualElement name="tutorial-body" />
+                </ui:ScrollView>
+                <ui:VisualElement class="toolbar toolbar--bottom">
+                    <ui:Button name="tutorial-prev" text="Anterior" class="btn btn--small btn--center toolbar__grow" />
+                    <ui:Button name="tutorial-next" text="Siguiente" class="btn btn--small btn--main btn--center toolbar__grow" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

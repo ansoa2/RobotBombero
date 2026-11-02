@@ -24,13 +24,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.collab-proxy": {
-      "version": "2.13.6",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.ext.nunit": {
       "version": "2.1.0",
       "depth": 0,
@@ -44,8 +37,8 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.ide.vscode": {
-      "version": "1.2.3",
+    "com.unity.ide.visualstudio": {
+      "version": "2.0.29",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
@@ -92,35 +85,12 @@
         "com.unity.modules.physics": "1.0.0"
       }
     },
-    "com.unity.xr.core-utils": {
-      "version": "2.6.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.xr": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.xr.legacyinputhelpers": {
-      "version": "3.0.1",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.xr": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.xr.management": {
-      "version": "4.7.0",
+    "com.yasirkula.nativefilepicker": {
+      "version": "https://github.com/yasirkula/UnityNativeFilePicker.git#v1.4.4",
       "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.xr": "1.0.0",
-        "com.unity.xr.core-utils": "2.2.1",
-        "com.unity.modules.subsystems": "1.0.0",
-        "com.unity.xr.legacyinputhelpers": "2.1.11"
-      },
-      "url": "https://packages.unity.com"
+      "source": "git",
+      "dependencies": {},
+      "hash": "f2347e789ccfe35655d2955ca7b4b21123143efd"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",

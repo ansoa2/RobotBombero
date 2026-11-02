@@ -1,0 +1,22 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="rules" class="screen page">
+        <ui:VisualElement class="page__inner">
+            <ui:VisualElement class="page__head">
+                <ui:Button name="rules-back" text="← Volver" class="btn btn--small page__back" />
+                <ui:Label text="Editar reglas" class="page__title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="panel page__panel">
+                <ui:VisualElement class="toolbar">
+                    <ui:Button name="rules-new" text="Nuevo pack" class="btn btn--small btn--main" />
+                    <ui:Button name="rules-import" text="Importar" class="btn btn--small" />
+                </ui:VisualElement>
+                <ui:Label name="rules-files-note" class="text-note page__note" />
+                <ui:Label name="rules-message" class="page__message" />
+                <ui:ScrollView name="rules-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:Label name="rules-empty" text="Todavía no tienes ningún pack. Crea uno nuevo o importa un archivo." class="text-muted page__empty" />
+                    <ui:VisualElement name="rules-list" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

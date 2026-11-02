@@ -1,0 +1,53 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="game" class="screen game">
+        <ui:VisualElement class="game__head">
+            <ui:Button name="game-back" text="← Salir" class="btn btn--small page__back" />
+            <ui:Label name="game-pack" class="game__pack" />
+            <ui:Label name="game-badge" text="Sin puntuación" class="badge" />
+        </ui:VisualElement>
+        <ui:VisualElement class="game__body">
+            <ui:VisualElement name="board-holder" class="game__board-area">
+                <ui:VisualElement name="board" class="board">
+                    <ui:VisualElement name="board-grid" class="board__grid" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:ScrollView name="game-controls" class="panel game__controls" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                <ui:Label name="game-status" class="game__status" />
+                <ui:VisualElement class="toolbar">
+                    <ui:Button name="game-step" text="Paso" class="btn btn--center toolbar__grow" />
+                    <ui:Button name="game-auto" text="Automático" class="btn btn--main btn--center toolbar__grow" />
+                </ui:VisualElement>
+                <ui:VisualElement class="hud">
+                    <ui:VisualElement class="tile hud__battery">
+                        <ui:Label text="BATERÍA" class="tile__name" />
+                        <ui:Label name="game-battery" class="tile__value" />
+                        <ui:VisualElement class="bar"><ui:VisualElement name="game-battery-bar" class="bar__fill" /></ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="tile">
+                        <ui:Label text="PASOS" class="tile__name" />
+                        <ui:Label name="game-steps" class="tile__value" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="tile">
+                        <ui:Label text="FUEGOS" class="tile__name" />
+                        <ui:Label name="game-fires" class="tile__value" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="sensors">
+                    <ui:VisualElement class="sensor"><ui:Label text="Batería" class="sensor__name" /><ui:Label name="sensor-battery" class="sensor__value" /></ui:VisualElement>
+                    <ui:VisualElement class="sensor"><ui:Label text="Temperatura" class="sensor__name" /><ui:Label name="sensor-temp" class="sensor__value" /></ui:VisualElement>
+                    <ui:VisualElement class="sensor"><ui:Label text="Luz" class="sensor__name" /><ui:Label name="sensor-light" class="sensor__value" /></ui:VisualElement>
+                    <ui:VisualElement class="sensor"><ui:Label text="Proximidad" class="sensor__name" /><ui:Label name="sensor-prox" class="sensor__value" /></ui:VisualElement>
+                    <ui:VisualElement class="sensor"><ui:Label text="Celda" class="sensor__name" /><ui:Label name="sensor-cell" class="sensor__value" /></ui:VisualElement>
+                </ui:VisualElement>
+                <ui:Label text="Velocidad (pasos por segundo)" class="field-block__title" />
+                <ui:VisualElement name="game-speeds" class="chips" />
+                <ui:Button name="game-test-toggle" text="Modo de prueba · Sin puntuación" class="btn btn--small game__test-toggle" />
+                <ui:VisualElement name="game-test-panel" class="game__test">
+                    <ui:Label name="game-test-note" class="text-note" />
+                    <ui:VisualElement name="game-manual" class="game__manual-row" />
+                </ui:VisualElement>
+                <ui:Label text="Tablero: la barra naranja marca hacia dónde mira el robot. Verde: base, recarga la batería. Gris: obstáculo. Azul oscuro: celda oscura." class="text-note" />
+            </ui:ScrollView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

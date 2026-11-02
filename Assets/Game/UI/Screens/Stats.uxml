@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="stats" class="screen page">
+        <ui:VisualElement class="page__inner">
+            <ui:VisualElement class="page__head">
+                <ui:Button name="stats-back" text="← Volver" class="btn btn--small page__back" />
+                <ui:Label text="Estadísticas" class="page__title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="panel page__panel">
+                <ui:ScrollView name="stats-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:Label name="stats-empty" text="Todavía no tienes ningún pack. Tus estadísticas aparecerán aquí cuando juegues." class="text-muted page__empty" />
+                    <ui:VisualElement name="stats-list" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

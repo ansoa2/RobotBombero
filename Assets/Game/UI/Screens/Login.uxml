@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="login" class="screen shell">
+        <ui:VisualElement class="shell__column">
+            <ui:VisualElement class="logo" picking-mode="Ignore">
+                <ui:Label text="Simulador de reglas" class="logo__tag" />
+                <ui:VisualElement class="logo__title">
+                    <ui:Label text="Robot" class="logo__word" />
+                    <ui:Label text="Bombero" class="logo__word" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement class="shell__spacer" picking-mode="Ignore" />
+            <ui:VisualElement class="panel login__form">
+                <ui:Label text="¿Cómo quieres llamarte?" class="login__title" />
+                <ui:Label text="Elige un nombre único para entrar como invitado." class="text-muted" />
+                <ui:TextField name="login-name" class="field" placeholder-text="Por ejemplo, Bombera_7" hide-placeholder-on-focus="true" />
+                <ui:Label name="login-message" class="login__message" />
+                <ui:Button name="login-enter" text="Entrar" class="btn btn--main btn--center" />
+                <ui:Button name="login-retry" text="Reintentar" class="btn btn--main btn--center" />
+                <ui:Button name="login-offline" text="Jugar sin conexión" class="btn btn--center" />
+                <ui:Label name="login-note" text="Tu progreso se guarda en este dispositivo y se pierde si borras los datos del navegador." class="text-note" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

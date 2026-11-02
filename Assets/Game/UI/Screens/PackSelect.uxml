@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="pack-select" class="screen page">
+        <ui:VisualElement class="page__inner">
+            <ui:VisualElement class="page__head">
+                <ui:Button name="select-back" text="← Volver" class="btn btn--small page__back" />
+                <ui:Label text="Elige un pack" class="page__title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="panel page__panel">
+                <ui:ScrollView name="select-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:VisualElement name="select-empty" class="page__empty">
+                        <ui:Label text="Todavía no tienes ningún pack. Crea uno para poder jugar." class="text-muted" />
+                        <ui:Button name="select-rules" text="Editar reglas" class="btn btn--small btn--main page__empty-button" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="select-list" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

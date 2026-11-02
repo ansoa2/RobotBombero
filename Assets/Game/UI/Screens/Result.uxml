@@ -1,0 +1,47 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="result" class="screen page">
+        <ui:VisualElement class="page__inner">
+            <ui:VisualElement class="page__head">
+                <ui:Label text="Fin de la partida" class="page__title" />
+            </ui:VisualElement>
+            <ui:VisualElement class="panel page__panel">
+                <ui:ScrollView name="result-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:Label name="result-cause" class="result__cause" />
+                    <ui:Label name="result-pack" class="text-muted" />
+                    <ui:VisualElement class="result__row">
+                        <ui:VisualElement class="tile">
+                            <ui:Label text="PASOS" class="tile__name" />
+                            <ui:Label name="result-steps" class="tile__value" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="tile">
+                            <ui:Label text="FUEGOS" class="tile__name" />
+                            <ui:Label name="result-fires" class="tile__value" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="tile">
+                            <ui:Label text="RATIO" class="tile__name" />
+                            <ui:Label name="result-ratio" class="tile__value" />
+                            <ui:Label text="fuegos por paso" class="tile__hint" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="result__row">
+                        <ui:VisualElement class="tile tile--main result__points">
+                            <ui:Label text="PUNTOS" class="tile__name" />
+                            <ui:Label name="result-points" class="tile__value tile__value--big" />
+                            <ui:Label text="Puntos = fuegos × pasos" class="tile__hint" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="tile result__rank">
+                            <ui:Label text="POSICIÓN" class="tile__name" />
+                            <ui:Label name="result-rank" class="tile__value tile__value--rank" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Label name="result-note" class="text-note result__note" />
+                    <ui:Button name="result-retry" text="Reintentar" class="btn btn--small" />
+                </ui:ScrollView>
+                <ui:VisualElement class="toolbar toolbar--bottom">
+                    <ui:Button name="result-again" text="Jugar otra vez" class="btn btn--main btn--center toolbar__grow" />
+                    <ui:Button name="result-menu" text="Menú" class="btn btn--center toolbar__grow" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

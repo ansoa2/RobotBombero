@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:VisualElement name="rule-editor" class="screen page">
+        <ui:VisualElement class="page__inner">
+            <ui:VisualElement class="page__head">
+                <ui:Button name="editor-back" text="← Volver" class="btn btn--small page__back" />
+                <ui:Label name="editor-title" class="page__title" />
+            </ui:VisualElement>
+            <ui:VisualElement name="editor-list-view" class="panel page__panel">
+                <ui:Label text="La regla de arriba tiene prioridad: en cada paso el robot aplica la primera que se cumple." class="text-muted page__hint" />
+                <ui:VisualElement class="toolbar">
+                    <ui:Button name="editor-add-rule" text="Añadir regla" class="btn btn--small btn--main" />
+                </ui:VisualElement>
+                <ui:ScrollView name="editor-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:VisualElement name="editor-rules" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+            <ui:VisualElement name="editor-detail" class="panel page__panel">
+                <ui:VisualElement class="detail__head">
+                    <ui:Label name="detail-title" class="card__title detail__title" />
+                    <ui:Button name="editor-detail-done" text="Listo" class="btn btn--small btn--main btn--center" />
+                </ui:VisualElement>
+                <ui:ScrollView name="detail-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
+                    <ui:Label text="Si se cumple todo esto…" class="detail__section" />
+                    <ui:VisualElement name="detail-conditions" />
+                    <ui:Label text="…el robot hace esto" class="detail__section" />
+                    <ui:VisualElement name="detail-actions" />
+                </ui:ScrollView>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
