@@ -10,7 +10,7 @@
                     <ui:Button name="rules-new" text="Nuevo pack" class="btn btn--small btn--main" />
                     <ui:Button name="rules-import" text="Importar" class="btn btn--small" />
                 </ui:VisualElement>
-                <ui:Label name="rules-files-note" text="Importar y exportar packs: Próximamente en esta versión." class="text-note page__note" />
+                <ui:Label name="rules-files-note" class="text-note page__note" />
                 <ui:Label name="rules-message" class="page__message" />
                 <ui:ScrollView name="rules-scroll" class="page__scroll" vertical-scroller-visibility="Auto" horizontal-scroller-visibility="Hidden">
                     <ui:Label name="rules-empty" text="Todavía no tienes ningún pack. Crea uno nuevo o importa un archivo." class="text-muted page__empty" />

@@ -8,9 +8,10 @@ using UnityEngine;
 namespace RobotBombero.Game
 {
     /// <summary>
-    /// Descarga y selección de archivos JSON. WebGL: Blob y input[type=file] vía FileBridge.jslib
-    /// (resultado devuelto con SendMessage a un GameObject con nombre). Editor: EditorUtility.
-    /// Otras plataformas: no disponible, se avisa por onError.
+    /// Descarga y selección de archivos JSON con la misma API en todas las plataformas.
+    /// WebGL: Blob y input[type=file] vía FileBridge.jslib (resultado con SendMessage; se retirará más adelante).
+    /// Android: selector y guardado del sistema (NativeFilePicker). Windows: diálogos comdlg32 (WindowsFileDialog).
+    /// Editor: EditorUtility. Otras plataformas: no disponible, se avisa por onError.
     /// </summary>
     public static class FileBridge
     {
@@ -18,6 +19,8 @@ namespace RobotBombero.Game
         public const string ErrorCancelled = "cancelled";
         public const string ErrorTooLarge = "too_large";
         public const string ErrorUnavailable = "unavailable";
+        public const string ErrorRead = "read_error";
+        public const string ErrorWrite = "write_error";
 
 #if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")] private static extern void RB_DownloadFile(string fileName, string content);
@@ -27,33 +30,66 @@ namespace RobotBombero.Game
         private static Action<string> _onContent;
         private static Action<string> _onError;
 
-        /// <summary>Devuelve false si la plataforma no puede descargar archivos.</summary>
-        public static bool Download(string fileName, string content)
+        /// <summary>
+        /// Verdadero solo en WebGL: allí PickJson debe llamarse al pulsar (pointer-down). En las demás plataformas
+        /// se llama desde un clic normal.
+        /// </summary>
+        public static bool PickNeedsPointerDown
+        {
+            get
+            {
+#if UNITY_WEBGL && !UNITY_EDITOR
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
+        /// <summary>Verdadero donde hay selector y guardado de archivos.</summary>
+        public static bool IsAvailable
+        {
+            get
+            {
+#if UNITY_WEBGL || UNITY_EDITOR || UNITY_ANDROID || UNITY_STANDALONE_WIN
+                return true;
+#else
+                return false;
+#endif
+            }
+        }
+
+        /// <summary>
+        /// Guarda el contenido como archivo. onDone se llama al guardarlo; onError (opcional) recibe un código
+        /// (cancelled, write_error, unavailable). Cancelar el guardado no es un error de la aplicación.
+        /// </summary>
+        public static void Download(string fileName, string content, Action onDone, Action<string> onError = null)
         {
             if (string.IsNullOrEmpty(fileName)) fileName = "pack.json";
             if (content == null) content = "";
 #if UNITY_WEBGL && !UNITY_EDITOR
             RB_DownloadFile(fileName, content);
-            return true;
+            if (onDone != null) onDone();
 #elif UNITY_EDITOR
             string path = UnityEditor.EditorUtility.SaveFilePanel("Exportar pack", "", fileName, "json");
-            if (string.IsNullOrEmpty(path)) return false;
-            File.WriteAllText(path, content, new UTF8Encoding(false));
-            return true;
+            SaveTo(path, content, onDone, onError);
+#elif UNITY_STANDALONE_WIN
+            SaveTo(WindowsFileDialog.Save("Exportar pack", fileName), content, onDone, onError);
+#elif UNITY_ANDROID
+            DownloadAndroid(fileName, content, onDone, onError);
 #else
-            Debug.LogWarning("RobotBombero: la descarga de archivos solo está disponible en WebGL.");
-            return false;
+            if (onError != null) onError(ErrorUnavailable);
 #endif
         }
 
         /// <summary>
-        /// Abre el selector de archivos. onContent recibe el texto; onError (opcional) recibe un código
-        /// (cancelled, too_large, read_error, unavailable). Nunca se lee un archivo mayor que PackLimits.MaxFileBytes.
-        /// REQUISITO WebGL: en WebGL este método solo "arma" el selector; el navegador lo abre en el siguiente
-        /// pointerup/touchend. Por tanto la UI debe llamarlo desde el callback de pointer-down del botón, para
-        /// que la liberación del mismo toque abra el selector dentro de un gesto real del usuario. Llamarlo
-        /// desde un click de Unity (frame posterior) o sin un toque en curso lo dejaría esperando al siguiente toque.
-        /// Iniciar una selección nueva sustituye a la pendiente. En el editor abre el diálogo directamente.
+        /// Abre el selector de archivos (cualquier archivo: el formato se decide por el contenido). onContent recibe el texto;
+        /// onError (opcional) recibe un código (cancelled, too_large, read_error, unavailable). Nunca se lee un archivo mayor
+        /// que PackLimits.MaxFileBytes.
+        /// REQUISITO WebGL (PickNeedsPointerDown): en WebGL este método solo "arma" el selector; el navegador lo abre en el
+        /// siguiente pointerup/touchend. Por tanto la UI debe llamarlo desde el callback de pointer-down del botón. En las
+        /// demás plataformas se llama desde un clic normal.
+        /// Iniciar una selección nueva sustituye a la pendiente.
         /// </summary>
         public static void PickJson(Action<string> onContent, Action<string> onError = null)
         {
@@ -64,14 +100,89 @@ namespace RobotBombero.Game
             EnsureReceiver();
             RB_PickJson(PackLimits.MaxFileBytes, ReceiverName);
 #elif UNITY_EDITOR
-            string path = UnityEditor.EditorUtility.OpenFilePanel("Importar pack", "", "json");
-            if (string.IsNullOrEmpty(path)) { if (onError != null) onError(ErrorCancelled); return; }
-            if (new FileInfo(path).Length > PackLimits.MaxFileBytes) { if (onError != null) onError(ErrorTooLarge); return; }
-            onContent(File.ReadAllText(path, Encoding.UTF8));
+            ReadFrom(UnityEditor.EditorUtility.OpenFilePanel("Importar pack", "", ""), onContent, onError);
+#elif UNITY_STANDALONE_WIN
+            ReadFrom(WindowsFileDialog.Open("Importar pack"), onContent, onError);
+#elif UNITY_ANDROID
+            if (NativeFilePicker.IsFilePickerBusy()) { if (onError != null) onError(ErrorCancelled); return; }
+            // "*/*": el archivo del juego antiguo no tiene extensión. NativeFilePicker entrega una copia en caché (o nulo si se cancela o se deniega).
+            NativeFilePicker.PickFile(path => ReadFrom(path, onContent, onError, true), "*/*");
 #else
             if (onError != null) onError(ErrorUnavailable);
 #endif
         }
+
+#if !UNITY_WEBGL || UNITY_EDITOR
+        /// <summary>Lee el archivo elegido con los mismos límites en todas las plataformas. Ruta vacía = cancelado.</summary>
+        private static void ReadFrom(string path, Action<string> onContent, Action<string> onError, bool deleteAfter = false)
+        {
+            if (string.IsNullOrEmpty(path)) { if (onError != null) onError(ErrorCancelled); return; }
+            string text;
+            try
+            {
+                if (new FileInfo(path).Length > PackLimits.MaxFileBytes) { if (onError != null) onError(ErrorTooLarge); return; }
+                text = File.ReadAllText(path, Encoding.UTF8);
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("RobotBombero: no se pudo leer el archivo: " + e.Message);
+                if (onError != null) onError(ErrorRead);
+                return;
+            }
+            finally
+            {
+                if (deleteAfter) TryDelete(path);
+            }
+            onContent(text);
+        }
+
+        private static void SaveTo(string path, string content, Action onDone, Action<string> onError)
+        {
+            if (string.IsNullOrEmpty(path)) { if (onError != null) onError(ErrorCancelled); return; }
+            try
+            {
+                File.WriteAllText(path, content, new UTF8Encoding(false));
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("RobotBombero: no se pudo guardar el archivo: " + e.Message);
+                if (onError != null) onError(ErrorWrite);
+                return;
+            }
+            if (onDone != null) onDone();
+        }
+
+        private static void TryDelete(string path)
+        {
+            try { File.Delete(path); } catch (Exception) { }
+        }
+#endif
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        private static void DownloadAndroid(string fileName, string content, Action onDone, Action<string> onError)
+        {
+            if (NativeFilePicker.IsFilePickerBusy() || !NativeFilePicker.CanExportFiles()) { if (onError != null) onError(ErrorUnavailable); return; }
+            // El sistema ofrece el lugar donde guardar el archivo; se parte de una copia temporal con el nombre sugerido.
+            string temp = Path.Combine(Application.temporaryCachePath, fileName);
+            try
+            {
+                File.WriteAllText(temp, content, new UTF8Encoding(false));
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("RobotBombero: no se pudo preparar el archivo: " + e.Message);
+                if (onError != null) onError(ErrorWrite);
+                return;
+            }
+            // Falso significa cancelado o denegado: no se muestra ningún error.
+            NativeFilePicker.ExportFile(temp, success =>
+            {
+                TryDelete(temp);
+                if (success) { if (onDone != null) onDone(); }
+                else if (onError != null) onError(ErrorCancelled);
+            });
+        }
+#endif
 
         internal static void DeliverContent(string content)
         {

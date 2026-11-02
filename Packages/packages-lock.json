@@ -85,6 +85,13 @@
         "com.unity.modules.physics": "1.0.0"
       }
     },
+    "com.yasirkula.nativefilepicker": {
+      "version": "https://github.com/yasirkula/UnityNativeFilePicker.git#v1.4.4",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f2347e789ccfe35655d2955ca7b4b21123143efd"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,

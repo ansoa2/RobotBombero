@@ -27,17 +27,26 @@ namespace RobotBombero.Game
 
             UiKit.Require<Button>(view, "rules-back").clicked += () => _go(ScreenId.Menu);
             UiKit.Require<Button>(view, "rules-new").clicked += NewPack;
-            // El selector de archivos de WebGL solo se abre dentro de un gesto del usuario: se arma al pulsar,
-            // no al soltar (ver FileBridge.PickJson).
-            // Con TrickleDown: Clickable detiene la propagación del PointerDown del propio botón, y una devolución en la fase normal no llegaría a ejecutarse.
             _import = UiKit.Require<Button>(view, "rules-import");
             _filesNote = UiKit.Require<Label>(view, "rules-files-note");
-            // Sin selector de archivos (apps nativas por ahora) no se deja ningún botón que no haga nada.
+            // Sin selector de archivos no se deja ningún botón que no haga nada.
             UiKit.Show(_import, context.Files.IsAvailable);
             UiKit.Show(_filesNote, !context.Files.IsAvailable);
+            _filesNote.text = context.Files.IsAvailable ? "" : "Importar y exportar packs: Próximamente en esta versión.";
             var emptyLabel = _empty as Label;
             if (emptyLabel != null && !context.Files.IsAvailable) emptyLabel.text = "Todavía no tienes ningún pack. Crea uno nuevo.";
-            _import.RegisterCallback<PointerDownEvent>(OnImportPointerDown, TrickleDown.TrickleDown);
+            if (context.Files.PickNeedsPointerDown)
+            {
+                // Solo WebGL: el selector del navegador solo se abre dentro de un gesto del usuario, así que se arma al pulsar,
+                // no al soltar (ver FileBridge.PickJson).
+                // Con TrickleDown: Clickable detiene la propagación del PointerDown del propio botón, y una devolución en la fase normal no llegaría a ejecutarse.
+                _import.RegisterCallback<PointerDownEvent>(OnImportPointerDown, TrickleDown.TrickleDown);
+            }
+            else
+            {
+                // Apps nativas: un clic normal.
+                _import.clicked += BeginImport;
+            }
         }
 
         public void OnShow()
@@ -110,9 +119,15 @@ namespace RobotBombero.Game
 
         private void Export(LocalPack pack)
         {
-            string fileName = FileName(pack.content.name) + ".json";
-            if (_context.Files.Download(fileName, PackFiles.Export(pack))) Info("Pack exportado como " + fileName + ".");
-            else Problem("No se pudo exportar el pack en este dispositivo.");
+            string fileName = PackFiles.ExportFileName(pack.content.name);
+            _context.Files.Download(fileName, PackFiles.Export(pack),
+                () => Info("Pack exportado como " + fileName + "."),
+                code =>
+                {
+                    // Cancelar (o denegar) el guardado no es un error.
+                    if (code == FileBridge.ErrorCancelled) return;
+                    Problem("No se pudo exportar el pack en este dispositivo.");
+                });
         }
 
         private void OnImportPointerDown(PointerDownEvent e)
@@ -154,17 +169,6 @@ namespace RobotBombero.Game
             _message.text = text;
             _message.AddToClassList("is-error");
             UiKit.Show(_message, true);
-        }
-
-        private static string FileName(string name)
-        {
-            var chars = name.ToCharArray();
-            for (int i = 0; i < chars.Length; i++)
-            {
-                bool ok = char.IsLetterOrDigit(chars[i]) || chars[i] == '-' || chars[i] == '_' || chars[i] == ' ';
-                if (!ok) chars[i] = '_';
-            }
-            return new string(chars).Trim();
         }
     }
 }

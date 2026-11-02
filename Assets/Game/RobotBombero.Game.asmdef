@@ -2,7 +2,8 @@
     "name": "RobotBombero.Game",
     "rootNamespace": "RobotBombero.Game",
     "references": [
-        "RobotBombero.Simulation"
+        "RobotBombero.Simulation",
+        "NativeFilePicker.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

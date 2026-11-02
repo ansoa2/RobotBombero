@@ -17,14 +17,19 @@ namespace RobotBombero.Game.Tests
         public bool DownloadResult = true;
         public int PickCalls;
         public bool Available = true;
+        public bool DownloadCancelled;
+        public bool NeedsPointerDown = true;
+        public bool PickNeedsPointerDown { get { return NeedsPointerDown; } }
         public bool IsAvailable { get { return Available; } }
         private Action<string> _onContent, _onError;
 
-        public bool Download(string fileName, string content)
+        public void Download(string fileName, string content, Action onDone, Action<string> onError)
         {
             DownloadedName = fileName;
             DownloadedContent = content;
-            return DownloadResult;
+            if (DownloadCancelled) onError(FileBridge.ErrorCancelled);
+            else if (DownloadResult) onDone();
+            else onError(FileBridge.ErrorWrite);
         }
 
         public void PickJson(Action<string> onContent, Action<string> onError)
