@@ -413,3 +413,7 @@
 .menu__buttons > .btn--small {
     margin-top: 2px;
 }
+
+#login-offline {
+    margin-top: 8px;
+}

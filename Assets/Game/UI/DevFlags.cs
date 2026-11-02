@@ -13,7 +13,6 @@ namespace RobotBombero.Game
     /// -rb-api url         dirección del servidor
     /// -rb-screen id       identidad de demostración en memoria (sin guardar) y abre esa pantalla
     /// -rb-name texto      escribe ese nombre en el acceso
-    /// -rb-server texto    escribe esa dirección en el campo del servidor del acceso
     /// -rb-sample          con -rb-screen: packs de ejemplo, resultado y pack de partida (ver DevSamples)
     /// -rb-press a,b       pulsa esos botones, en orden, con eventos reales del panel
     ///                     (también acepta @pack, @wait=segundos, @shot=nombre y @dump=a+b; ver Apply)
@@ -46,9 +45,6 @@ namespace RobotBombero.Game
 
             string name = Get("-rb-name");
             if (name != null) root.Q<TextField>("login-name").value = name;
-
-            string server = Get("-rb-server");
-            if (server != null) root.Q<TextField>("login-server").value = server;
 
             string press = Get("-rb-press");
             if (press == null) yield break;
