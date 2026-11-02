@@ -194,7 +194,7 @@ namespace RobotBombero.Server.Api
                     }
 
                     // Una partida terminada conserva su resultado aunque ya haya pasado su caducidad.
-                    if (stored != null) return Response(stored, LeaderboardUpdater.RankOfGame(connection, tx, id));
+                    if (stored != null) return Response(stored, LeaderboardUpdater.RankOfGame(connection, tx, id), LeaderboardUpdater.RankOfPlayer(connection, tx, player.Value));
 
                     if (string.CompareOrdinal(expires, DateTime.UtcNow.ToString("o")) <= 0)
                         return Results.Json(new { error = "La partida ha caducado." }, statusCode: StatusCodes.Status410Gone);
@@ -224,8 +224,9 @@ namespace RobotBombero.Server.Api
 
                     LeaderboardUpdater.Update(connection, tx, id);
                     long? rank = LeaderboardUpdater.RankOfGame(connection, tx, id);
+                    long? playerRank = LeaderboardUpdater.RankOfPlayer(connection, tx, player.Value);
                     tx.Commit();
-                    return Response(outcome, rank);
+                    return Response(outcome, rank, playerRank);
                 }
             }
         }
@@ -248,7 +249,7 @@ namespace RobotBombero.Server.Api
             }
         }
 
-        private static IResult Response(GameOutcome outcome, long? rank)
+        private static IResult Response(GameOutcome outcome, long? rank, long? playerRank)
         {
             return Results.Ok(new
             {
@@ -256,7 +257,8 @@ namespace RobotBombero.Server.Api
                 fires = outcome.Fires,
                 points = outcome.Points,
                 endReason = outcome.EndReason,
-                rank
+                rank,
+                playerRank
             });
         }
 

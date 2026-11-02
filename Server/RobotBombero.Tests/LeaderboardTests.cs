@@ -91,6 +91,37 @@ namespace RobotBombero.Tests
         }
 
         [Fact]
+        public async Task Finish_ReportsPlayerRank_EvenWhenThisGameIsNotTheirRow()
+        {
+            var (_, key) = await NewPlayer("Ana");
+            long pack = await NewPack(key, "Pack", RulesHash.Compute(Basicas()));
+            long rival = InsertPack(InsertPlayer("Rival"), "Rival", Hash(9));
+            Record(rival, Hash(9), HighPoints + 1);
+
+            var high = await PlayWithSeed(key, pack, Basicas(), HighSeed);
+            var worse = await PlayWithSeed(key, pack, Basicas(), LowSeed);
+
+            Assert.Equal(2, high.GetProperty("rank").GetInt32());
+            Assert.Equal(2, high.GetProperty("playerRank").GetInt32());
+            Assert.Equal(JsonValueKind.Null, worse.GetProperty("rank").ValueKind);
+            Assert.Equal(2, worse.GetProperty("playerRank").GetInt32());
+        }
+
+        [Fact]
+        public async Task Finish_PlayerWithoutRow_HasNullPlayerRank()
+        {
+            var (_, key) = await NewPlayer("Ana");
+            long pack = await NewPack(key, "Pack", Hash(1));
+            var (game, seed) = await StartOk(key, pack, Basicas());
+            Exec("UPDATE PACK SET REGLAS_HASH='" + Hash(2) + "' WHERE ID_PACK=" + pack);
+
+            var j = await FinishOk(key, game);
+
+            Assert.Equal(JsonValueKind.Null, j.GetProperty("rank").ValueKind);
+            Assert.Equal(JsonValueKind.Null, j.GetProperty("playerRank").ValueKind);
+        }
+
+        [Fact]
         public async Task Leaderboard_WorseGame_NoChange()
         {
             var (_, key) = await NewPlayer("Ana");

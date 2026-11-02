@@ -91,6 +91,18 @@ namespace RobotBombero.Server.Leaderboard
             }
         }
 
+        /// <summary>Posición actual (desde 1) del jugador en la clasificación, o null si no tiene fila.</summary>
+        public static long? RankOfPlayer(SqliteConnection connection, SqliteTransaction transaction, long playerId)
+        {
+            using (var cmd = Command(connection, transaction,
+                "SELECT POSICION FROM (SELECT ID_JUGADOR, ROW_NUMBER() OVER (ORDER BY " + Ordering + ") AS POSICION FROM CLASIFICACION) WHERE ID_JUGADOR = $j"))
+            {
+                cmd.Parameters.AddWithValue("$j", playerId);
+                object rank = cmd.ExecuteScalar();
+                return rank == null ? (long?)null : Convert.ToInt64(rank);
+            }
+        }
+
         private static void Place(SqliteConnection connection, SqliteTransaction transaction, long partidaId, bool boardWasFull)
         {
             long packId, playerId;
