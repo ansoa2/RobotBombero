@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+<defs>
+<radialGradient id="aura" gradientUnits="userSpaceOnUse" cx="256" cy="320" r="250"><stop offset="0" stop-color="#FF7A2F" stop-opacity=".55"/><stop offset=".6" stop-color="#FF5A1F" stop-opacity=".18"/><stop offset="1" stop-color="#FF5A1F" stop-opacity="0"/></radialGradient>
+<linearGradient id="ext" gradientUnits="userSpaceOnUse" x1="0" y1="40" x2="0" y2="490"><stop offset="0" stop-color="#FF8A1F"/><stop offset=".6" stop-color="#F2481B"/><stop offset="1" stop-color="#C22410"/></linearGradient>
+<linearGradient id="med" gradientUnits="userSpaceOnUse" x1="0" y1="150" x2="0" y2="490"><stop offset="0" stop-color="#FFB02E"/><stop offset="1" stop-color="#FF6A1F"/></linearGradient>
+<linearGradient id="int" gradientUnits="userSpaceOnUse" x1="0" y1="270" x2="0" y2="490"><stop offset="0" stop-color="#FFE27A"/><stop offset="1" stop-color="#FFB02E"/></linearGradient>
+<linearGradient id="nuc" gradientUnits="userSpaceOnUse" x1="0" y1="350" x2="0" y2="486"><stop offset="0" stop-color="#FFF2BC"/><stop offset="1" stop-color="#FFD860"/></linearGradient>
+</defs>
+<circle cx="256" cy="320" r="250" fill="url(#aura)"/>
+<path d="M268 28C276 96 332 138 372 200C402 248 420 294 416 348C410 432 340 492 256 492C172 492 100 432 96 350C92 288 122 240 158 194C164 234 184 262 212 276C200 200 218 96 268 28Z" fill="url(#ext)"/>
+<path d="M268 150C278 204 324 240 346 292C362 330 358 372 340 412C322 456 292 486 256 486C208 486 164 450 158 396C152 346 182 312 204 276C210 308 224 328 246 336C238 280 242 204 268 150Z" fill="url(#med)"/>
+<path d="M264 268C272 306 306 330 318 368C330 412 300 480 256 482C212 482 188 442 192 400C196 368 214 348 228 326C232 346 240 358 252 364C250 330 252 296 264 268Z" fill="url(#int)"/>
+<path d="M260 356C264 384 288 396 290 424C292 452 276 478 254 478C232 478 218 456 220 432C222 414 234 404 240 390C242 400 246 406 252 408C252 392 254 372 260 356Z" fill="url(#nuc)"/>
+<circle cx="128" cy="118" r="7" fill="#FFB347"/><circle cx="396" cy="96" r="5" fill="#FFD27A"/><circle cx="92" cy="220" r="4.5" fill="#FF8A3C"/><circle cx="440" cy="206" r="6" fill="#FFB347"/><circle cx="178" cy="60" r="4" fill="#FFD27A"/>
+</svg>

@@ -16,7 +16,17 @@ namespace RobotBombero.Game.Tests
         public int SavePackCalls, StartCalls, FinishCalls;
         public string LastKey;
 
-        public IEnumerator CreatePlayer(string name, Action<ApiResult<PlayerCreated>> done) { yield break; }
+        public ApiResult<PlayerCreated> CreatePlayerResult = ApiResult<PlayerCreated>.ConnectionFailed("sin red");
+        public int CreatePlayerCalls;
+        public string LastPlayerName;
+
+        public IEnumerator CreatePlayer(string name, Action<ApiResult<PlayerCreated>> done)
+        {
+            CreatePlayerCalls++;
+            LastPlayerName = name;
+            done(CreatePlayerResult);
+            yield break;
+        }
 
         public IEnumerator SavePack(string playerKey, long serverPackId, string name, string rulesHash, Action<ApiResult<long>> done)
         {
