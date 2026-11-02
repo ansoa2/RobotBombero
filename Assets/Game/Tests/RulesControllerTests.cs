@@ -80,7 +80,7 @@ namespace RobotBombero.Game.Tests
             Click("rule-edit-0");
 
             Click("cond-battery-Medium");
-            Click("cond-temp-Equal");
+            Click("cond-temp-Down");
             Click("cond-light-Dark");
             Click("cond-prox-Obstacle-Yes");
             Click("cond-cell-Black");
@@ -88,12 +88,43 @@ namespace RobotBombero.Game.Tests
 
             Rule rule = pack.content.rules[0];
             Assert.AreEqual("Medium", rule.battery);
-            Assert.AreEqual("Equal", rule.temp);
+            Assert.AreEqual("Down", rule.temp);
             Assert.AreEqual("Dark", rule.light);
             Assert.AreEqual("Obstacle Yes", rule.prox);
             Assert.AreEqual("Black", rule.cell);
             CollectionAssert.AreEqual(new[] { "Fwd", "Put Out" }, rule.actions);
             Assert.IsTrue(PackValidator.Validate(pack.content).IsValid);
+        }
+
+        [Test]
+        public void NewRule_OffersExactlyThreeTempOptions()
+        {
+            Start();
+            Edit(AddPack("p1", "Alpha"));
+            Click("rule-edit-0");
+            Assert.IsNotNull(Btn("cond-temp-Anyone"));
+            Assert.IsNotNull(Btn("cond-temp-Up"));
+            Assert.IsNotNull(Btn("cond-temp-Down"));
+            Assert.IsNull(Root.Q<Button>("cond-temp-Equal"));
+            Assert.AreEqual(3, Root.Query<Button>().Where(b => b.name != null && b.name.StartsWith("cond-temp-")).ToList().Count);
+        }
+
+        [Test]
+        public void RuleWithEqual_ShowsExtraChip_AndKeepsValueUntilChanged()
+        {
+            Start();
+            LocalPack pack = AddPack("p1", "Alpha");
+            pack.content.rules[0].temp = "Equal";
+            Edit(pack);
+            Click("rule-edit-0");
+            Button extra = Btn("cond-temp-Equal");
+            Assert.AreEqual("Igual (nunca se cumple)", extra.text);
+            Assert.IsTrue(extra.ClassListContains("is-selected"));
+            Assert.AreEqual("Equal", pack.content.rules[0].temp);
+
+            Click("cond-temp-Up");
+            Assert.AreEqual("Up", pack.content.rules[0].temp);
+            Assert.IsNull(Root.Q<Button>("cond-temp-Equal"), "No se puede volver a elegir");
         }
 
         [Test]

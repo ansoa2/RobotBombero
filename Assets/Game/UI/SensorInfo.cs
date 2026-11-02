@@ -49,7 +49,7 @@ namespace RobotBombero.Game
                 "Si el fuego está más cerca o más lejos después de avanzar una casilla. Solo mira en el eje en que mira el robot (la fila si mira a los lados, la columna si mira arriba o abajo), no en diagonal.",
                 "Sube", "Al avanzar una casilla, el robot queda más cerca del fuego en ese eje.",
                 "Baja", "Al avanzar una casilla, el robot no se acerca: se aleja o queda igual de lejos en ese eje.",
-                "Igual", "No hay fuego en el tablero. Como siempre hay un fuego, una regla con Igual nunca se aplica durante una partida.");
+                "Igual", SensorOptions.ShowTempEqual ? "No hay ningún fuego en el tablero." : null);
             all["light"] = Make("light",
                 "Lo que hay en la casilla de delante del robot.",
                 "Brillante", "Delante hay fuego. Avanzar ahora acabaría la partida.",
@@ -71,7 +71,7 @@ namespace RobotBombero.Game
         private static SensorInfo Make(string key, string measures, params string[] labelAndMeaning)
         {
             var options = new List<SensorOption>();
-            foreach (string value in Labels.ConditionValues(key))
+            foreach (string value in SensorOptions.Offered(key))
             {
                 if (value == "Anyone")
                 {

@@ -28,15 +28,23 @@ namespace RobotBombero.Game.Tests
                 Assert.IsNotNull(info, key);
                 Assert.AreEqual(Labels.Field(key), info.Title, key);
                 Assert.IsNotEmpty(info.Measures, key);
-                foreach (string value in Labels.ConditionValues(key))
+                foreach (string value in SensorOptions.Offered(key))
                 {
                     SensorOption option = info.Options.FirstOrDefault(o => o.Value == value);
                     Assert.IsNotNull(option, key + " / " + value);
                     Assert.AreEqual(Labels.Value(value), option.Label, key + " / " + value);
                     Assert.IsNotEmpty(option.Meaning, key + " / " + value);
                 }
-                Assert.AreEqual(Labels.ConditionValues(key).Length, info.Options.Length, key + ": ninguna opción de más");
+                Assert.AreEqual(SensorOptions.Offered(key).Length, info.Options.Length, key + ": ninguna opción de más");
             }
+        }
+
+        [Test]
+        public void SensorInfoAndTutorial_DoNotMentionIgual()
+        {
+            string info = string.Join("\n", SensorInfo.All.SelectMany(i => new[] { i.Measures }.Concat(i.Options.Select(o => o.Label + " " + o.Meaning))).ToArray());
+            StringAssert.DoesNotContain("Igual", info);
+            StringAssert.DoesNotContain("Igual", AllTutorialText());
         }
 
         [Test]
@@ -51,8 +59,6 @@ namespace RobotBombero.Game.Tests
         [Test]
         public void SensorInfo_StatesTheFactsOfTheSimulation()
         {
-            SensorOption equal = SensorInfo.For("temp").Options.First(o => o.Value == "Equal");
-            StringAssert.Contains("No hay fuego", equal.Meaning);
             StringAssert.Contains("borde", SensorInfo.For("light").Options.First(o => o.Value == "Normal").Meaning);
             StringAssert.Contains("base", SensorInfo.For("light").Options.First(o => o.Value == "Dark").Meaning);
             StringAssert.Contains("borde", SensorInfo.For("prox").Options.First(o => o.Value == "Obstacle Yes").Meaning);

@@ -161,7 +161,7 @@ namespace RobotBombero.Game
                 block.Add(head);
                 VisualElement row = UiKit.Box("chips");
                 var buttons = new List<Button>();
-                foreach (string value in Labels.ConditionValues(key))
+                foreach (string value in SensorOptions.Offered(key))
                 {
                     string chosen = value;
                     Button chip = UiKit.Button("cond-" + key + "-" + Labels.Slug(value), Labels.Value(value), () => SetCondition(field, chosen), "chip");
@@ -169,10 +169,19 @@ namespace RobotBombero.Game
                     buttons.Add(chip);
                     row.Add(chip);
                 }
+                // Un valor oculto (p. ej. Equal de un pack antiguo) sale como chip extra seleccionado hasta que se cambie.
+                string current = RuleEdits.GetCondition(rule, key);
+                if (current != null && !SensorOptions.IsOffered(key, current))
+                {
+                    Button extra = UiKit.Button("cond-" + key + "-" + Labels.Slug(current), Labels.Value(current) + " (nunca se cumple)", () => { }, "chip");
+                    extra.userData = current;
+                    buttons.Add(extra);
+                    row.Add(extra);
+                }
                 _chips[key] = buttons;
                 block.Add(row);
                 _conditions.Add(block);
-                MarkChips(key, RuleEdits.GetCondition(rule, key));
+                MarkChips(key, current);
             }
             BuildActions();
         }
@@ -210,6 +219,13 @@ namespace RobotBombero.Game
         {
             RuleEdits.SetCondition(_pack.content.rules[_editing], key, value);
             Changed();
+            // El chip de un valor oculto desaparece al cambiarlo: no se puede volver a elegir.
+            _chips[key].RemoveAll(c =>
+            {
+                if (SensorOptions.IsOffered(key, (string)c.userData)) return false;
+                c.RemoveFromHierarchy();
+                return true;
+            });
             MarkChips(key, value);
         }
 
