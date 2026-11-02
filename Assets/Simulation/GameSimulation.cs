@@ -9,9 +9,9 @@ namespace RobotBombero.Simulation
     /// </summary>
     public class GameSimulation
     {
-        private const int BoardSize = 8;
-        private const int InitialBattery = 50;
-        private const int PutOutCost = 5;
+        private const int BoardSize = SimConfig.BoardSize;
+        private const int InitialBattery = SimConfig.InitialBattery;
+        private const int PutOutCost = SimConfig.PutOutCost;
 
         private const string Anyone = "Anyone";
         private const string High = "High";
@@ -101,7 +101,7 @@ namespace RobotBombero.Simulation
             Rule rule = FindFirstMatchingRule();
             if (rule == null)
             {
-                Battery -= 1;
+                Battery -= SimConfig.NoRuleCost;
             }
             else
             {
@@ -219,11 +219,11 @@ namespace RobotBombero.Simulation
 
             if (SensorProx == ObstacleYes)
             {
-                Battery -= 1;
+                Battery -= SimConfig.MoveCost;
                 return;
             }
 
-            Battery -= 1;
+            Battery -= SimConfig.MoveCost;
             RechargeIfOnBase();
             RobotRow += DirRow;
             RobotCol += DirCol;
@@ -235,7 +235,7 @@ namespace RobotBombero.Simulation
             int previousDirCol = DirCol;
             DirCol = DirRow;
             DirRow = -previousDirCol;
-            Battery -= 1;
+            Battery -= SimConfig.TurnCost;
         }
 
         private void TurnRight()
@@ -244,7 +244,7 @@ namespace RobotBombero.Simulation
             int previousDirCol = DirCol;
             DirCol = -DirRow;
             DirRow = previousDirCol;
-            Battery -= 1;
+            Battery -= SimConfig.TurnCost;
         }
 
         private void PutOut()
@@ -295,11 +295,11 @@ namespace RobotBombero.Simulation
             SensorProx = ReadProx();
             SensorCell = ReadCell();
 
-            if (Battery > 30)
+            if (Battery > SimConfig.BatteryHighAbove)
             {
                 BatteryState = High;
             }
-            else if (Battery >= 10)
+            else if (Battery >= SimConfig.BatteryMediumFrom)
             {
                 BatteryState = Medium;
             }

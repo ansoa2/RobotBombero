@@ -97,6 +97,7 @@ namespace RobotBombero.Game.Tests
                 result = Load<VisualTreeAsset>("Screens/Result.uxml"),
                 stats = Load<VisualTreeAsset>("Screens/Stats.uxml"),
                 leaderboard = Load<VisualTreeAsset>("Screens/Leaderboard.uxml"),
+                tutorial = Load<VisualTreeAsset>("Screens/Tutorial.uxml"),
                 backgroundPortrait = portrait,
                 backgroundLandscape = landscape
             };

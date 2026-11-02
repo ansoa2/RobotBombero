@@ -13,6 +13,7 @@ namespace RobotBombero.Game
     {
         private readonly GameContext _context;
         private readonly Action<ScreenId> _go;
+        private readonly VisualElement _view;
         private readonly Label _title;
         private readonly VisualElement _listView;
         private readonly VisualElement _rules;
@@ -34,6 +35,7 @@ namespace RobotBombero.Game
         {
             _context = context;
             _go = go;
+            _view = view;
             _title = UiKit.Plain(UiKit.Require<Label>(view, "editor-title"));
             _listView = UiKit.Require<VisualElement>(view, "editor-list-view");
             _rules = UiKit.Require<VisualElement>(view, "editor-rules");
@@ -153,7 +155,10 @@ namespace RobotBombero.Game
             {
                 string field = key;
                 VisualElement block = UiKit.Box("field-block");
-                block.Add(UiKit.Label(null, Labels.Field(key), "field-block__title"));
+                VisualElement head = UiKit.Box("field-block__head");
+                head.Add(UiKit.Label(null, Labels.Field(key), "field-block__title"));
+                head.Add(InfoButton(key));
+                block.Add(head);
                 VisualElement row = UiKit.Box("chips");
                 var buttons = new List<Button>();
                 foreach (string value in Labels.ConditionValues(key))
@@ -170,6 +175,35 @@ namespace RobotBombero.Game
                 MarkChips(key, RuleEdits.GetCondition(rule, key));
             }
             BuildActions();
+        }
+
+        /// <summary>Un círculo con una "i" dibujado con USS (sin glifos fuera de la fuente) y de al menos 44 px de lado.</summary>
+        private Button InfoButton(string key)
+        {
+            Button button = UiKit.Button("sensor-info-" + key, "", () => ShowSensorInfo(key), "info-btn");
+            button.RemoveFromClassList("btn");
+            VisualElement dot = UiKit.Box("info-btn__dot");
+            dot.pickingMode = PickingMode.Ignore;
+            Label letter = UiKit.Label(null, "i", "info-btn__letter");
+            letter.pickingMode = PickingMode.Ignore;
+            dot.Add(letter);
+            button.Add(dot);
+            return button;
+        }
+
+        private void ShowSensorInfo(string key)
+        {
+            SensorInfo info = SensorInfo.For(key);
+            VisualElement content = UiKit.Box("sensor-info");
+            content.Add(UiKit.Label(null, info.Measures, "sensor-info__measures"));
+            foreach (SensorOption option in info.Options)
+            {
+                VisualElement row = UiKit.Box("sensor-info__option");
+                row.Add(UiKit.Label(null, option.Label, "sensor-info__value"));
+                row.Add(UiKit.Label(null, option.Meaning, "sensor-info__meaning"));
+                content.Add(row);
+            }
+            Dialog.Info(_view, info.Title, content, "Cerrar");
         }
 
         private void SetCondition(string key, string value)

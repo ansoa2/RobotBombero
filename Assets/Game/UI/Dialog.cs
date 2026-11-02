@@ -27,6 +27,22 @@ namespace RobotBombero.Game
             Buttons(host, card, okText, () => { Close(host); onOk(); });
         }
 
+        /// <summary>Una ventana de información con texto largo que se desplaza y un único botón para cerrarla.</summary>
+        public static void Info(VisualElement host, string title, VisualElement content, string closeText)
+        {
+            VisualElement card = Open(host, title);
+            card.AddToClassList("dialog__card--info");
+            var scroll = new ScrollView(ScrollViewMode.Vertical) { name = "dialog-scroll" };
+            scroll.AddToClassList("dialog__scroll");
+            scroll.horizontalScrollerVisibility = ScrollerVisibility.Hidden;
+            scroll.verticalScrollerVisibility = ScrollerVisibility.Auto;
+            scroll.Add(content);
+            card.Add(scroll);
+            VisualElement row = UiKit.Box("dialog__buttons");
+            row.Add(UiKit.Button("dialog-close", closeText, () => Close(host), "btn--main", "btn--center"));
+            card.Add(row);
+        }
+
         /// <summary>
         /// Pide un texto. submit recibe el texto y devuelve un error (el diálogo sigue abierto para corregirlo)
         /// o nulo (se cierra).

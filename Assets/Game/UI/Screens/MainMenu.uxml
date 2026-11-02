@@ -24,6 +24,9 @@
                 <ui:Button name="menu-leaderboard" class="btn">
                     <ui:Label text="Clasificación global" class="btn__label" picking-mode="Ignore" />
                 </ui:Button>
+                <ui:Button name="menu-tutorial" class="btn">
+                    <ui:Label text="Cómo se juega" class="btn__label" picking-mode="Ignore" />
+                </ui:Button>
                 <ui:Button name="menu-register" class="btn btn--small" text="Registrar nombre" />
             </ui:VisualElement>
         </ui:VisualElement>

@@ -242,6 +242,7 @@ MonoBehaviour:
     result: {fileID: 9197481963319205126, guid: 185f70e40af16f040b7867cb54131394, type: 3}
     stats: {fileID: 9197481963319205126, guid: 59f62ec40e088424c9cfd9f304a4b60b, type: 3}
     leaderboard: {fileID: 9197481963319205126, guid: 0aa00b425eabca14882209676eeead40, type: 3}
+    tutorial: {fileID: 9197481963319205126, guid: 32dceab8e86cc984884803ec3efe255a, type: 3}
     backgroundPortrait: {fileID: 2800000, guid: cb4303f6176717a48b9f7ec594cacacc, type: 3}
     backgroundLandscape: {fileID: 2800000, guid: 59a54874f349f2d4db4a04bc8614fa8a, type: 3}
 --- !u!114 &2046086411

@@ -15,7 +15,8 @@ namespace RobotBombero.Game
         Game,
         Result,
         Stats,
-        Leaderboard
+        Leaderboard,
+        Tutorial
     }
 
     /// <summary>Márgenes en píxeles del panel.</summary>

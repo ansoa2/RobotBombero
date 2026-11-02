@@ -922,3 +922,133 @@
     font-size: 19px;
     margin: 0;
 }
+
+/* --- Información de los sensores --- */
+
+.field-block__head {
+    flex-direction: row;
+    align-items: center;
+}
+
+.field-block__head > .field-block__title {
+    flex-shrink: 1;
+    margin-right: 0;
+}
+
+/* Zona táctil de 44 px; el círculo visible es más pequeño. */
+.info-btn {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-btn__dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    border-width: 2px;
+    border-color: var(--color-accent);
+    justify-content: center;
+    align-items: center;
+}
+
+.info-btn__letter {
+    color: var(--color-accent);
+    font-size: 15px;
+    -unity-font-definition: var(--font-strong);
+    -unity-text-align: middle-center;
+    padding: 0;
+    margin: 0;
+}
+
+.info-btn:hover:enabled .info-btn__dot,
+.info-btn:focus .info-btn__dot {
+    background-color: rgba(255, 179, 122, 0.25);
+}
+
+.dialog__card--info {
+    max-height: 100%;
+    flex-shrink: 1;
+}
+
+.dialog__scroll {
+    flex-shrink: 1;
+    flex-grow: 0;
+    min-height: 60px;
+}
+
+.sensor-info__measures {
+    font-size: 15px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 12px 0;
+}
+
+.sensor-info__option {
+    margin-bottom: 10px;
+    padding: 8px 10px;
+    background-color: var(--color-control);
+    border-radius: 10px;
+}
+
+.sensor-info__value {
+    color: var(--color-accent);
+    -unity-font-definition: var(--font-strong);
+    font-size: 15px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 2px 0;
+}
+
+.sensor-info__meaning {
+    font-size: 14px;
+    white-space: normal;
+    padding: 0;
+    margin: 0;
+}
+
+/* --- Cómo se juega --- */
+
+.tutorial__counter {
+    font-size: 13px;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0 0 2px 0;
+}
+
+.tutorial__title {
+    -unity-font-definition: var(--font-strong);
+    font-size: 20px;
+    white-space: normal;
+    flex-shrink: 0;
+    padding: 0;
+    margin: 0 0 8px 0;
+    color: var(--color-accent);
+}
+
+.tutorial__block {
+    margin-bottom: 12px;
+}
+
+.tutorial__heading {
+    -unity-font-definition: var(--font-strong);
+    font-size: 16px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 4px 0;
+}
+
+.tutorial__text {
+    font-size: 15px;
+    white-space: normal;
+    padding: 0;
+    margin: 0 0 6px 0;
+}

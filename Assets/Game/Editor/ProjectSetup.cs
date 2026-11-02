@@ -101,7 +101,7 @@ namespace RobotBombero.Game.Editor
             SerializedProperty assets = serialized.FindProperty("assets");
             assets.FindPropertyRelative("login").objectReferenceValue = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPath + "Screens/Login.uxml");
             assets.FindPropertyRelative("mainMenu").objectReferenceValue = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPath + "Screens/MainMenu.uxml");
-            foreach (string[] screen in new[] { new[] { "rules", "Rules" }, new[] { "ruleEditor", "RuleEditor" }, new[] { "packSelect", "PackSelect" }, new[] { "game", "Game" }, new[] { "result", "Result" }, new[] { "stats", "Stats" }, new[] { "leaderboard", "Leaderboard" } })
+            foreach (string[] screen in new[] { new[] { "rules", "Rules" }, new[] { "ruleEditor", "RuleEditor" }, new[] { "packSelect", "PackSelect" }, new[] { "game", "Game" }, new[] { "result", "Result" }, new[] { "stats", "Stats" }, new[] { "leaderboard", "Leaderboard" }, new[] { "tutorial", "Tutorial" } })
                 assets.FindPropertyRelative(screen[0]).objectReferenceValue = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(UiPath + "Screens/" + screen[1] + ".uxml");
             assets.FindPropertyRelative("backgroundPortrait").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Texture2D>(ArtPath + "fondo-vertical.png");
             assets.FindPropertyRelative("backgroundLandscape").objectReferenceValue = AssetDatabase.LoadAssetAtPath<Texture2D>(ArtPath + "fondo-horizontal.png");

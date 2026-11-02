@@ -121,6 +121,7 @@ namespace RobotBombero.Game
         public VisualTreeAsset result;
         public VisualTreeAsset stats;
         public VisualTreeAsset leaderboard;
+        public VisualTreeAsset tutorial;
         public Texture2D backgroundPortrait;
         public Texture2D backgroundLandscape;
     }
@@ -169,6 +170,7 @@ namespace RobotBombero.Game
                 Bind(view, "menu-rules", router, ScreenId.Rules);
                 Bind(view, "menu-stats", router, ScreenId.Stats);
                 Bind(view, "menu-leaderboard", router, ScreenId.Leaderboard);
+                Bind(view, "menu-tutorial", router, ScreenId.Tutorial);
 
                 // Sin conexión no hay nombre en el servidor: esta opción vuelve al formulario para conseguir uno.
                 register = view.Q<Button>("menu-register");
@@ -190,6 +192,7 @@ namespace RobotBombero.Game
             Register(router, ScreenId.Result, assets.result, v => new ResultController(v, context, go), c => c.OnShow(), c => go(ScreenId.Menu));
             Register(router, ScreenId.Stats, assets.stats, v => new StatsController(v, context, go), c => c.OnShow(), c => go(ScreenId.Menu));
             Register(router, ScreenId.Leaderboard, assets.leaderboard, v => new LeaderboardController(v, context, go), c => c.OnShow(), c => go(ScreenId.Menu));
+            Register(router, ScreenId.Tutorial, assets.tutorial, v => new TutorialController(v, context, go), c => c.OnShow(), c => c.Back());
 
             // La pantalla solo se mantiene encendida mientras una partida corre en automático.
             router.Changed += id => { if (id != ScreenId.Game) ScreenAwake.Set(false); };
