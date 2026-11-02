@@ -16,6 +16,8 @@ namespace RobotBombero.Game.Tests
         public string DownloadedName, DownloadedContent;
         public bool DownloadResult = true;
         public int PickCalls;
+        public bool Available = true;
+        public bool IsAvailable { get { return Available; } }
         private Action<string> _onContent, _onError;
 
         public bool Download(string fileName, string content)

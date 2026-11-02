@@ -157,16 +157,23 @@ namespace RobotBombero.Game
     }
 
     /// <summary>Cliente sobre UnityWebRequest con rutas relativas (funciona en cualquier host). Nunca escribe la clave en el log.</summary>
-    public class ApiClient : IApiClient
+    public class ApiClient : IApiClient, IServerTarget
     {
         private const int TimeoutSeconds = 10;
         private const string KeyHeader = "X-Player-Key";
 
-        private readonly string _baseUrl;
+        private string _baseUrl;
 
         public ApiClient(string baseUrl = "")
         {
             _baseUrl = baseUrl ?? "";
+        }
+
+        /// <summary>Vacío en WebGL (rutas relativas); en las apps nativas, http://host:puerto sin barra final.</summary>
+        public string BaseUrl
+        {
+            get { return _baseUrl; }
+            set { _baseUrl = value ?? ""; }
         }
 
         public IEnumerator CreatePlayer(string name, Action<ApiResult<PlayerCreated>> done)

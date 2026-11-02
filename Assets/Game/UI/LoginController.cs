@@ -28,6 +28,8 @@ namespace RobotBombero.Game
         private readonly GameContext _context;
         private readonly Action _loggedIn;
         private readonly TextField _name;
+        private readonly TextField _server;
+        private readonly VisualElement _serverBlock;
         private readonly Button _enter;
         private readonly Button _retry;
         private readonly Label _message;
@@ -43,16 +45,28 @@ namespace RobotBombero.Game
             _context = context;
             _loggedIn = loggedIn;
             _name = Require<TextField>(view, "login-name");
+            _server = Require<TextField>(view, "login-server");
+            _serverBlock = Require<VisualElement>(view, "login-server-block");
             _enter = Require<Button>(view, "login-enter");
             _retry = Require<Button>(view, "login-retry");
             _message = Require<Label>(view, "login-message");
 
             _name.maxLength = MaxNameLength;
+            _server.maxLength = 100;
+            _serverBlock.style.display = context.UsesServerAddress ? DisplayStyle.Flex : DisplayStyle.None;
+            if (context.UsesServerAddress)
+            {
+                _server.value = ServerAddress.Display(context.ServerUrl);
+                Label note = view.Q<Label>("login-note");
+                if (note != null) note.text = "Tu progreso se guarda en este dispositivo y se pierde si borras los datos de la aplicación.";
+            }
+            _server.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             _enter.text = TextEnter;
             _enter.clicked += Submit;
             _retry.clicked += Submit;
             _name.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             _name.RegisterValueChangedCallback(e => NameChanged());
+            _server.RegisterValueChangedCallback(e => NameChanged());
             ClearMessage();
         }
 
@@ -92,6 +106,13 @@ namespace RobotBombero.Game
                 return;
             }
 
+            if (_context.UsesServerAddress)
+            {
+                string addressError = _context.SetServerAddress(_server.value);
+                if (addressError != null) { ShowMessage(addressError, false); return; }
+                _server.SetValueWithoutNotify(ServerAddress.Display(_context.ServerUrl));
+            }
+
             string name = (_name.value ?? "").Trim();
             string invalid = Validate(name);
             if (invalid != null)
@@ -113,7 +134,7 @@ namespace RobotBombero.Game
 
             if (result == null || result.Status == ApiStatus.ConnectionFailed)
             {
-                ShowMessage(MsgOffline, true);
+                ShowMessage(_context.UsesServerAddress ? ServerAddress.OfflineMessage(_context.ServerUrl) : MsgOffline, true);
             }
             else if (result.Status == ApiStatus.Rejected)
             {
@@ -165,6 +186,7 @@ namespace RobotBombero.Game
             _enter.SetEnabled(!busy);
             _retry.SetEnabled(!busy);
             _name.SetEnabled(!busy);
+            _server.SetEnabled(!busy);
             _enter.text = busy ? TextBusy : TextEnter;
         }
 

@@ -8,7 +8,7 @@ namespace RobotBombero.Game
     /// <summary>Lo que comparten las pantallas: datos locales, servidor, perfil, packs y cómo lanzar corrutinas.</summary>
     public sealed class GameContext
     {
-        public GameContext(LocalStore store, IApiClient api, Action<IEnumerator> run, IFileService files = null)
+        public GameContext(LocalStore store, IApiClient api, Action<IEnumerator> run, IFileService files = null, ServerConfig server = null)
         {
             if (store == null) throw new ArgumentNullException("store");
             if (api == null) throw new ArgumentNullException("api");
@@ -19,6 +19,45 @@ namespace RobotBombero.Game
             Files = files ?? new FileBridgeService();
             Profile = store.LoadProfile();
             Packs = new PackManager(this);
+
+            UsesServerAddress = server != null && server.Enabled;
+            ServerUrl = "";
+            if (UsesServerAddress)
+            {
+                // Lo elegido en este dispositivo manda; en una instalación limpia, la dirección fijada al compilar.
+                string url = store.LoadServerAddress();
+                if (string.IsNullOrEmpty(url))
+                {
+                    ServerAddressResult fallback = ServerAddress.Normalize(server.DefaultAddress);
+                    url = fallback.IsValid ? fallback.Url : "";
+                }
+                ApplyServerUrl(url);
+            }
+        }
+
+        /// <summary>Verdadero en las apps nativas: el jugador elige el servidor. En WebGL las rutas son relativas.</summary>
+        public bool UsesServerAddress { get; private set; }
+
+        /// <summary>URL base actual del servidor (http://host:puerto), o vacío si aún no hay ninguna.</summary>
+        public string ServerUrl { get; private set; }
+
+        /// <summary>Valida y guarda la dirección y la aplica al cliente de red. Devuelve el error (en español) o nulo.</summary>
+        public string SetServerAddress(string input)
+        {
+            ServerAddressResult result = ServerAddress.Normalize(input);
+            if (!result.IsValid) return result.Error;
+            try { Store.SaveServerAddress(result.Url); }
+            catch (System.IO.IOException) { return "No se ha podido guardar la dirección en este dispositivo."; }
+            catch (UnauthorizedAccessException) { return "No se ha podido guardar la dirección en este dispositivo."; }
+            ApplyServerUrl(result.Url);
+            return null;
+        }
+
+        private void ApplyServerUrl(string url)
+        {
+            ServerUrl = url;
+            var target = Api as IServerTarget;
+            if (target != null) target.BaseUrl = url;
         }
 
         public LocalStore Store { get; private set; }
@@ -113,6 +152,7 @@ namespace RobotBombero.Game
             };
 
             Label player = null;
+            Button serverButton = null;
             router.Register(ScreenId.Menu, () =>
             {
                 VisualElement view = Instantiate(assets.mainMenu);
@@ -121,8 +161,19 @@ namespace RobotBombero.Game
                 Bind(view, "menu-rules", router, ScreenId.Rules);
                 Bind(view, "menu-stats", router, ScreenId.Stats);
                 Bind(view, "menu-leaderboard", router, ScreenId.Leaderboard);
+
+                // Solo las apps nativas eligen servidor; la dirección del ordenador puede cambiar.
+                serverButton = view.Q<Button>("menu-server");
+                if (serverButton == null) throw new InvalidOperationException("Falta el botón 'menu-server'.");
+                UiKit.Show(serverButton, context.UsesServerAddress);
+                serverButton.clicked += () => Dialog.Prompt(view, "Dirección del servidor", ServerAddress.Display(context.ServerUrl),
+                    100, "Guardar", text => context.SetServerAddress(text));
                 return view;
-            }, () => player.text = "Jugando como " + context.Profile.playerName);
+            }, () =>
+            {
+                player.text = "Jugando como " + context.Profile.playerName;
+                if (context.UsesServerAddress) serverButton.text = "Servidor: " + ServerAddress.Display(context.ServerUrl);
+            });
 
             Register(router, ScreenId.Rules, assets.rules, v => new RulesController(v, context, go), c => c.OnShow());
             Register(router, ScreenId.RuleEditor, assets.ruleEditor, v => new RuleEditorController(v, context, go), c => c.OnShow());

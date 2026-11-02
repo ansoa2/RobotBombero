@@ -8,7 +8,7 @@ using UnityEngine;
 namespace RobotBombero.Game
 {
     /// <summary>
-    /// Almacén local: profile.json y packs/{localId}.json bajo rootPath (en WebGL, persistentDataPath).
+    /// Almacén local: profile.json y packs/{localId}.json bajo rootPath (persistentDataPath en todas las plataformas: archivos normales, nada propio de WebGL).
     /// Cada escritura va a un archivo temporal que luego sustituye al definitivo, así un fallo a medias
     /// no destruye lo que ya había. La clave del jugador no se escribe nunca en el log.
     /// </summary>
@@ -18,6 +18,7 @@ namespace RobotBombero.Game
         private const string PacksDir = "packs";
         private const string TempSuffix = ".tmp";
         private const string PendingFile = "pending-deletes.json";
+        private const string SettingsFile = "settings.json";
 
         private readonly string _root;
 
@@ -49,6 +50,31 @@ namespace RobotBombero.Game
         {
             if (profile == null) throw new ArgumentNullException("profile");
             WriteAtomic(Path.Combine(_root, ProfileFile), JsonUtility.ToJson(profile));
+        }
+
+        [Serializable]
+        private sealed class Settings
+        {
+            public string serverAddress;
+        }
+
+        /// <summary>La dirección del servidor elegida en este dispositivo (URL normalizada), o nulo. Un archivo ilegible cuenta como vacío.</summary>
+        public string LoadServerAddress()
+        {
+            string path = Path.Combine(_root, SettingsFile);
+            if (!File.Exists(path)) return null;
+            try
+            {
+                var settings = JsonUtility.FromJson<Settings>(File.ReadAllText(path, Encoding.UTF8));
+                return settings == null || string.IsNullOrEmpty(settings.serverAddress) ? null : settings.serverAddress;
+            }
+            catch (ArgumentException) { return null; }
+            catch (IOException) { return null; }
+        }
+
+        public void SaveServerAddress(string url)
+        {
+            WriteAtomic(Path.Combine(_root, SettingsFile), JsonUtility.ToJson(new Settings { serverAddress = url }));
         }
 
         [Serializable]

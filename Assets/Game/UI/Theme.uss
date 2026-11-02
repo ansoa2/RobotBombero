@@ -384,3 +384,28 @@
     flex-basis: 45%;
     margin-right: 10px;
 }
+
+/* --- Campo con etiqueta encima (dirección del servidor) --- */
+
+.field--stacked {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.field--stacked > .unity-base-field__label {
+    min-width: 0;
+    width: auto;
+    color: var(--color-muted);
+    font-size: 13px;
+    padding: 0 0 4px 1px;
+    margin: 0;
+    -unity-text-align: middle-left;
+}
+
+.is-landscape .field--stacked > .unity-base-field__label {
+    padding-bottom: 2px;
+}
+
+.menu__buttons > .btn--small {
+    margin-top: 2px;
+}

@@ -50,3 +50,7 @@ Server/**/wwwroot/
 
 # Datos locales del servidor
 Server/data/
+
+# Dirección del servidor por defecto: la escribe y la retira el script de compilación nativa
+/Assets/Game/Resources/
+/Assets/Game/Resources.meta

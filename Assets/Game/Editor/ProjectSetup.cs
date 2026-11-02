@@ -122,16 +122,20 @@ namespace RobotBombero.Game.Editor
         /// <summary>Reproductor de Windows de desarrollo para ver las pantallas de verdad. Va a Build/, fuera del repositorio.</summary>
         public static void BuildWindowsCapture()
         {
+            BuildTarget previous = EditorUserBuildSettings.activeBuildTarget;
             Report(BuildPipeline.BuildPlayer(new BuildPlayerOptions
             {
                 scenes = new[] { MainScene },
-                locationPathName = "Build/CapturaT11/RobotBombero.exe",
+                locationPathName = (BuildCommon.GetArg("-rbOut") ?? "Build/CapturaT11") + "/RobotBombero.exe",
                 target = BuildTarget.StandaloneWindows64,
                 // Sin Development: así el reproductor no abre el puerto del perfilador (y no aparece el aviso del cortafuegos).
                 // DevFlags se activa con RB_CAPTURE, que nunca se define en una compilación de entrega.
                 extraScriptingDefines = new[] { "RB_CAPTURE" },
                 options = BuildOptions.None
             }));
+            // BuildPlayer deja activo el destino de la compilación; se devuelve el de antes.
+            if (EditorUserBuildSettings.activeBuildTarget != previous)
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildPipeline.GetBuildTargetGroup(previous), previous);
         }
 
         private static void Report(BuildReport report)

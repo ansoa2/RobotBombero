@@ -21,6 +21,19 @@ namespace RobotBombero.Game
             return null;
         }
 
+        /// <summary>Un pack de verdad (sin estadísticas ni resultado de muestra) con reglas que apagan fuegos.</summary>
+        public static void AddPlainPack(GameContext context)
+        {
+            context.Packs.Add(Pack("Pack de prueba", 99, new[]
+            {
+                Rule("Apagar", "Anyone", "Anyone", "Bright", "Anyone", "Anyone", "Put Out"),
+                Rule("Obstáculo", "Anyone", "Anyone", "Anyone", "Obstacle Yes", "Anyone", "TurnR", "Fwd"),
+                Rule("Recargar", "Low", "Anyone", "Anyone", "Anyone", "Anyone", "TurnL", "TurnL", "Fwd"),
+                Rule("Acercarse", "Anyone", "Up", "Anyone", "Obstacle No", "Anyone", "Fwd"),
+                Rule("Buscar", "Anyone", "Anyone", "Anyone", "Anyone", "Anyone", "TurnL")
+            }, 0, 0, 0, 0));
+        }
+
         public static void Seed(GameContext context)
         {
             if (context.Packs.All.Count > 0) return;

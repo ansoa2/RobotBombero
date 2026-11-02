@@ -1,6 +1,7 @@
 #if DEVELOPMENT_BUILD || UNITY_EDITOR || RB_CAPTURE
 using System;
 using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,8 +13,11 @@ namespace RobotBombero.Game
     /// -rb-api url         dirección del servidor
     /// -rb-screen id       identidad de demostración en memoria (sin guardar) y abre esa pantalla
     /// -rb-name texto      escribe ese nombre en el acceso
+    /// -rb-server texto    escribe esa dirección en el campo del servidor del acceso
     /// -rb-sample          con -rb-screen: packs de ejemplo, resultado y pack de partida (ver DevSamples)
     /// -rb-press a,b       pulsa esos botones, en orden, con eventos reales del panel
+    ///                     (también acepta @pack, @wait=segundos, @shot=nombre y @dump=a+b; ver Apply)
+    /// -rb-shotdir dir     carpeta de las capturas @shot (por defecto, la del almacén local)
     /// </summary>
     internal static class DevFlags
     {
@@ -43,6 +47,9 @@ namespace RobotBombero.Game
             string name = Get("-rb-name");
             if (name != null) root.Q<TextField>("login-name").value = name;
 
+            string server = Get("-rb-server");
+            if (server != null) root.Q<TextField>("login-server").value = server;
+
             string press = Get("-rb-press");
             if (press == null) yield break;
 
@@ -50,6 +57,12 @@ namespace RobotBombero.Game
             yield return new WaitForSeconds(0.5f);
             foreach (string button in press.Split(','))
             {
+                if (button.StartsWith("@"))
+                {
+                    yield return Special(button.Substring(1), root, context);
+                    continue;
+                }
+
                 Button target = root.Q<Button>(button);
                 if (target == null)
                 {
@@ -63,6 +76,45 @@ namespace RobotBombero.Game
                 }
                 yield return new WaitForSeconds(0.5f);
             }
+        }
+
+        /// <summary>
+        /// Pasos especiales de -rb-press: pack (crea un pack propio con reglas y lo sincroniza con el servidor),
+        /// wait=segundos, shot=nombre (captura PNG de la ventana) y dump=a+b (escribe en el log el texto de esas etiquetas).
+        /// </summary>
+        private static IEnumerator Special(string step, VisualElement root, GameContext context)
+        {
+            string arg = null;
+            int eq = step.IndexOf('=');
+            if (eq >= 0) { arg = step.Substring(eq + 1); step = step.Substring(0, eq); }
+
+            if (step == "pack")
+            {
+                DevSamples.AddPlainPack(context);
+                context.Run(context.Packs.SyncPending());
+                yield return new WaitForSeconds(1f);
+            }
+            else if (step == "wait")
+            {
+                yield return new WaitForSeconds(float.Parse(arg, System.Globalization.CultureInfo.InvariantCulture));
+            }
+            else if (step == "shot")
+            {
+                string dir = Get("-rb-shotdir") ?? Get("-rb-data") ?? ".";
+                Directory.CreateDirectory(dir);
+                yield return new WaitForEndOfFrame();
+                ScreenCapture.CaptureScreenshot(Path.Combine(dir, arg + ".png"));
+                yield return new WaitForSeconds(1f);
+            }
+            else if (step == "dump")
+            {
+                foreach (string label in arg.Split('+'))
+                {
+                    Label l = root.Q<Label>(label);
+                    Debug.Log("RB_DUMP " + label + " = " + (l == null ? "(no existe)" : l.text));
+                }
+            }
+            else Debug.LogWarning("RobotBombero: paso desconocido @" + step);
         }
     }
 }

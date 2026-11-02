@@ -13,6 +13,8 @@ namespace RobotBombero.Game
         private readonly VisualElement _list;
         private readonly VisualElement _empty;
         private readonly Label _message;
+        private readonly Button _import;
+        private readonly Label _filesNote;
 
         public RulesController(VisualElement view, GameContext context, Action<ScreenId> go)
         {
@@ -28,7 +30,14 @@ namespace RobotBombero.Game
             // El selector de archivos de WebGL solo se abre dentro de un gesto del usuario: se arma al pulsar,
             // no al soltar (ver FileBridge.PickJson).
             // Con TrickleDown: Clickable detiene la propagación del PointerDown del propio botón, y una devolución en la fase normal no llegaría a ejecutarse.
-            UiKit.Require<Button>(view, "rules-import").RegisterCallback<PointerDownEvent>(OnImportPointerDown, TrickleDown.TrickleDown);
+            _import = UiKit.Require<Button>(view, "rules-import");
+            _filesNote = UiKit.Require<Label>(view, "rules-files-note");
+            // Sin selector de archivos (apps nativas por ahora) no se deja ningún botón que no haga nada.
+            UiKit.Show(_import, context.Files.IsAvailable);
+            UiKit.Show(_filesNote, !context.Files.IsAvailable);
+            var emptyLabel = _empty as Label;
+            if (emptyLabel != null && !context.Files.IsAvailable) emptyLabel.text = "Todavía no tienes ningún pack. Crea uno nuevo.";
+            _import.RegisterCallback<PointerDownEvent>(OnImportPointerDown, TrickleDown.TrickleDown);
         }
 
         public void OnShow()
@@ -57,7 +66,7 @@ namespace RobotBombero.Game
             VisualElement buttons = UiKit.Box("card__buttons");
             buttons.Add(UiKit.Button("pack-edit-" + i, "Editar", () => { _context.EditingPack = pack; _go(ScreenId.RuleEditor); }, "btn--small", "btn--main"));
             buttons.Add(UiKit.Button("pack-rename-" + i, "Renombrar", () => Rename(pack), "btn--small"));
-            buttons.Add(UiKit.Button("pack-export-" + i, "Exportar", () => Export(pack), "btn--small"));
+            if (_context.Files.IsAvailable) buttons.Add(UiKit.Button("pack-export-" + i, "Exportar", () => Export(pack), "btn--small"));
             buttons.Add(UiKit.Button("pack-delete-" + i, "Eliminar", () => Delete(pack), "btn--small", "btn--danger"));
             card.Add(buttons);
             return card;
